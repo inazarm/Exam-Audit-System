@@ -1,0 +1,95 @@
+﻿@model IEnumerable<SZABIST_IR_App.Models.CreateClusterHead>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<div class="card-header">
+    <h5>CLUSTER HEAD SETUP</h5>
+</div>
+<a href='@Url.Action("Create")' class="btn btn-outline-dark btn-sm"><i class="ti-plus"></i><b>ASSIGN NEW HEAD</b></a>
+<div class="container">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+                <div class="card justify-content-center">
+                    <div class="card-body table-responsive" width="100%">
+                        <table class="table table-striped table-sm" id="clusterInfo">
+                            <thead class="btn-dark">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("S.No")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Cluster Title")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Head Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("WEF-Date")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Action")
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        i++;
+                                        <tr>
+                                            <td>
+                                                @i
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ClusterTitle)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ClusterHeadName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.WEF_From)
+                                            </td>
+                                            <td>
+                                                <a class="mytooltip" href="javascript:void(0)">
+                                                    @Html.ActionLink(" Edit", "Edit", new { id = item.tCluster_Head_Id }, new { @Class = "btn btn-outline-primary btn-sm ti-pencil-alt" })
+                                                    <span class="tooltip-content5" style="width:105px;margin:0 0 10px -60px">
+                                                        <span class="tooltip-text3" style="font-size:2vh;">
+                                                            <span class="tooltip-inner2" style="margin:0;padding:0;">
+                                                                To overwrite Current Cluster Head
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#clusterInfo tbody").dataTable({
+            "ordering": false,
+            "info": false,
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging": false,
+            "order": [[3, 'asc']]
+        });
+    });
+</script>

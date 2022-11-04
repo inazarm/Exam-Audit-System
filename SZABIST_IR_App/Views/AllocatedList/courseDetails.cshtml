@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SZABIST_IR_App.Models.tblAllocateCoursesDetail>
+
+
+<div class="card-header">
+    <h5>EDIT ALLOCATED COURSE</h5>
+</div>
+<div class="table table-responsive">
+    <table class="table table-bordered table-hover display compact">
+        <thead class="thead-default">
+            <tr class="text-uppercase">
+                <th>Action</th>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Instructor</th>
+                <th>Class</th>
+                <th>Checked</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (item.isChecked == true)
+                            {
+                                <button class="btn btn-outline-secondary btn-sm" disabled title="Record can not be deleted!">Delete</button>
+                            }
+                            else
+                            {
+                                @Ajax.ActionLink("Delete", "deleteRecord", new {id = item.tAllocateDetailID },
+                                   new AjaxOptions
+                                   {
+                                       HttpMethod = "GET",
+                                       InsertionMode = InsertionMode.Replace,
+                                       UpdateTargetId = "modalbody",
+                                       OnSuccess = "UpdatedShowModal"
+                                   }, new { @class = "btn btn-outline-danger btn-sm", @Id = "btnSelect", @title = "Delete Record" })
+                            }
+
+                        </td>
+                        <td>@item.sCourse_Code</td>
+                        <td>@item.sCourse_LongDesc</td>
+                        <td>@item.Instructor</td>
+                        <td>@item.Class</td>
+                        @if (item.isChecked == true)
+                        {
+                            <td class="bg-success">Yes</td>
+                        }
+                        else
+                        {
+                            <td class="bg-danger">No</td>
+                        }
+                    </tr>
+                }
+
+
+
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="alert alert-danger">No record avaible!</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

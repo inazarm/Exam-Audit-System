@@ -1,0 +1,482 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AEAuditDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblAllocateCourses">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+    </Key>
+    <Property Name="tAllocateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tCluster_Head_Id" Type="int" />
+    <Property Name="tCampus_Id" Type="tinyint" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterHeadName" Type="varchar" MaxLength="100" />
+    <Property Name="Year" Type="varchar" MaxLength="10" />
+    <Property Name="Semster" Type="varchar" MaxLength="100" />
+    <Property Name="Program" Type="varchar" MaxLength="10" />
+    <Property Name="Program_ShortDesc" Type="varchar" MaxLength="20" />
+    <Property Name="Program_LongDesc" Type="varchar" MaxLength="100" />
+    <Property Name="tFaculty_Id" Type="tinyint" />
+    <Property Name="Faculty_ShortDesc" Type="varchar" MaxLength="20" />
+    <Property Name="Faculty_LongDesc" Type="varchar" MaxLength="100" />
+    <Property Name="ExamType" Type="tinyint" />
+    <Property Name="ExamTypeName" Type="varchar" MaxLength="100" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="20" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="20" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblAllocateCoursesDetails">
+    <Key>
+      <PropertyRef Name="tAllocateDetailID" />
+    </Key>
+    <Property Name="tAllocateDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tAllocateID" Type="int" />
+    <Property Name="Course_Id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="sCourse_Code" Type="varchar" MaxLength="15" />
+    <Property Name="sCourse_LongDesc" Type="varchar(max)" />
+    <Property Name="Instructor" Type="varchar(max)" />
+    <Property Name="userID" Type="varchar" MaxLength="20" />
+    <Property Name="Class" Type="varchar" MaxLength="50" />
+    <Property Name="iSemester_Id" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="iSemesterSection_Id" Type="tinyint" />
+    <Property Name="tCampus_Id" Type="tinyint" />
+    <Property Name="tProgram_Id" Type="tinyint" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="isChecked" Type="bit" />
+    <Property Name="isCheckedByIR" Type="bit" />
+    <Property Name="isCopyAvailable" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblAssessmentResult">
+    <Key>
+      <PropertyRef Name="tAResultID" />
+    </Key>
+    <Property Name="tAResultID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tAllocateID" Type="int" />
+    <Property Name="tAllocateDetailID" Type="int" />
+    <Property Name="CourseID" Type="varchar" MaxLength="50" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Remarks" Type="varchar(max)" />
+    <Property Name="RemarksIR" Type="varchar(max)" />
+    <Property Name="CheckedBy" Type="varchar" MaxLength="20" />
+    <Property Name="CheckedDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblAssessmentResultDetail">
+    <Key>
+      <PropertyRef Name="tAResultDID" />
+    </Key>
+    <Property Name="tAResultDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tAResultID" Type="int" />
+    <Property Name="StandardID" Type="int" />
+    <Property Name="QuestionID" Type="int" />
+    <Property Name="GradePoint" Type="int" />
+  </EntityType>
+  <EntityType Name="tblCampus">
+    <Key>
+      <PropertyRef Name="tCampus_Id" />
+    </Key>
+    <Property Name="tCampus_Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sCampus_ShortDesc" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="sCampus_LongDesc" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="tCity_Id" Type="tinyint" Nullable="false" />
+    <Property Name="sCreatedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="sModifiedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="xLastModifiedDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="ConrollerLtrGrd" Type="varchar" MaxLength="30" />
+    <Property Name="AssConrollerLtrGrd" Type="varchar" MaxLength="30" />
+    <Property Name="dbConnectionString" Type="varchar" MaxLength="50" />
+    <Property Name="zabDeskURL" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tblClusterHead">
+    <Key>
+      <PropertyRef Name="tCluster_Head_Id" />
+    </Key>
+    <Property Name="tCluster_Head_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tCluster_ID" Type="int" />
+    <Property Name="tMemberID" Type="int" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterHeadName" Type="varchar(max)" />
+    <Property Name="WEF_From" Type="datetime" />
+    <Property Name="WEF_To" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="CampusID" Type="tinyint" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblClusterInfo">
+    <Key>
+      <PropertyRef Name="tCluster_ID" />
+    </Key>
+    <Property Name="tCluster_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClusterTitle" Type="varchar" MaxLength="100" />
+    <Property Name="ClusterDescription" Type="varchar(max)" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblClusterMember">
+    <Key>
+      <PropertyRef Name="tMemberID" />
+    </Key>
+    <Property Name="tMemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tCluster_ID" Type="int" />
+    <Property Name="ClusterMemberID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterMemberName" Type="varchar(max)" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblQuestionGrading">
+    <Key>
+      <PropertyRef Name="tGID" />
+    </Key>
+    <Property Name="tGID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GradeDescription" Type="varchar(max)" />
+    <Property Name="complianceLevel" Type="int" />
+    <Property Name="GradePoint" Type="int" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblQuestionnaire">
+    <Key>
+      <PropertyRef Name="tQID" />
+    </Key>
+    <Property Name="tQID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QSNo" Type="int" />
+    <Property Name="Question" Type="varchar(max)" />
+    <Property Name="tSID" Type="int" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblQuestionStandard">
+    <Key>
+      <PropertyRef Name="tSID" />
+    </Key>
+    <Property Name="tSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StandardNo" Type="int" />
+    <Property Name="StandardDescription" Type="varchar(max)" />
+    <Property Name="StandardPecentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DepartID" Type="int" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="Role" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tblUsers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="DepartID" Type="int" />
+    <Property Name="CampusID" Type="tinyint" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.v_cHeads_clusterInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="v_cHeads_clusterInfo">
+    <Key>
+      <PropertyRef Name="tCluster_Head_Id" />
+    </Key>
+    <Property Name="tCluster_Head_Id" Type="tinyint" Nullable="false" />
+    <Property Name="tCluster_ID" Type="tinyint" />
+    <Property Name="tMemberID" Type="tinyint" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterHeadName" Type="varchar(max)" />
+    <Property Name="WEF_From" Type="datetime" />
+    <Property Name="WEF_To" Type="datetime" />
+    <Property Name="CampusID" Type="tinyint" />
+    <Property Name="HeadStatus" Type="bit" />
+    <Property Name="ClusterTitle" Type="varchar" MaxLength="100" />
+    <Property Name="ClusterDescription" Type="varchar(max)" />
+    <Property Name="ClusterStatus" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.Vu_CampustoStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vu_CampustoStandard">
+    <Key>
+      <PropertyRef Name="campusname" />
+    </Key>
+    <Property Name="semster" Type="varchar" MaxLength="100" />
+    <Property Name="searchyear" Type="varchar" MaxLength="10" />
+    <Property Name="SCore1" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="campusname" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="StandardDescription" Type="varchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.vue_clusterHead_clusterInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vue_clusterHead_clusterInfo">
+    <Key>
+      <PropertyRef Name="tCluster_Head_Id" />
+    </Key>
+    <Property Name="tCluster_Head_Id" Type="int" Nullable="false" />
+    <Property Name="tCluster_ID" Type="int" />
+    <Property Name="tMemberID" Type="int" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterHeadName" Type="varchar(max)" />
+    <Property Name="WEF_From" Type="datetime" />
+    <Property Name="WEF_To" Type="datetime" />
+    <Property Name="CampusID" Type="tinyint" />
+    <Property Name="HeadStatus" Type="bit" />
+    <Property Name="ClusterTitle" Type="varchar" MaxLength="100" />
+    <Property Name="ClusterDescription" Type="varchar(max)" />
+    <Property Name="ClusterStatus" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.vueAssignedCoursesList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vueAssignedCoursesList">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+    </Key>
+    <Property Name="tAllocateID" Type="int" Nullable="false" />
+    <Property Name="tCluster_Head_Id" Type="int" />
+    <Property Name="tCampus_Id" Type="tinyint" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterHeadName" Type="varchar" MaxLength="100" />
+    <Property Name="Year" Type="varchar" MaxLength="10" />
+    <Property Name="Semster" Type="varchar" MaxLength="100" />
+    <Property Name="Program" Type="varchar" MaxLength="10" />
+    <Property Name="Program_ShortDesc" Type="varchar" MaxLength="20" />
+    <Property Name="Program_LongDesc" Type="varchar" MaxLength="100" />
+    <Property Name="ExamTypeName" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="isChecked" Type="bit" />
+    <Property Name="isCheckedByIR" Type="bit" />
+    <Property Name="tFaculty_Id" Type="tinyint" />
+    <Property Name="Faculty_ShortDesc" Type="varchar" MaxLength="20" />
+    <Property Name="ExamType" Type="tinyint" />
+    <Property Name="sCourse_Code" Type="varchar" MaxLength="15" />
+    <Property Name="sCourse_LongDesc" Type="varchar(max)" />
+    <Property Name="Instructor" Type="varchar(max)" />
+    <Property Name="userID" Type="varchar" MaxLength="20" />
+    <Property Name="Class" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vueExamList_Checked_NotAssessed">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+      <PropertyRef Name="Campus" />
+    </Key>
+    <Property Name="tAllocateID" Type="int" Nullable="false" />
+    <Property Name="tCluster_Head_Id" Type="int" />
+    <Property Name="tCampus_Id" Type="tinyint" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterHeadName" Type="varchar" MaxLength="100" />
+    <Property Name="Year" Type="varchar" MaxLength="10" />
+    <Property Name="Semster" Type="varchar" MaxLength="100" />
+    <Property Name="Program" Type="varchar" MaxLength="10" />
+    <Property Name="Program_ShortDesc" Type="varchar" MaxLength="20" />
+    <Property Name="Program_LongDesc" Type="varchar" MaxLength="100" />
+    <Property Name="ExamTypeName" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="isChecked" Type="bit" />
+    <Property Name="isCheckedByIR" Type="bit" />
+    <Property Name="tFaculty_Id" Type="tinyint" />
+    <Property Name="Faculty_ShortDesc" Type="varchar" MaxLength="20" />
+    <Property Name="ExamType" Type="tinyint" />
+    <Property Name="isCopyAvailable" Type="bit" />
+    <Property Name="Campus" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tblClusterHead_tblClusterInfo">
+    <End Role="tblClusterInfo" Type="Self.tblClusterInfo" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblClusterHead" Type="Self.tblClusterHead" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblClusterInfo">
+        <PropertyRef Name="tCluster_ID" />
+      </Principal>
+      <Dependent Role="tblClusterHead">
+        <PropertyRef Name="tCluster_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuestionnaire_tblQuestionStandard">
+    <End Role="tblQuestionStandard" Type="Self.tblQuestionStandard" Multiplicity="0..1" />
+    <End Role="tblQuestionnaire" Type="Self.tblQuestionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblQuestionStandard">
+        <PropertyRef Name="tSID" />
+      </Principal>
+      <Dependent Role="tblQuestionnaire">
+        <PropertyRef Name="tSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsers_tblRole">
+    <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+    <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="tblUsers">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="GetPercentageDisdribution" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="semestertype" Type="int" Mode="In" />
+    <Parameter Name="semesteryear" Type="int" Mode="In" />
+    <Parameter Name="campus" Type="int" Mode="In" />
+    <Parameter Name="p_ExamType" Type="tinyint" Mode="In" />
+    <Parameter Name="programType" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_GetCourse_Instructor_ByYearSemsProg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="SemsterID" Type="int" Mode="In" />
+    <Parameter Name="ProgramID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_GetCourseByYearSemsProg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="SemsterID" Type="int" Mode="In" />
+    <Parameter Name="ProgramID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="uspAssignedCoursesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="p_ClusterHeadID" Type="varchar" Mode="In" />
+    <Parameter Name="p_isChecked" Type="bit" Mode="In" />
+    <Parameter Name="p_isCheckedByIR" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="uspGet_Faculty_Wise_Questions_Assessment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="p_tFaculty_Id" Type="tinyint" Mode="In" />
+    <Parameter Name="p_ExamType" Type="tinyint" Mode="In" />
+    <Parameter Name="p_tCampus_Id" Type="tinyint" Mode="In" />
+    <Parameter Name="p_Year" Type="varchar" Mode="In" />
+    <Parameter Name="p_Semster" Type="numeric" Mode="In" />
+  </Function>
+  <EntityContainer Name="AEAuditDBModelStoreContainer">
+    <EntitySet Name="tblAllocateCourses" EntityType="Self.tblAllocateCourses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblAllocateCoursesDetails" EntityType="Self.tblAllocateCoursesDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblAssessmentResult" EntityType="Self.tblAssessmentResult" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblAssessmentResultDetail" EntityType="Self.tblAssessmentResultDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCampus" EntityType="Self.tblCampus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblClusterHead" EntityType="Self.tblClusterHead" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblClusterInfo" EntityType="Self.tblClusterInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblClusterMember" EntityType="Self.tblClusterMember" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblQuestionGrading" EntityType="Self.tblQuestionGrading" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblQuestionnaire" EntityType="Self.tblQuestionnaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblQuestionStandard" EntityType="Self.tblQuestionStandard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="v_cHeads_clusterInfo" EntityType="Self.v_cHeads_clusterInfo" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [v_cHeads_clusterInfo].[tCluster_Head_Id] AS [tCluster_Head_Id], 
+    [v_cHeads_clusterInfo].[tCluster_ID] AS [tCluster_ID], 
+    [v_cHeads_clusterInfo].[tMemberID] AS [tMemberID], 
+    [v_cHeads_clusterInfo].[ClusterHeadID] AS [ClusterHeadID], 
+    [v_cHeads_clusterInfo].[ClusterHeadName] AS [ClusterHeadName], 
+    [v_cHeads_clusterInfo].[WEF_From] AS [WEF_From], 
+    [v_cHeads_clusterInfo].[WEF_To] AS [WEF_To], 
+    [v_cHeads_clusterInfo].[CampusID] AS [CampusID], 
+    [v_cHeads_clusterInfo].[HeadStatus] AS [HeadStatus], 
+    [v_cHeads_clusterInfo].[ClusterTitle] AS [ClusterTitle], 
+    [v_cHeads_clusterInfo].[ClusterDescription] AS [ClusterDescription], 
+    [v_cHeads_clusterInfo].[ClusterStatus] AS [ClusterStatus]
+    FROM [dbo].[v_cHeads_clusterInfo] AS [v_cHeads_clusterInfo]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vu_CampustoStandard" EntityType="Self.Vu_CampustoStandard" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vu_CampustoStandard].[semster] AS [semster], 
+    [Vu_CampustoStandard].[searchyear] AS [searchyear], 
+    [Vu_CampustoStandard].[SCore1] AS [SCore1], 
+    [Vu_CampustoStandard].[campusname] AS [campusname], 
+    [Vu_CampustoStandard].[StandardDescription] AS [StandardDescription]
+    FROM [dbo].[Vu_CampustoStandard] AS [Vu_CampustoStandard]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vue_clusterHead_clusterInfo" EntityType="Self.vue_clusterHead_clusterInfo" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vue_clusterHead_clusterInfo].[tCluster_Head_Id] AS [tCluster_Head_Id], 
+    [vue_clusterHead_clusterInfo].[tCluster_ID] AS [tCluster_ID], 
+    [vue_clusterHead_clusterInfo].[tMemberID] AS [tMemberID], 
+    [vue_clusterHead_clusterInfo].[ClusterHeadID] AS [ClusterHeadID], 
+    [vue_clusterHead_clusterInfo].[ClusterHeadName] AS [ClusterHeadName], 
+    [vue_clusterHead_clusterInfo].[WEF_From] AS [WEF_From], 
+    [vue_clusterHead_clusterInfo].[WEF_To] AS [WEF_To], 
+    [vue_clusterHead_clusterInfo].[CampusID] AS [CampusID], 
+    [vue_clusterHead_clusterInfo].[HeadStatus] AS [HeadStatus], 
+    [vue_clusterHead_clusterInfo].[ClusterTitle] AS [ClusterTitle], 
+    [vue_clusterHead_clusterInfo].[ClusterDescription] AS [ClusterDescription], 
+    [vue_clusterHead_clusterInfo].[ClusterStatus] AS [ClusterStatus]
+    FROM [dbo].[vue_clusterHead_clusterInfo] AS [vue_clusterHead_clusterInfo]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vueAssignedCoursesList" EntityType="Self.vueAssignedCoursesList" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vueAssignedCoursesList].[tAllocateID] AS [tAllocateID], 
+    [vueAssignedCoursesList].[tCluster_Head_Id] AS [tCluster_Head_Id], 
+    [vueAssignedCoursesList].[tCampus_Id] AS [tCampus_Id], 
+    [vueAssignedCoursesList].[ClusterHeadID] AS [ClusterHeadID], 
+    [vueAssignedCoursesList].[ClusterHeadName] AS [ClusterHeadName], 
+    [vueAssignedCoursesList].[Year] AS [Year], 
+    [vueAssignedCoursesList].[Semster] AS [Semster], 
+    [vueAssignedCoursesList].[Program] AS [Program], 
+    [vueAssignedCoursesList].[Program_ShortDesc] AS [Program_ShortDesc], 
+    [vueAssignedCoursesList].[Program_LongDesc] AS [Program_LongDesc], 
+    [vueAssignedCoursesList].[ExamTypeName] AS [ExamTypeName], 
+    [vueAssignedCoursesList].[Status] AS [Status], 
+    [vueAssignedCoursesList].[isChecked] AS [isChecked], 
+    [vueAssignedCoursesList].[isCheckedByIR] AS [isCheckedByIR], 
+    [vueAssignedCoursesList].[tFaculty_Id] AS [tFaculty_Id], 
+    [vueAssignedCoursesList].[Faculty_ShortDesc] AS [Faculty_ShortDesc], 
+    [vueAssignedCoursesList].[ExamType] AS [ExamType], 
+    [vueAssignedCoursesList].[sCourse_Code] AS [sCourse_Code], 
+    [vueAssignedCoursesList].[sCourse_LongDesc] AS [sCourse_LongDesc], 
+    [vueAssignedCoursesList].[Instructor] AS [Instructor], 
+    [vueAssignedCoursesList].[userID] AS [userID], 
+    [vueAssignedCoursesList].[Class] AS [Class]
+    FROM [dbo].[vueAssignedCoursesList] AS [vueAssignedCoursesList]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vueExamList_Checked_NotAssessed" EntityType="Self.vueExamList_Checked_NotAssessed" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vueExamList_Checked_NotAssessed].[tAllocateID] AS [tAllocateID], 
+    [vueExamList_Checked_NotAssessed].[tCluster_Head_Id] AS [tCluster_Head_Id], 
+    [vueExamList_Checked_NotAssessed].[tCampus_Id] AS [tCampus_Id], 
+    [vueExamList_Checked_NotAssessed].[ClusterHeadID] AS [ClusterHeadID], 
+    [vueExamList_Checked_NotAssessed].[ClusterHeadName] AS [ClusterHeadName], 
+    [vueExamList_Checked_NotAssessed].[Year] AS [Year], 
+    [vueExamList_Checked_NotAssessed].[Semster] AS [Semster], 
+    [vueExamList_Checked_NotAssessed].[Program] AS [Program], 
+    [vueExamList_Checked_NotAssessed].[Program_ShortDesc] AS [Program_ShortDesc], 
+    [vueExamList_Checked_NotAssessed].[Program_LongDesc] AS [Program_LongDesc], 
+    [vueExamList_Checked_NotAssessed].[ExamTypeName] AS [ExamTypeName], 
+    [vueExamList_Checked_NotAssessed].[Status] AS [Status], 
+    [vueExamList_Checked_NotAssessed].[isChecked] AS [isChecked], 
+    [vueExamList_Checked_NotAssessed].[isCheckedByIR] AS [isCheckedByIR], 
+    [vueExamList_Checked_NotAssessed].[tFaculty_Id] AS [tFaculty_Id], 
+    [vueExamList_Checked_NotAssessed].[Faculty_ShortDesc] AS [Faculty_ShortDesc], 
+    [vueExamList_Checked_NotAssessed].[ExamType] AS [ExamType], 
+    [vueExamList_Checked_NotAssessed].[isCopyAvailable] AS [isCopyAvailable], 
+    [vueExamList_Checked_NotAssessed].[Campus] AS [Campus]
+    FROM [dbo].[vueExamList_Checked_NotAssessed] AS [vueExamList_Checked_NotAssessed]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_tblClusterHead_tblClusterInfo" Association="Self.FK_tblClusterHead_tblClusterInfo">
+      <End Role="tblClusterInfo" EntitySet="tblClusterInfo" />
+      <End Role="tblClusterHead" EntitySet="tblClusterHead" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuestionnaire_tblQuestionStandard" Association="Self.FK_tblQuestionnaire_tblQuestionStandard">
+      <End Role="tblQuestionStandard" EntitySet="tblQuestionStandard" />
+      <End Role="tblQuestionnaire" EntitySet="tblQuestionnaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsers_tblRole" Association="Self.FK_tblUsers_tblRole">
+      <End Role="tblRole" EntitySet="tblRole" />
+      <End Role="tblUsers" EntitySet="tblUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

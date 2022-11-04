@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ZABDESK_SeptModelStoreContainer" CdmEntityContainer="ZABDESK_SeptEntities">
+    <EntitySetMapping Name="View_User_RoleMember">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.View_User_RoleMember">
+        <MappingFragment StoreEntitySet="View_User&amp;RoleMember">
+          <ScalarProperty Name="iSystemRole_Id" ColumnName="iSystemRole_Id" />
+          <ScalarProperty Name="bSystemRoleMember_Active" ColumnName="bSystemRoleMember_Active" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="sUserProfile_LastName" ColumnName="sUserProfile_LastName" />
+          <ScalarProperty Name="sUserProfile_MiddleName" ColumnName="sUserProfile_MiddleName" />
+          <ScalarProperty Name="sUserProfile_FirstName" ColumnName="sUserProfile_FirstName" />
+          <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+          <ScalarProperty Name="sUser_Id" ColumnName="sUser_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ClusterSetup">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.tbl_ClusterSetup">
+        <MappingFragment StoreEntitySet="tbl_ClusterSetup">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ClusterDescription" ColumnName="ClusterDescription" />
+          <ScalarProperty Name="ClusterEff_Date" ColumnName="ClusterEff_Date" />
+          <ScalarProperty Name="ClusterHead" ColumnName="ClusterHead" />
+          <ScalarProperty Name="ClusterName" ColumnName="ClusterName" />
+          <ScalarProperty Name="Cluster_ID" ColumnName="Cluster_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,196 @@
+﻿@model SZABIST_IR_App.Models.tblAllocateCoursesDetail
+@{
+    ViewBag.Title = "Courses Assessment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .error {
+        color: red;
+        font-family: verdana, Helvetica;
+    }
+</style>
+
+<div class="card-header">
+    <h5>ALLOCATED COURSES INFORMATION</h5>
+</div>
+<div class="container">
+    <div class="row d-flex">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+            <form action="@Url.Action("SaveResult", "ClusterHead")" id="formSubmit" method="@FormMethod.Post" class="form-material">
+                <div class="card">
+                    <div class="form-group row col-md-12">
+                        <a href="@Url.Action("Index","CourseDetails",new {id=Model.tAllocateDetailID})" target="_blank" class="btn btn-link text-center"><b><u class="text-uppercase"> View Recap Sheet of <strong>@Model.Instructor</strong></u></b></a>
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-2">
+                            @Html.HiddenFor(model => model.tAllocateDetailID)
+                            <div class="form-group form-primary form-static-label">
+                                @Html.EditorFor(model => model.sCourse_Code, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+                                <span class="form-bar"></span>
+                                <label class="float-label">Course Code</label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group form-primary form-static-label">
+                                @Html.EditorFor(model => model.sCourse_LongDesc, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+                                <span class="form-bar"></span>
+                                <label class="float-label">Course Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                @Html.EditorFor(model => model.Instructor, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+                                <span class="form-bar"></span>
+                                <label class="float-label">Instructor Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                @Html.EditorFor(model => model.Class, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+                                <span class="form-bar"></span>
+                                <label class="float-label">Class/Section</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row col-md-12 text-left font-weight-light table-responsive">
+                        @{
+                            Html.RenderAction("QuestionnaireForm");
+                        }
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    //function onSuccess(result) {
+    //    if (result.error) {
+    //        $('#selectedCrsInfo').hide();
+    //        alert(result.error);
+    //    } else {
+    //        $('#selectedCrsInfo').show();
+    //        $('#selectedCrsInfo').html(result);
+    //    }
+    //}
+    //function onFailure() {
+    //    $('#selectedCrsInfo').hide();
+    //    alert("There are some technical error in AjaxCall!");
+    //}
+    $(document).ready(function () {
+        $("#btnSubmit").click(function (e) {
+            e.preventDefault();
+            var QuestionID = [];
+            var Points = [];
+            var standardID = [];
+            $("#qtbody tr").each(function (index, value) {
+                var qID = $(this).find('td').find('input[name=QId]').each(function () {
+                    QuestionID.push(this.value);
+                });
+                //var sID = $(this).find('td').find('input[name=StandardNo]').each(function () {
+                //    standardID.push(this.value);
+                //});
+                var CheckedV = $(this).find('td').find('input[type=radio]:checked').each(function () {
+                    Points.push(this.value);
+                });
+            });
+            /*var standardIDs = getUnique(standardID);*/
+            var tAllocateID = $("#tAllocateID").val();
+            var tAllocateDetailID = $("#tAllocateDetailID").val();
+            var remark = $("#Remarks").val();
+            var valdata = $("#formSubmit").serialize();
+            var lengthA = QuestionID.length;
+            var lengthB = Points.length;
+            //alert("A " + lengthA + " B =" + lengthB)
+            if (lengthA == lengthB && remark!=='') {
+                  $.ajax({
+                url: "@Url.Action("SaveResult", "ClusterHead")",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: {
+                    Questions: QuestionID,
+                    Gradings: Points,
+                    tAllocateID: tAllocateID,
+                    tAllocateDetailID: tAllocateDetailID,
+                    remarks: remark
+                },
+                      success: function (Response) {
+                          alert("Course Assessment Completed Successfully!");
+                          //location.reload(true);
+                          window.location.href = Response.redirectToUrl;
+                    //if (Response) {
+                    //    alert("Course Assessment Completed Successfully!");
+                    //    //location.reload(true);
+                    //    window.location.href = Response.redirectToUrl;
+                    //}
+                    //else {
+                    //    //alert("Please Select Question Options!");
+                    //    window.alert(' Invalid : ' + Response.message);
+                    //}
+                    //alert(Response);
+                    //console.log(Response);
+
+                }
+            });
+            }
+            else {
+                alert("All Questions must be checked and Remarks can not be left emplty!");
+            }
+
+        });
+
+        });
+        function getUnique(array) {
+            var uniqueArray = [];
+            // Loop through array values
+            for (i = 0; i < array.length; i++) {
+                if (uniqueArray.indexOf(array[i]) === -1) {
+                    uniqueArray.push(array[i]);
+                }
+            }
+            return uniqueArray;
+        }
+
+        $('#qtbody tr input[type=radio]').each(function () {
+            alert($(this).attr('checked'));
+        });
+
+    //$(function () {
+        //    $("input[type=radio]").on("click", function () {
+        //        var Name = $(this).find('td:eq(0)').find('input').val();
+        //        var clicked = [];
+        //        $("input[type=radio]:checked").each(function () {
+        //            //clicked.push($(this).closest("td").prev().text()+"~"+this.value);
+        //            //clicked.push(this.name + ":" + this.value);
+        //            clicked.push(this.value);
+        //        });
+        //        alert(clicked);
+        //        //$("#an\\.ret\\.sys\\.4\\.").val(clicked);
+        //    });
+        //});
+
+    @*$(function () {
+        $(".btnSelect").click(function () {
+            alert("ok");
+            var id1 = $(this).data("id");
+            var id2 = $(this).data("cid");
+            $.ajax({
+                method: "GET",
+                url: '@Url.Action("SelectedCrs")', // Here you have to place the relative url to your action
+                url: this.href,
+                data: { id: id1, cid: id2 },
+                cache: false,
+                success: function (data) {
+                    $("#selectedCrsInfo").html(data);
+                }
+            });
+        });
+    });*@
+</script>
+
+
+

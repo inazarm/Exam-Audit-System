@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZABDESK_SeptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_ClusterSetup">
+    <Key>
+      <PropertyRef Name="Cluster_ID" />
+    </Key>
+    <Property Name="Cluster_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClusterName" Type="varchar" MaxLength="100" />
+    <Property Name="ClusterHead" Type="varchar" MaxLength="100" />
+    <Property Name="ClusterEff_Date" Type="datetime" />
+    <Property Name="ClusterDescription" Type="varchar(max)" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ZABDESK_Sept.dbo.View_User&RoleMember' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_User&amp;RoleMember">
+    <Key>
+      <PropertyRef Name="sUser_Id" />
+      <PropertyRef Name="tCampus_Id" />
+      <PropertyRef Name="Full_Name" />
+      <PropertyRef Name="iSystemRole_Id" />
+    </Key>
+    <Property Name="sUser_Id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="tCampus_Id" Type="tinyint" Nullable="false" />
+    <Property Name="sUserProfile_FirstName" Type="varchar" MaxLength="20" />
+    <Property Name="sUserProfile_MiddleName" Type="varchar" MaxLength="20" />
+    <Property Name="sUserProfile_LastName" Type="varchar" MaxLength="20" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="62" Nullable="false" />
+    <Property Name="bSystemRoleMember_Active" Type="bit" />
+    <Property Name="iSystemRole_Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="ZABDESK_SeptModelStoreContainer">
+    <EntitySet Name="tbl_ClusterSetup" EntityType="Self.tbl_ClusterSetup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="View_User&amp;RoleMember" EntityType="Self.View_User&amp;RoleMember" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_User&amp;RoleMember].[sUser_Id] AS [sUser_Id], 
+    [View_User&amp;RoleMember].[tCampus_Id] AS [tCampus_Id], 
+    [View_User&amp;RoleMember].[sUserProfile_FirstName] AS [sUserProfile_FirstName], 
+    [View_User&amp;RoleMember].[sUserProfile_MiddleName] AS [sUserProfile_MiddleName], 
+    [View_User&amp;RoleMember].[sUserProfile_LastName] AS [sUserProfile_LastName], 
+    [View_User&amp;RoleMember].[Full_Name] AS [Full_Name], 
+    [View_User&amp;RoleMember].[bSystemRoleMember_Active] AS [bSystemRoleMember_Active], 
+    [View_User&amp;RoleMember].[iSystemRole_Id] AS [iSystemRole_Id]
+    FROM [dbo].[View_User&amp;RoleMember] AS [View_User&amp;RoleMember]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

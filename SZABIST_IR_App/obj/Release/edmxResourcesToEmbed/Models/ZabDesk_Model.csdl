@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZABDESK_SeptModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="View_User_RoleMember">
+    <Key>
+      <PropertyRef Name="sUser_Id" />
+      <PropertyRef Name="tCampus_Id" />
+      <PropertyRef Name="Full_Name" />
+      <PropertyRef Name="iSystemRole_Id" />
+    </Key>
+    <Property Name="sUser_Id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tCampus_Id" Type="Byte" Nullable="false" />
+    <Property Name="sUserProfile_FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sUserProfile_MiddleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sUserProfile_LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="bSystemRoleMember_Active" Type="Boolean" />
+    <Property Name="iSystemRole_Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="ZABDESK_SeptEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="View_User_RoleMember" EntityType="Self.View_User_RoleMember" />
+    <EntitySet Name="tblClustCourseAssigns" EntityType="ZABDESK_SeptModel.tblClustCourseAssign" />
+    <EntitySet Name="Campus" EntityType="ZABDESK_SeptModel.Campu" />
+    <EntitySet Name="Programs" EntityType="ZABDESK_SeptModel.Program" />
+    <AssociationSet Name="FK__Program__tCampus__6B44E613" Association="ZABDESK_SeptModel.FK__Program__tCampus__6B44E613">
+      <End Role="Campu" EntitySet="Campus" />
+      <End Role="Program" EntitySet="Programs" />
+    </AssociationSet>
+    <EntitySet Name="tblClusterDetails" EntityType="ZABDESK_SeptModel.tblClusterDetail" />
+    <FunctionImport Name="sp_GetCousesByYearSemsProg" ReturnType="Collection(ZABDESK_SeptModel.sp_GetCousesByYearSemsProg_Result)">
+      <Parameter Name="Year" Mode="In" Type="Int32" />
+      <Parameter Name="SemsterID" Mode="In" Type="Int32" />
+      <Parameter Name="ProgramID" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="tblClustCrsAsignDetails" EntityType="ZABDESK_SeptModel.tblClustCrsAsignDetail" />
+    <EntitySet Name="tblClusters" EntityType="ZABDESK_SeptModel.tblCluster" />
+    <EntitySet Name="tblQuestionGradings" EntityType="ZABDESK_SeptModel.tblQuestionGrading" />
+    <EntitySet Name="tblQuestionnaires" EntityType="ZABDESK_SeptModel.tblQuestionnaire" />
+    <EntitySet Name="tblQuestionStandards" EntityType="ZABDESK_SeptModel.tblQuestionStandard" />
+  </EntityContainer>
+  <EntityType Name="tblClustCourseAssign">
+    <Key>
+      <PropertyRef Name="AssignID" />
+    </Key>
+    <Property Name="AssignID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CampusID" Type="Int32" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Program" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ExamType" Type="Int32" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Campu">
+    <Key>
+      <PropertyRef Name="tCampus_Id" />
+    </Key>
+    <Property Name="tCampus_Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sCampus_ShortDesc" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="sCampus_LongDesc" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="tCity_Id" Type="Byte" Nullable="false" />
+    <Property Name="sCreatedBy" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sModifiedBy" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="xLastModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ConrollerLtrGrd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="AssConrollerLtrGrd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Programs" Relationship="ZABDESK_SeptModel.FK__Program__tCampus__6B44E613" FromRole="Campu" ToRole="Program" />
+  </EntityType>
+  <EntityType Name="Program">
+    <Key>
+      <PropertyRef Name="tCampus_Id" />
+      <PropertyRef Name="tDegree_Id" />
+      <PropertyRef Name="tProgram_Id" />
+    </Key>
+    <Property Name="tCampus_Id" Type="Byte" Nullable="false" />
+    <Property Name="tDegree_Id" Type="Int32" Nullable="false" />
+    <Property Name="tProgram_Id" Type="Int32" Nullable="false" />
+    <Property Name="sProgram_ShortDesc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="sProgram_LongDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sProgram_LetterGradeDesc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="tProgram_TotalSemesters" Type="Byte" />
+    <Property Name="tProgram_TotalElectiveCourses" Type="Byte" />
+    <Property Name="tProgram_TotalElectiveCreditHours" Type="Byte" />
+    <Property Name="tProgram_TotalCompulsoryCourses" Type="Byte" />
+    <Property Name="tProgram_TotalCompulsoryCreditHours" Type="Byte" />
+    <Property Name="bProgram_CompreRequired" Type="Boolean" Nullable="false" />
+    <Property Name="bProgram_InternshipRequired" Type="Boolean" Nullable="false" />
+    <Property Name="sCreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="xLastModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="isSummerSemesterCounted" Type="Boolean" />
+    <Property Name="tProgram_NCoursesForRegularSemester" Type="Byte" />
+    <Property Name="tProgram_NCoursesForSummerSemester" Type="Byte" />
+    <Property Name="iFacultyId" Type="Byte" />
+    <Property Name="iTotalCreditRequired" Type="Int32" />
+    <Property Name="iYearsToCompleteDegree" Type="Int32" />
+    <Property Name="ProgramLevelId" Type="Int32" />
+    <NavigationProperty Name="Campu" Relationship="ZABDESK_SeptModel.FK__Program__tCampus__6B44E613" FromRole="Program" ToRole="Campu" />
+  </EntityType>
+  <Association Name="FK__Program__tCampus__6B44E613">
+    <End Type="ZABDESK_SeptModel.Campu" Role="Campu" Multiplicity="1" />
+    <End Type="ZABDESK_SeptModel.Program" Role="Program" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Campu">
+        <PropertyRef Name="tCampus_Id" />
+      </Principal>
+      <Dependent Role="Program">
+        <PropertyRef Name="tCampus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tblClusterDetail">
+    <Key>
+      <PropertyRef Name="DetailID" />
+    </Key>
+    <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClusterID" Type="Int32" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHead" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EffectDate" Type="DateTime" Precision="3" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <ComplexType Name="sp_GetCousesByYearSemsProg_Result">
+    <Property Type="Decimal" Name="iCourse_Id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="sCourse_Code" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="sCourse_LongDesc" Nullable="true" MaxLength="150" />
+  </ComplexType>
+  <EntityType Name="tblClustCrsAsignDetail">
+    <Key>
+      <PropertyRef Name="AssignDetailID" />
+    </Key>
+    <Property Name="AssignDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cAssignID" Type="Int32" />
+    <Property Name="CourseID" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="CourseCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CourseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tblCluster">
+    <Key>
+      <PropertyRef Name="Cluster_ID" />
+    </Key>
+    <Property Name="Cluster_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClusterTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterEff_Date" Type="DateTime" Precision="3" />
+    <Property Name="ClusterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tblQuestionGrading">
+    <Key>
+      <PropertyRef Name="GID" />
+    </Key>
+    <Property Name="GID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GradeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="GradePoint" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tblQuestionnaire">
+    <Key>
+      <PropertyRef Name="QID" />
+    </Key>
+    <Property Name="QID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QSNo" Type="Int32" />
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tblQuestionStandard">
+    <Key>
+      <PropertyRef Name="SID" />
+    </Key>
+    <Property Name="SID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StandardNo" Type="Int32" />
+    <Property Name="StandardDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

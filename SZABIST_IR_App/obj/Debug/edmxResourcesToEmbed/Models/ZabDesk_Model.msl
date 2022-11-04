@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ZABDESK_SeptModelStoreContainer" CdmEntityContainer="ZABDESK_SeptEntities">
+    <EntitySetMapping Name="tblClustCourseAssigns">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.tblClustCourseAssign">
+        <MappingFragment StoreEntitySet="tblClustCourseAssign">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Semster" ColumnName="Semster" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+          <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+          <ScalarProperty Name="AssignID" ColumnName="AssignID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Campus">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.Campu">
+        <MappingFragment StoreEntitySet="Campus">
+          <ScalarProperty Name="AssConrollerLtrGrd" ColumnName="AssConrollerLtrGrd" />
+          <ScalarProperty Name="ConrollerLtrGrd" ColumnName="ConrollerLtrGrd" />
+          <ScalarProperty Name="xLastModifiedDate" ColumnName="xLastModifiedDate" />
+          <ScalarProperty Name="sModifiedBy" ColumnName="sModifiedBy" />
+          <ScalarProperty Name="sCreatedBy" ColumnName="sCreatedBy" />
+          <ScalarProperty Name="tCity_Id" ColumnName="tCity_Id" />
+          <ScalarProperty Name="sCampus_LongDesc" ColumnName="sCampus_LongDesc" />
+          <ScalarProperty Name="sCampus_ShortDesc" ColumnName="sCampus_ShortDesc" />
+          <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Programs">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.Program">
+        <MappingFragment StoreEntitySet="Program">
+          <ScalarProperty Name="ProgramLevelId" ColumnName="ProgramLevelId" />
+          <ScalarProperty Name="iYearsToCompleteDegree" ColumnName="iYearsToCompleteDegree" />
+          <ScalarProperty Name="iTotalCreditRequired" ColumnName="iTotalCreditRequired" />
+          <ScalarProperty Name="iFacultyId" ColumnName="iFacultyId" />
+          <ScalarProperty Name="tProgram_NCoursesForSummerSemester" ColumnName="tProgram_NCoursesForSummerSemester" />
+          <ScalarProperty Name="tProgram_NCoursesForRegularSemester" ColumnName="tProgram_NCoursesForRegularSemester" />
+          <ScalarProperty Name="isSummerSemesterCounted" ColumnName="isSummerSemesterCounted" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="xLastModifiedDate" ColumnName="xLastModifiedDate" />
+          <ScalarProperty Name="sModifiedBy" ColumnName="sModifiedBy" />
+          <ScalarProperty Name="sCreatedBy" ColumnName="sCreatedBy" />
+          <ScalarProperty Name="bProgram_InternshipRequired" ColumnName="bProgram_InternshipRequired" />
+          <ScalarProperty Name="bProgram_CompreRequired" ColumnName="bProgram_CompreRequired" />
+          <ScalarProperty Name="tProgram_TotalCompulsoryCreditHours" ColumnName="tProgram_TotalCompulsoryCreditHours" />
+          <ScalarProperty Name="tProgram_TotalCompulsoryCourses" ColumnName="tProgram_TotalCompulsoryCourses" />
+          <ScalarProperty Name="tProgram_TotalElectiveCreditHours" ColumnName="tProgram_TotalElectiveCreditHours" />
+          <ScalarProperty Name="tProgram_TotalElectiveCourses" ColumnName="tProgram_TotalElectiveCourses" />
+          <ScalarProperty Name="tProgram_TotalSemesters" ColumnName="tProgram_TotalSemesters" />
+          <ScalarProperty Name="sProgram_LetterGradeDesc" ColumnName="sProgram_LetterGradeDesc" />
+          <ScalarProperty Name="sProgram_LongDesc" ColumnName="sProgram_LongDesc" />
+          <ScalarProperty Name="sProgram_ShortDesc" ColumnName="sProgram_ShortDesc" />
+          <ScalarProperty Name="tProgram_Id" ColumnName="tProgram_Id" />
+          <ScalarProperty Name="tDegree_Id" ColumnName="tDegree_Id" />
+          <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblClusterDetails">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.tblClusterDetail">
+        <MappingFragment StoreEntitySet="tblClusterDetails">
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="EffectDate" ColumnName="EffectDate" />
+          <ScalarProperty Name="ClusterHead" ColumnName="ClusterHead" />
+          <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+          <ScalarProperty Name="ClusterID" ColumnName="ClusterID" />
+          <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblClustCrsAsignDetails">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.tblClustCrsAsignDetail">
+        <MappingFragment StoreEntitySet="tblClustCrsAsignDetails">
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="cAssignID" ColumnName="cAssignID" />
+          <ScalarProperty Name="AssignDetailID" ColumnName="AssignDetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblClusters">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.tblCluster">
+        <MappingFragment StoreEntitySet="tblCluster">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ClusterDescription" ColumnName="ClusterDescription" />
+          <ScalarProperty Name="ClusterEff_Date" ColumnName="ClusterEff_Date" />
+          <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+          <ScalarProperty Name="ClusterTitle" ColumnName="ClusterTitle" />
+          <ScalarProperty Name="Cluster_ID" ColumnName="Cluster_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblQuestionGradings">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.tblQuestionGrading">
+        <MappingFragment StoreEntitySet="tblQuestionGrading">
+          <ScalarProperty Name="GradePoint" ColumnName="GradePoint" />
+          <ScalarProperty Name="GradeDescription" ColumnName="GradeDescription" />
+          <ScalarProperty Name="GID" ColumnName="GID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblQuestionnaires">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.tblQuestionnaire">
+        <MappingFragment StoreEntitySet="tblQuestionnaire">
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QSNo" ColumnName="QSNo" />
+          <ScalarProperty Name="QID" ColumnName="QID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblQuestionStandards">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.tblQuestionStandard">
+        <MappingFragment StoreEntitySet="tblQuestionStandard">
+          <ScalarProperty Name="StandardPecentage" ColumnName="StandardPecentage" />
+          <ScalarProperty Name="StandardDescription" ColumnName="StandardDescription" />
+          <ScalarProperty Name="StandardNo" ColumnName="StandardNo" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetCourseByYearSemsProg" FunctionName="ZABDESK_SeptModel.Store.sp_GetCourseByYearSemsProg">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ZABDESK_SeptModel.sp_GetCourseByYearSemsProg_Result">
+          <ScalarProperty Name="iCourse_Id" ColumnName="iCourse_Id" />
+          <ScalarProperty Name="sCourse_Code" ColumnName="sCourse_Code" />
+          <ScalarProperty Name="sCourse_LongDesc" ColumnName="sCourse_LongDesc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vUserRoleMembers">
+      <EntityTypeMapping TypeName="ZABDESK_SeptModel.vUserRoleMember">
+        <MappingFragment StoreEntitySet="vUserRoleMember">
+          <ScalarProperty Name="iSystemRole_Id" ColumnName="iSystemRole_Id" />
+          <ScalarProperty Name="bSystemRoleMember_Active" ColumnName="bSystemRoleMember_Active" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="sUserProfile_LastName" ColumnName="sUserProfile_LastName" />
+          <ScalarProperty Name="sUserProfile_MiddleName" ColumnName="sUserProfile_MiddleName" />
+          <ScalarProperty Name="sUserProfile_FirstName" ColumnName="sUserProfile_FirstName" />
+          <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+          <ScalarProperty Name="sUser_Id" ColumnName="sUser_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

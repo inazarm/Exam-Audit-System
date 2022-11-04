@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AEAuditDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblAllocateCours">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+    </Key>
+    <Property Name="tAllocateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tCluster_Head_Id" Type="Int32" />
+    <Property Name="tCampus_Id" Type="Byte" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="tFaculty_Id" Type="Byte" />
+    <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Faculty_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ExamType" Type="Byte" />
+    <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tblAllocateCoursesDetail">
+    <Key>
+      <PropertyRef Name="tAllocateDetailID" />
+    </Key>
+    <Property Name="tAllocateDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tAllocateID" Type="Int32" />
+    <Property Name="Course_Id" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="sCourse_Code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="sCourse_LongDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Instructor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="userID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="iSemester_Id" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="iSemesterSection_Id" Type="Byte" />
+    <Property Name="tCampus_Id" Type="Byte" />
+    <Property Name="tProgram_Id" Type="Byte" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="isChecked" Type="Boolean" />
+    <Property Name="isCheckedByIR" Type="Boolean" />
+    <Property Name="isCopyAvailable" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tblAssessmentResult">
+    <Key>
+      <PropertyRef Name="tAResultID" />
+    </Key>
+    <Property Name="tAResultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tAllocateID" Type="Int32" />
+    <Property Name="tAllocateDetailID" Type="Int32" />
+    <Property Name="CourseID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RemarksIR" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CheckedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CheckedDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tblAssessmentResultDetail">
+    <Key>
+      <PropertyRef Name="tAResultDID" />
+    </Key>
+    <Property Name="tAResultDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tAResultID" Type="Int32" />
+    <Property Name="StandardID" Type="Int32" />
+    <Property Name="QuestionID" Type="Int32" />
+    <Property Name="GradePoint" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tblCampu">
+    <Key>
+      <PropertyRef Name="tCampus_Id" />
+    </Key>
+    <Property Name="tCampus_Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sCampus_ShortDesc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sCampus_LongDesc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tCity_Id" Type="Byte" Nullable="false" />
+    <Property Name="sCreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="xLastModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ConrollerLtrGrd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="AssConrollerLtrGrd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="dbConnectionString" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="zabDeskURL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tblClusterHead">
+    <Key>
+      <PropertyRef Name="tCluster_Head_Id" />
+    </Key>
+    <Property Name="tCluster_Head_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tCluster_ID" Type="Int32" />
+    <Property Name="tMemberID" Type="Int32" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHeadName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WEF_From" Type="DateTime" Precision="3" />
+    <Property Name="WEF_To" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="CampusID" Type="Byte" />
+    <Property Name="Status" Type="Boolean" />
+    <NavigationProperty Name="tblClusterInfo" Relationship="Self.FK_tblClusterHead_tblClusterInfo" FromRole="tblClusterHead" ToRole="tblClusterInfo" />
+  </EntityType>
+  <EntityType Name="tblClusterInfo">
+    <Key>
+      <PropertyRef Name="tCluster_ID" />
+    </Key>
+    <Property Name="tCluster_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClusterTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+    <NavigationProperty Name="tblClusterHeads" Relationship="Self.FK_tblClusterHead_tblClusterInfo" FromRole="tblClusterInfo" ToRole="tblClusterHead" />
+  </EntityType>
+  <EntityType Name="tblClusterMember">
+    <Key>
+      <PropertyRef Name="tMemberID" />
+    </Key>
+    <Property Name="tMemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tCluster_ID" Type="Int32" />
+    <Property Name="ClusterMemberID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterMemberName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tblQuestionGrading">
+    <Key>
+      <PropertyRef Name="tGID" />
+    </Key>
+    <Property Name="tGID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GradeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="complianceLevel" Type="Int32" />
+    <Property Name="GradePoint" Type="Int32" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblQuestionnaire">
+    <Key>
+      <PropertyRef Name="tQID" />
+    </Key>
+    <Property Name="tQID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QSNo" Type="Int32" />
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="tSID" Type="Int32" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tblQuestionStandard" Relationship="Self.FK_tblQuestionnaire_tblQuestionStandard" FromRole="tblQuestionnaire" ToRole="tblQuestionStandard" />
+  </EntityType>
+  <EntityType Name="tblQuestionStandard">
+    <Key>
+      <PropertyRef Name="tSID" />
+    </Key>
+    <Property Name="tSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StandardNo" Type="Int32" />
+    <Property Name="StandardDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StandardPecentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DepartID" Type="Int32" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tblQuestionnaires" Relationship="Self.FK_tblQuestionnaire_tblQuestionStandard" FromRole="tblQuestionStandard" ToRole="tblQuestionnaire" />
+  </EntityType>
+  <EntityType Name="tblRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUsers_tblRole" FromRole="tblRole" ToRole="tblUsers" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="DepartID" Type="Int32" />
+    <Property Name="CampusID" Type="Byte" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+    <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUsers_tblRole" FromRole="tblUsers" ToRole="tblRole" />
+  </EntityType>
+  <EntityType Name="v_cHeads_clusterInfo">
+    <Key>
+      <PropertyRef Name="tCluster_Head_Id" />
+    </Key>
+    <Property Name="tCluster_Head_Id" Type="Byte" Nullable="false" />
+    <Property Name="tCluster_ID" Type="Byte" />
+    <Property Name="tMemberID" Type="Byte" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHeadName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WEF_From" Type="DateTime" Precision="3" />
+    <Property Name="WEF_To" Type="DateTime" Precision="3" />
+    <Property Name="CampusID" Type="Byte" />
+    <Property Name="HeadStatus" Type="Boolean" />
+    <Property Name="ClusterTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterStatus" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Vu_CampustoStandard">
+    <Key>
+      <PropertyRef Name="campusname" />
+    </Key>
+    <Property Name="semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="searchyear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SCore1" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="campusname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StandardDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vue_clusterHead_clusterInfo">
+    <Key>
+      <PropertyRef Name="tCluster_Head_Id" />
+    </Key>
+    <Property Name="tCluster_Head_Id" Type="Int32" Nullable="false" />
+    <Property Name="tCluster_ID" Type="Int32" />
+    <Property Name="tMemberID" Type="Int32" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHeadName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WEF_From" Type="DateTime" Precision="3" />
+    <Property Name="WEF_To" Type="DateTime" Precision="3" />
+    <Property Name="CampusID" Type="Byte" />
+    <Property Name="HeadStatus" Type="Boolean" />
+    <Property Name="ClusterTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterStatus" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="vueAssignedCoursesList">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+    </Key>
+    <Property Name="tAllocateID" Type="Int32" Nullable="false" />
+    <Property Name="tCluster_Head_Id" Type="Int32" />
+    <Property Name="tCampus_Id" Type="Byte" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="isChecked" Type="Boolean" />
+    <Property Name="isCheckedByIR" Type="Boolean" />
+    <Property Name="tFaculty_Id" Type="Byte" />
+    <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExamType" Type="Byte" />
+    <Property Name="sCourse_Code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="sCourse_LongDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Instructor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="userID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vueExamList_Checked_NotAssessed">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+      <PropertyRef Name="Campus" />
+    </Key>
+    <Property Name="tAllocateID" Type="Int32" Nullable="false" />
+    <Property Name="tCluster_Head_Id" Type="Int32" />
+    <Property Name="tCampus_Id" Type="Byte" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="isChecked" Type="Boolean" />
+    <Property Name="isCheckedByIR" Type="Boolean" />
+    <Property Name="tFaculty_Id" Type="Byte" />
+    <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExamType" Type="Byte" />
+    <Property Name="isCopyAvailable" Type="Boolean" />
+    <Property Name="Campus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_tblClusterHead_tblClusterInfo">
+    <End Role="tblClusterInfo" Type="Self.tblClusterInfo" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblClusterHead" Type="Self.tblClusterHead" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblClusterInfo">
+        <PropertyRef Name="tCluster_ID" />
+      </Principal>
+      <Dependent Role="tblClusterHead">
+        <PropertyRef Name="tCluster_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuestionnaire_tblQuestionStandard">
+    <End Role="tblQuestionStandard" Type="Self.tblQuestionStandard" Multiplicity="0..1" />
+    <End Role="tblQuestionnaire" Type="Self.tblQuestionnaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblQuestionStandard">
+        <PropertyRef Name="tSID" />
+      </Principal>
+      <Dependent Role="tblQuestionnaire">
+        <PropertyRef Name="tSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsers_tblRole">
+    <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+    <End Role="tblUsers" Type="Self.tblUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="tblUsers">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AEAuditDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblAllocateCourses" EntityType="Self.tblAllocateCours" />
+    <EntitySet Name="tblAllocateCoursesDetails" EntityType="Self.tblAllocateCoursesDetail" />
+    <EntitySet Name="tblAssessmentResults" EntityType="Self.tblAssessmentResult" />
+    <EntitySet Name="tblAssessmentResultDetails" EntityType="Self.tblAssessmentResultDetail" />
+    <EntitySet Name="tblCampus" EntityType="Self.tblCampu" />
+    <EntitySet Name="tblClusterHeads" EntityType="Self.tblClusterHead" />
+    <EntitySet Name="tblClusterInfoes" EntityType="Self.tblClusterInfo" />
+    <EntitySet Name="tblClusterMembers" EntityType="Self.tblClusterMember" />
+    <EntitySet Name="tblQuestionGradings" EntityType="Self.tblQuestionGrading" />
+    <EntitySet Name="tblQuestionnaires" EntityType="Self.tblQuestionnaire" />
+    <EntitySet Name="tblQuestionStandards" EntityType="Self.tblQuestionStandard" />
+    <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
+    <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+    <EntitySet Name="v_cHeads_clusterInfo" EntityType="Self.v_cHeads_clusterInfo" />
+    <EntitySet Name="Vu_CampustoStandard" EntityType="Self.Vu_CampustoStandard" />
+    <EntitySet Name="vue_clusterHead_clusterInfo" EntityType="Self.vue_clusterHead_clusterInfo" />
+    <EntitySet Name="vueAssignedCoursesLists" EntityType="Self.vueAssignedCoursesList" />
+    <EntitySet Name="vueExamList_Checked_NotAssessed" EntityType="Self.vueExamList_Checked_NotAssessed" />
+    <AssociationSet Name="FK_tblClusterHead_tblClusterInfo" Association="Self.FK_tblClusterHead_tblClusterInfo">
+      <End Role="tblClusterInfo" EntitySet="tblClusterInfoes" />
+      <End Role="tblClusterHead" EntitySet="tblClusterHeads" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuestionnaire_tblQuestionStandard" Association="Self.FK_tblQuestionnaire_tblQuestionStandard">
+      <End Role="tblQuestionStandard" EntitySet="tblQuestionStandards" />
+      <End Role="tblQuestionnaire" EntitySet="tblQuestionnaires" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsers_tblRole" Association="Self.FK_tblUsers_tblRole">
+      <End Role="tblRole" EntitySet="tblRoles" />
+      <End Role="tblUsers" EntitySet="tblUsers" />
+    </AssociationSet>
+    <FunctionImport Name="GetPercentageDisdribution" ReturnType="Collection(AEAuditDBModel.GetPercentageDisdribution_Result)">
+      <Parameter Name="semestertype" Mode="In" Type="Int32" />
+      <Parameter Name="semesteryear" Mode="In" Type="Int32" />
+      <Parameter Name="campus" Mode="In" Type="Int32" />
+      <Parameter Name="p_ExamType" Mode="In" Type="Byte" />
+      <Parameter Name="programType" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetCourse_Instructor_ByYearSemsProg">
+      <Parameter Name="Year" Mode="In" Type="Int32" />
+      <Parameter Name="SemsterID" Mode="In" Type="Int32" />
+      <Parameter Name="ProgramID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetCourseByYearSemsProg">
+      <Parameter Name="Year" Mode="In" Type="Int32" />
+      <Parameter Name="SemsterID" Mode="In" Type="Int32" />
+      <Parameter Name="ProgramID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="uspAssignedCoursesList" ReturnType="Collection(AEAuditDBModel.uspAssignedCoursesList_Result)">
+      <Parameter Name="p_ClusterHeadID" Mode="In" Type="String" />
+      <Parameter Name="p_isChecked" Mode="In" Type="Boolean" />
+      <Parameter Name="p_isCheckedByIR" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="uspGet_Faculty_Wise_Questions_Assessment" ReturnType="Collection(AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result)">
+      <Parameter Name="p_tFaculty_Id" Mode="In" Type="Byte" />
+      <Parameter Name="p_ExamType" Mode="In" Type="Byte" />
+      <Parameter Name="p_tCampus_Id" Mode="In" Type="Byte" />
+      <Parameter Name="p_Year" Mode="In" Type="String" />
+      <Parameter Name="p_Semster" Mode="In" Type="Decimal" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetPercentageDisdribution_Result">
+    <Property Type="String" Name="perc_range" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="tot_assessment" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="uspAssignedCoursesList_Result">
+    <Property Type="Int32" Name="tAllocateID" Nullable="false" />
+    <Property Type="Int32" Name="tCluster_Head_Id" Nullable="true" />
+    <Property Type="Byte" Name="tCampus_Id" Nullable="true" />
+    <Property Type="String" Name="ClusterHeadID" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ClusterHeadName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Year" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Semster" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Program" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Program_ShortDesc" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Program_LongDesc" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ExamTypeName" Nullable="true" MaxLength="100" />
+    <Property Type="Boolean" Name="Status" Nullable="true" />
+    <Property Type="Boolean" Name="isChecked" Nullable="true" />
+    <Property Type="Boolean" Name="isCheckedByIR" Nullable="true" />
+    <Property Type="Byte" Name="tFaculty_Id" Nullable="true" />
+    <Property Type="String" Name="Faculty_ShortDesc" Nullable="true" MaxLength="20" />
+    <Property Type="Byte" Name="ExamType" Nullable="true" />
+    <Property Type="String" Name="sCourse_Code" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="sCourse_LongDesc" Nullable="true" />
+    <Property Type="String" Name="Instructor" Nullable="true" />
+    <Property Type="String" Name="userID" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="tAllocateDetailID" Nullable="false" />
+    <Property Type="String" Name="Class" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="uspGet_Faculty_Wise_Questions_Assessment_Result">
+    <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="QuestionID" Nullable="true" />
+    <Property Type="Int32" Name="Avg_GP" Nullable="true" />
+    <Property Type="Int32" Name="GP_Percent" Nullable="true" />
+    <Property Type="String" Name="Question" Nullable="true" />
+  </ComplexType>
+</Schema>

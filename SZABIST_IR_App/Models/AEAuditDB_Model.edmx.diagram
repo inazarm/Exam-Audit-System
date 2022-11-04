@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="df758a8ecd0a4861b06142ac583648a6" Name="Diagram1">
+        <EntityTypeShape EntityType="AEAuditDBModel.tblAllocateCours" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblAllocateCoursesDetail" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblAssessmentResult" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblAssessmentResultDetail" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblCampu" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblClusterHead" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblClusterInfo" Width="1.5" PointX="5.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblClusterMember" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblQuestionGrading" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblQuestionnaire" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblQuestionStandard" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblRole" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.tblUser" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.v_cHeads_clusterInfo" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.Vu_CampustoStandard" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.vue_clusterHead_clusterInfo" Width="1.5" PointX="4.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.vueAssignedCoursesList" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AEAuditDBModel.vueExamList_Checked_NotAssessed" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="AEAuditDBModel.FK_tblClusterHead_tblClusterInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="AEAuditDBModel.FK_tblQuestionnaire_tblQuestionStandard" ManuallyRouted="false" />
+        <AssociationConnector Association="AEAuditDBModel.FK_tblUsers_tblRole" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZABDESK_SeptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Campus">
+    <Key>
+      <PropertyRef Name="tCampus_Id" />
+    </Key>
+    <Property Name="tCampus_Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sCampus_ShortDesc" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="sCampus_LongDesc" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="tCity_Id" Type="tinyint" Nullable="false" />
+    <Property Name="sCreatedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="sModifiedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="xLastModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="ConrollerLtrGrd" Type="varchar" MaxLength="30" />
+    <Property Name="AssConrollerLtrGrd" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Program">
+    <Key>
+      <PropertyRef Name="tCampus_Id" />
+      <PropertyRef Name="tDegree_Id" />
+      <PropertyRef Name="tProgram_Id" />
+    </Key>
+    <Property Name="tCampus_Id" Type="tinyint" Nullable="false" />
+    <Property Name="tDegree_Id" Type="int" Nullable="false" />
+    <Property Name="tProgram_Id" Type="int" Nullable="false" />
+    <Property Name="sProgram_ShortDesc" Type="varchar" MaxLength="15" />
+    <Property Name="sProgram_LongDesc" Type="varchar" MaxLength="50" />
+    <Property Name="sProgram_LetterGradeDesc" Type="varchar" MaxLength="30" />
+    <Property Name="tProgram_TotalSemesters" Type="tinyint" />
+    <Property Name="tProgram_TotalElectiveCourses" Type="tinyint" />
+    <Property Name="tProgram_TotalElectiveCreditHours" Type="tinyint" />
+    <Property Name="tProgram_TotalCompulsoryCourses" Type="tinyint" />
+    <Property Name="tProgram_TotalCompulsoryCreditHours" Type="tinyint" />
+    <Property Name="bProgram_CompreRequired" Type="bit" Nullable="false" />
+    <Property Name="bProgram_InternshipRequired" Type="bit" Nullable="false" />
+    <Property Name="sCreatedBy" Type="varchar" MaxLength="20" />
+    <Property Name="sModifiedBy" Type="varchar" MaxLength="20" />
+    <Property Name="xLastModifiedDate" Type="datetime" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="isSummerSemesterCounted" Type="bit" />
+    <Property Name="tProgram_NCoursesForRegularSemester" Type="tinyint" />
+    <Property Name="tProgram_NCoursesForSummerSemester" Type="tinyint" />
+    <Property Name="iFacultyId" Type="tinyint" />
+    <Property Name="iTotalCreditRequired" Type="int" />
+    <Property Name="iYearsToCompleteDegree" Type="int" />
+    <Property Name="ProgramLevelId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblClustCourseAssign">
+    <Key>
+      <PropertyRef Name="AssignID" />
+    </Key>
+    <Property Name="AssignID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CampusID" Type="int" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="Year" Type="varchar" MaxLength="10" />
+    <Property Name="Semster" Type="varchar" MaxLength="100" />
+    <Property Name="Program" Type="varchar" MaxLength="100" />
+    <Property Name="ExamType" Type="int" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblClustCrsAsignDetails">
+    <Key>
+      <PropertyRef Name="AssignDetailID" />
+    </Key>
+    <Property Name="AssignDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cAssignID" Type="int" />
+    <Property Name="CourseID" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="CourseCode" Type="varchar" MaxLength="15" />
+    <Property Name="CourseName" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="tblCluster">
+    <Key>
+      <PropertyRef Name="Cluster_ID" />
+    </Key>
+    <Property Name="Cluster_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClusterTitle" Type="varchar(max)" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterEff_Date" Type="datetime" />
+    <Property Name="ClusterDescription" Type="varchar(max)" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblClusterDetails">
+    <Key>
+      <PropertyRef Name="DetailID" />
+    </Key>
+    <Property Name="DetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClusterID" Type="int" />
+    <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+    <Property Name="ClusterHead" Type="varchar(max)" />
+    <Property Name="EffectDate" Type="datetime" />
+    <Property Name="DateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblQuestionGrading">
+    <Key>
+      <PropertyRef Name="GID" />
+    </Key>
+    <Property Name="GID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GradeDescription" Type="varchar(max)" />
+    <Property Name="GradePoint" Type="int" />
+  </EntityType>
+  <EntityType Name="tblQuestionnaire">
+    <Key>
+      <PropertyRef Name="QID" />
+    </Key>
+    <Property Name="QID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QSNo" Type="int" />
+    <Property Name="Question" Type="varchar(max)" />
+    <Property Name="SID" Type="int" />
+  </EntityType>
+  <EntityType Name="tblQuestionStandard">
+    <Key>
+      <PropertyRef Name="SID" />
+    </Key>
+    <Property Name="SID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StandardNo" Type="int" />
+    <Property Name="StandardDescription" Type="varchar(max)" />
+    <Property Name="StandardPecentage" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ZABDESK_Sept.dbo.vUserRoleMember' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vUserRoleMember">
+    <Key>
+      <PropertyRef Name="sUser_Id" />
+      <PropertyRef Name="tCampus_Id" />
+      <PropertyRef Name="Full_Name" />
+      <PropertyRef Name="iSystemRole_Id" />
+    </Key>
+    <Property Name="sUser_Id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="tCampus_Id" Type="tinyint" Nullable="false" />
+    <Property Name="sUserProfile_FirstName" Type="varchar" MaxLength="20" />
+    <Property Name="sUserProfile_MiddleName" Type="varchar" MaxLength="20" />
+    <Property Name="sUserProfile_LastName" Type="varchar" MaxLength="20" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="62" Nullable="false" />
+    <Property Name="bSystemRoleMember_Active" Type="bit" />
+    <Property Name="iSystemRole_Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Program__tCampus__6B44E613">
+    <End Role="Campus" Type="Self.Campus" Multiplicity="1" />
+    <End Role="Program" Type="Self.Program" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Campus">
+        <PropertyRef Name="tCampus_Id" />
+      </Principal>
+      <Dependent Role="Program">
+        <PropertyRef Name="tCampus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_GetCourseByYearSemsProg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="SemsterID" Type="int" Mode="In" />
+    <Parameter Name="ProgramID" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="ZABDESK_SeptModelStoreContainer">
+    <EntitySet Name="Campus" EntityType="Self.Campus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblClustCourseAssign" EntityType="Self.tblClustCourseAssign" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblClustCrsAsignDetails" EntityType="Self.tblClustCrsAsignDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCluster" EntityType="Self.tblCluster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblClusterDetails" EntityType="Self.tblClusterDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblQuestionGrading" EntityType="Self.tblQuestionGrading" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblQuestionnaire" EntityType="Self.tblQuestionnaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblQuestionStandard" EntityType="Self.tblQuestionStandard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vUserRoleMember" EntityType="Self.vUserRoleMember" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vUserRoleMember].[sUser_Id] AS [sUser_Id], 
+    [vUserRoleMember].[tCampus_Id] AS [tCampus_Id], 
+    [vUserRoleMember].[sUserProfile_FirstName] AS [sUserProfile_FirstName], 
+    [vUserRoleMember].[sUserProfile_MiddleName] AS [sUserProfile_MiddleName], 
+    [vUserRoleMember].[sUserProfile_LastName] AS [sUserProfile_LastName], 
+    [vUserRoleMember].[Full_Name] AS [Full_Name], 
+    [vUserRoleMember].[bSystemRoleMember_Active] AS [bSystemRoleMember_Active], 
+    [vUserRoleMember].[iSystemRole_Id] AS [iSystemRole_Id]
+    FROM [dbo].[vUserRoleMember] AS [vUserRoleMember]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Program__tCampus__6B44E613" Association="Self.FK__Program__tCampus__6B44E613">
+      <End Role="Campus" EntitySet="Campus" />
+      <End Role="Program" EntitySet="Program" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

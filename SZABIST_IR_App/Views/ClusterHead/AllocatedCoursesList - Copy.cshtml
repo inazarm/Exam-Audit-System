@@ -1,0 +1,267 @@
+﻿@model IEnumerable<SZABIST_IR_App.Models.tblAllocateCoursesDetail>
+@{
+    ViewBag.Title = "Courses-List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .error {
+        color: red;
+        font-family: verdana, Helvetica;
+    }
+</style>
+
+    <div class="card-header">
+        <h5>SELECTED COURSE CONFIRMATION</h5>
+    </div>
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+                <form action="@Url.Action("SaveResult", "ClusterHead")" id="formSubmit" method="@FormMethod.Post" class="form-material">
+                    <div class="card">
+                        <div class="col-md-12">
+                            <a href="@Url.Action("Index", "ClusterHead")" class="btn btn-outline-dark btn-sm"><i class="ti-home"></i><b> BACK TO HOME</b></a>
+                        </div>
+                        @if (Model.Any())
+                        {
+                            <div class="card-body" id="divSelectedCourses">
+                                @*<div class="row col-md-12">
+                                    <div class="col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            @Html.Editor("Year", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True", @Value = ViewBag.Details.Year } })
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Year</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group form-primary form-static-label">
+                                            @{
+                                                if (ViewBag.Details.Semster == "1")
+                                                {
+                                                    @Html.Editor("Semester", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True", @Value = "Spring" } })
+                                                }
+                                                else if (ViewBag.Details.Semster == "2")
+                                                {
+                                                    @Html.Editor("Semester", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True", @Value = "Summer" } })
+                                                }
+                                                else
+                                                {
+                                                    @Html.Editor("Semester", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True", @Value = "Fall" } })
+                                                }
+                                            }
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Semester</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group form-primary form-static-label">
+                                            @Html.Editor("Program", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True", @Value = ViewBag.Details.Program_ShortDesc } })
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Program</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            @Html.Editor("ExamName", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True", @Value = ViewBag.Details.ExamTypeName } })
+                                            <span class="form-bar"></span>
+                                            <label class="float-label">Exam Name</label>
+                                        </div>
+                                    </div>
+                                </div>*@
+                                <div class="col-md-12">
+                                    <div style="width:100%;" class="table-responsive">
+                                        <table id="tblCourseList" class="table table-striped table-bordered table-hover display compact" width="100%">
+                                            <thead>
+                                                <tr style="background-color:#0047AB;color:white;">
+                                                    <th style="display:none">AsgdID</th>
+                                                    <th style="display:none">CourseID</th>
+                                                    <th>Course Code</th>
+                                                    <th>Course Name</th>
+                                                    <th>Instructor</th>
+                                                    <th>Class</th>
+                                                    <th class="text-center">Select</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td style="display:none">@item.tAllocateDetailID</td>
+                                                        <td style="display:none">@item.Course_Id</td>
+                                                        <td>@item.sCourse_Code</td>
+                                                        <td>@item.sCourse_LongDesc</td>
+                                                        <td>@item.Instructor</td>
+                                                        <td>@item.Class</td>
+                                                        <td class="text-center">
+                                                            @Ajax.ActionLink("Confirm", "SelectedCrs", "ClusterHead", new { id = item.tAllocateDetailID, cid = item.Course_Id },
+                                                         new AjaxOptions
+                                                         {
+                                                             UpdateTargetId = "selectedCrsInfo",
+                                                             OnFailure = "onFailure",
+                                                             OnSuccess = "onSuccess"
+                                                         }, new { @class = "btn btn-outline-primary btn-sm", @Id = "btnSelect" })
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 text-center font-weight-bold" id="selectedCrsInfo">
+
+                                </div>
+
+                                <div id="txtArea" style="display:none">
+                                    <div class="form-group form-primary">
+                                        @Html.TextArea("Remarks", new { @class = "form-control", @required = "required" })
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Remarks</label>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <button type="submit" name="btnSubmit" id="btnSubmit" class="btn btn-primary">Confirm & Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div><p class="text-danger text-center h4">All courses are examined! OR Course not Assigned yet!</p></div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    function onSuccess(result) {
+        if (result.error) {
+            $('#selectedCrsInfo').hide();
+            alert(result.error);
+        } else {
+            $('#selectedCrsInfo').show();
+            $('#selectedCrsInfo').html(result);
+        }
+    }
+    function onFailure() {
+        $('#selectedCrsInfo').hide();
+        alert("There are some technical error in AjaxCall!");
+    }
+    $(document).ready(function () {
+        $("#btnSelect").click(function () {
+            $("#txtArea").show();
+        })
+        $("#btnSubmit").click(function (e) {
+            e.preventDefault();
+            var QuestionID = [];
+            var Points = [];
+            var standardID = [];
+            $("#qtbody tr").each(function (index, value) {
+                var qID = $(this).find('td').find('input[name=QId]').each(function () {
+                    QuestionID.push(this.value);
+                });
+                //var sID = $(this).find('td').find('input[name=StandardNo]').each(function () {
+                //    standardID.push(this.value);
+                //});
+                var CheckedV = $(this).find('td').find('input[type=radio]:checked').each(function () {
+                    Points.push(this.value);
+                });
+            });
+            /*var standardIDs = getUnique(standardID);*/
+            var tAllocateID = $("#tAllocateID").val();
+            var tAllocateDetailID = $("#tAllocateDetailID").val();
+            var remark = $("#Remarks").val();
+            var valdata = $("#formSubmit").serialize();
+            var lengthA = QuestionID.length;
+            var lengthB = Points.length;
+            //alert("A " + lengthA + " B =" + lengthB)
+            if (lengthA == lengthB && remark!=='') {
+                  $.ajax({
+                url: "@Url.Action("SaveResult", "ClusterHead")",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: {
+                    Questions: QuestionID,
+                    Gradings: Points,
+                    tAllocateID: tAllocateID,
+                    tAllocateDetailID: tAllocateDetailID,
+                    remarks: remark
+                },
+                success: function (Response) {
+                    if (Response.Success) {
+                        alert("Course Assessment Completed Successfully!");
+                        //location.reload(true);
+                        window.location.href = Response.redirectToUrl;
+                    }
+                    else {
+                        //alert("Please Select Question Options!");
+                        window.alert(' Invalid : ' + Response.message);
+                    }
+                    //alert(Response);
+                    //console.log(Response);
+
+                }
+            });
+            }
+            else {
+                alert("All Questions must be checked and Remarks can not be left emplty!");
+            }
+
+        });
+
+        });
+        function getUnique(array) {
+            var uniqueArray = [];
+            // Loop through array values
+            for (i = 0; i < array.length; i++) {
+                if (uniqueArray.indexOf(array[i]) === -1) {
+                    uniqueArray.push(array[i]);
+                }
+            }
+            return uniqueArray;
+        }
+
+        $('#qtbody tr input[type=radio]').each(function () {
+            alert($(this).attr('checked'));
+        });
+
+    //$(function () {
+        //    $("input[type=radio]").on("click", function () {
+        //        var Name = $(this).find('td:eq(0)').find('input').val();
+        //        var clicked = [];
+        //        $("input[type=radio]:checked").each(function () {
+        //            //clicked.push($(this).closest("td").prev().text()+"~"+this.value);
+        //            //clicked.push(this.name + ":" + this.value);
+        //            clicked.push(this.value);
+        //        });
+        //        alert(clicked);
+        //        //$("#an\\.ret\\.sys\\.4\\.").val(clicked);
+        //    });
+        //});
+
+    @*$(function () {
+        $(".btnSelect").click(function () {
+            alert("ok");
+            var id1 = $(this).data("id");
+            var id2 = $(this).data("cid");
+            $.ajax({
+                method: "GET",
+                url: '@Url.Action("SelectedCrs")', // Here you have to place the relative url to your action
+                url: this.href,
+                data: { id: id1, cid: id2 },
+                cache: false,
+                success: function (data) {
+                    $("#selectedCrsInfo").html(data);
+                }
+            });
+        });
+    });*@
+</script>
+

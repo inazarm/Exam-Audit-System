@@ -1,0 +1,169 @@
+﻿@model IEnumerable<SZABIST_IR_App.Models.vueExamList_Checked_NotAssessed>
+@{
+    ViewBag.Title = "Assessment-Index";
+}
+<style>
+    .my-custom-scrollbar { position: relative; height: 500px; overflow: auto; }
+
+    .table-wrapper-scroll-y { display: block; }
+
+    thead tr:nth-child(1) th { position: sticky; top: 0; z-index: 10; }
+</style>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<div class="card-header">
+    <h5 class="text-danger">PENDING ASSESSMENTS</h5>
+</div>
+<div class="container">
+    <div class="row d-flex">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+            <div class="form-material">
+                <div class="card">
+                    <div class="card-body" style="padding-top:0px;">
+                        <div class="col-md-12 table-wrapper-scroll-y my-custom-scrollbar table-responsive">
+                            <table class="table table-bordered table-hover compact" id="clursterHeads">
+                                <thead class="thead-default">
+                                    <tr class="text-uppercase">
+                                        <th class="active">Action</th>
+                                        <th>Cluster Head</th>
+                                        <th>Year</th>
+                                        <th>Semester</th>
+                                        <th>Program</th>
+                                        <th>Department</th>
+                                        <th>Exam Type</th>
+                                        <th>Campus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Any())
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.ActionLink(" Select Courses", "AllocatedCourses", new { id = item.tAllocateID }, new { @class = "btn btn-outline-primary btn-sm ti-eye" })
+                                                </td>
+                                                <td>@item.ClusterHeadName</td>
+                                                <td>@item.Year</td>
+                                                @{
+                                                    if (item.Semster == "1")
+                                                    {
+                                                        <td>Spring</td>
+                                                    }
+                                                    else if (item.Semster == "2")
+                                                    {
+                                                        <td>Summer</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>Fall</td>
+                                                    }
+                                                }
+                                                <td>@item.Program_ShortDesc</td>
+                                                <td>@item.Faculty_ShortDesc</td>
+                                                @{
+                                                    if (item.ExamType == 1)
+                                                    {
+                                                        <td>Midterm</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>Final</td>
+                                                    }
+                                                }
+                                                <td>@item.Campus</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr class="alert alert-danger text-center">
+                                            <td colspan="8">Record not availble!</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 table-responsive table-wrapper-scroll-y my-custom-scrollbar" id="courseDetails">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    $("#clursterHeads").dataTable({
+        "entries": false,
+        "lengthChange": false,
+        "info": false,
+        "paging": false,
+        "order": [[2, 'desc']]
+
+    });
+
+    function onSuccess(result) {
+        if (result.error) {
+            $('#courseDetails').hide();
+            alert(result.error);
+        } else {
+            $('#courseDetails').show();
+            $('#courseDetails').html(result);
+        }
+    }
+    $(document).ready(function () {
+
+    })
+
+    //Show CourseOutLine function
+    function courseOutLine(Para_tAllocateDetailID) {
+        debugger
+        $.ajax({
+            url: '@Url.Action("CourseOutLine", "CourseDetails")',
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data:{
+            tAllocateDetailID: Para_tAllocateDetailID
+        },
+            //data: {
+            //    userID: uID,
+            //    iSemester_Id: sID,
+            //    iSemesterSection_Id: s_SecID,
+            //    Course_Id: cID
+            //},
+            success: function (result) {
+                var html = '';
+                var outComes = "";
+                $.each(result, function (key, item) {
+                    outComes=item.learningOutcomes;
+                    html += '<tr>';
+                    html += '<td class="bg-primary">' + item.Week + '</td>';
+                    html += '<td>' + item.lectureNo + '</td>';
+                    html += '<td>' + item.lectureDetails + '</td>';
+                    /*html += '<td><a href="#" onclick="return getbyID(' + item.EmployeeID + ')">Edit</a> | <a href="#" onclick="Delele(' + item.EmployeeID + ')">Delete</a></td>';*/
+                    html += '</tr>';
+                });
+                $("#learningOutcomes").val(outComes);
+                $('.tbodyOutLine').html(html);
+                console.log(outComes);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+</script>
+@*"ordering": false,
+    "info": false,
+    "scrollY": "300px",
+    "scrollCollapse": true,
+    "paging": false,
+    "order": [[3, 'asc']]*@
+

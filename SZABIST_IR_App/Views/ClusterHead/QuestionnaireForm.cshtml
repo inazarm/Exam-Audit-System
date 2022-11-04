@@ -1,0 +1,67 @@
+﻿@model IEnumerable<SZABIST_IR_App.Models.Questionnaire>
+
+<table class="table-bordered table-sm" width="100%">
+        <thead class="alert-dark">
+            <tr>
+                @{
+                    int i = 1;
+                }
+                @foreach (var g in ViewBag.Q_Grading)
+                {
+                    if (i == 1)
+                    {
+                        <th>SR.#</th>
+                        <th width="70px">Please select your desire response</th>
+                    }
+                    <th>@g.complianceLevel</th>
+                    i = i + 1;
+                }
+            </tr>
+        </thead>
+        <tbody id="qtbody">
+            @{
+                int StandardID = 0;
+                int QName = 0;
+                foreach (var item in Model)
+                {
+                    QName++;
+                    if (StandardID != item.Standards.tSID)
+                    {
+                        StandardID = item.Standards.tSID;
+                        <tr>
+                            <td colspan="7" style="background-color:#0047AB;color:white;">
+                                <span style="padding:0.4vh; float: left;">Standard @item.Standards.StandardNo :   @item.Standards.StandardDescription</span><span style="float:right;padding:0.4vh">Weightage @item.Standards.StandardPecentage</span>
+                            </td>
+                        </tr>
+                    }
+                    <tr style="word-wrap:normal">
+                        <td id="QSNo">@item.Questions.QSNo</td>
+                        <td style="white-space:pre-line;width:70%">@item.Questions.Question</td>
+                        <td style="display:none"><input type="hidden" id="Standard" name="StandardNo" value="@item.Standards.StandardNo" /></td>
+                        <td style="display:none"><input type="hidden" id="QId" name="QId" value="@item.Questions.tQID" /></td>
+                        @foreach (var g in ViewBag.Q_Grading)
+                        {
+                            <td>
+                                <a class="mytooltip" href="javascript:void(0)">
+                                    <input type="radio" name="opt_@QName" value="@g.GradePoint" required="required" /> @g.GradePoint
+                                    <span class="tooltip-content5" style="width:105px;margin:0 0 10px -60px">
+                                        <span class="tooltip-text3" style="font-size:2vh;">
+                                            <span class="tooltip-inner2" style="margin:0;padding:0;">
+                                                @g.GradeDescription
+                                            </span>
+                                        </span>
+                                    </span>
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+

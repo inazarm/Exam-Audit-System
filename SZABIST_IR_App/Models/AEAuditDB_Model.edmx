@@ -1,0 +1,1298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AEAuditDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAllocateCourses">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+          </Key>
+          <Property Name="tAllocateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tCluster_Head_Id" Type="int" />
+          <Property Name="tCampus_Id" Type="tinyint" />
+          <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+          <Property Name="ClusterHeadName" Type="varchar" MaxLength="100" />
+          <Property Name="Year" Type="varchar" MaxLength="10" />
+          <Property Name="Semster" Type="varchar" MaxLength="100" />
+          <Property Name="Program" Type="varchar" MaxLength="10" />
+          <Property Name="Program_ShortDesc" Type="varchar" MaxLength="20" />
+          <Property Name="Program_LongDesc" Type="varchar" MaxLength="100" />
+          <Property Name="tFaculty_Id" Type="tinyint" />
+          <Property Name="Faculty_ShortDesc" Type="varchar" MaxLength="20" />
+          <Property Name="Faculty_LongDesc" Type="varchar" MaxLength="100" />
+          <Property Name="ExamType" Type="tinyint" />
+          <Property Name="ExamTypeName" Type="varchar" MaxLength="100" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="20" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="20" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblAllocateCoursesDetails">
+          <Key>
+            <PropertyRef Name="tAllocateDetailID" />
+          </Key>
+          <Property Name="tAllocateDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tAllocateID" Type="int" />
+          <Property Name="Course_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="sCourse_Code" Type="varchar" MaxLength="15" />
+          <Property Name="sCourse_LongDesc" Type="varchar(max)" />
+          <Property Name="Instructor" Type="varchar(max)" />
+          <Property Name="userID" Type="varchar" MaxLength="20" />
+          <Property Name="Class" Type="varchar" MaxLength="50" />
+          <Property Name="iSemester_Id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="iSemesterSection_Id" Type="tinyint" />
+          <Property Name="tCampus_Id" Type="tinyint" />
+          <Property Name="tProgram_Id" Type="tinyint" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="isChecked" Type="bit" />
+          <Property Name="isCheckedByIR" Type="bit" />
+          <Property Name="isCopyAvailable" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblAssessmentResult">
+          <Key>
+            <PropertyRef Name="tAResultID" />
+          </Key>
+          <Property Name="tAResultID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tAllocateID" Type="int" />
+          <Property Name="tAllocateDetailID" Type="int" />
+          <Property Name="CourseID" Type="varchar" MaxLength="50" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="RemarksIR" Type="varchar(max)" />
+          <Property Name="CheckedBy" Type="varchar" MaxLength="20" />
+          <Property Name="CheckedDate" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblAssessmentResultDetail">
+          <Key>
+            <PropertyRef Name="tAResultDID" />
+          </Key>
+          <Property Name="tAResultDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tAResultID" Type="int" />
+          <Property Name="StandardID" Type="int" />
+          <Property Name="QuestionID" Type="int" />
+          <Property Name="GradePoint" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCampus">
+          <Key>
+            <PropertyRef Name="tCampus_Id" />
+          </Key>
+          <Property Name="tCampus_Id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sCampus_ShortDesc" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sCampus_LongDesc" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="tCity_Id" Type="tinyint" Nullable="false" />
+          <Property Name="sCreatedBy" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="sModifiedBy" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="xLastModifiedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ConrollerLtrGrd" Type="varchar" MaxLength="30" />
+          <Property Name="AssConrollerLtrGrd" Type="varchar" MaxLength="30" />
+          <Property Name="dbConnectionString" Type="varchar" MaxLength="50" />
+          <Property Name="zabDeskURL" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblClusterHead">
+          <Key>
+            <PropertyRef Name="tCluster_Head_Id" />
+          </Key>
+          <Property Name="tCluster_Head_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tCluster_ID" Type="int" />
+          <Property Name="tMemberID" Type="int" />
+          <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+          <Property Name="ClusterHeadName" Type="varchar(max)" />
+          <Property Name="WEF_From" Type="datetime" />
+          <Property Name="WEF_To" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="CampusID" Type="tinyint" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblClusterInfo">
+          <Key>
+            <PropertyRef Name="tCluster_ID" />
+          </Key>
+          <Property Name="tCluster_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClusterTitle" Type="varchar" MaxLength="100" />
+          <Property Name="ClusterDescription" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblClusterMember">
+          <Key>
+            <PropertyRef Name="tMemberID" />
+          </Key>
+          <Property Name="tMemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tCluster_ID" Type="int" />
+          <Property Name="ClusterMemberID" Type="varchar" MaxLength="20" />
+          <Property Name="ClusterMemberName" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblQuestionGrading">
+          <Key>
+            <PropertyRef Name="tGID" />
+          </Key>
+          <Property Name="tGID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GradeDescription" Type="varchar(max)" />
+          <Property Name="complianceLevel" Type="int" />
+          <Property Name="GradePoint" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblQuestionnaire">
+          <Key>
+            <PropertyRef Name="tQID" />
+          </Key>
+          <Property Name="tQID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QSNo" Type="int" />
+          <Property Name="Question" Type="varchar(max)" />
+          <Property Name="tSID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblQuestionStandard">
+          <Key>
+            <PropertyRef Name="tSID" />
+          </Key>
+          <Property Name="tSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StandardNo" Type="int" />
+          <Property Name="StandardDescription" Type="varchar(max)" />
+          <Property Name="StandardPecentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DepartID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="DepartID" Type="int" />
+          <Property Name="CampusID" Type="tinyint" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.v_cHeads_clusterInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_cHeads_clusterInfo">
+          <Key>
+            <PropertyRef Name="tCluster_Head_Id" />
+          </Key>
+          <Property Name="tCluster_Head_Id" Type="tinyint" Nullable="false" />
+          <Property Name="tCluster_ID" Type="tinyint" />
+          <Property Name="tMemberID" Type="tinyint" />
+          <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+          <Property Name="ClusterHeadName" Type="varchar(max)" />
+          <Property Name="WEF_From" Type="datetime" />
+          <Property Name="WEF_To" Type="datetime" />
+          <Property Name="CampusID" Type="tinyint" />
+          <Property Name="HeadStatus" Type="bit" />
+          <Property Name="ClusterTitle" Type="varchar" MaxLength="100" />
+          <Property Name="ClusterDescription" Type="varchar(max)" />
+          <Property Name="ClusterStatus" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.Vu_CampustoStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vu_CampustoStandard">
+          <Key>
+            <PropertyRef Name="campusname" />
+          </Key>
+          <Property Name="semster" Type="varchar" MaxLength="100" />
+          <Property Name="searchyear" Type="varchar" MaxLength="10" />
+          <Property Name="SCore1" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="campusname" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="StandardDescription" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.vue_clusterHead_clusterInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vue_clusterHead_clusterInfo">
+          <Key>
+            <PropertyRef Name="tCluster_Head_Id" />
+          </Key>
+          <Property Name="tCluster_Head_Id" Type="int" Nullable="false" />
+          <Property Name="tCluster_ID" Type="int" />
+          <Property Name="tMemberID" Type="int" />
+          <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+          <Property Name="ClusterHeadName" Type="varchar(max)" />
+          <Property Name="WEF_From" Type="datetime" />
+          <Property Name="WEF_To" Type="datetime" />
+          <Property Name="CampusID" Type="tinyint" />
+          <Property Name="HeadStatus" Type="bit" />
+          <Property Name="ClusterTitle" Type="varchar" MaxLength="100" />
+          <Property Name="ClusterDescription" Type="varchar(max)" />
+          <Property Name="ClusterStatus" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.vueAssignedCoursesList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vueAssignedCoursesList">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+          </Key>
+          <Property Name="tAllocateID" Type="int" Nullable="false" />
+          <Property Name="tCluster_Head_Id" Type="int" />
+          <Property Name="tCampus_Id" Type="tinyint" />
+          <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+          <Property Name="ClusterHeadName" Type="varchar" MaxLength="100" />
+          <Property Name="Year" Type="varchar" MaxLength="10" />
+          <Property Name="Semster" Type="varchar" MaxLength="100" />
+          <Property Name="Program" Type="varchar" MaxLength="10" />
+          <Property Name="Program_ShortDesc" Type="varchar" MaxLength="20" />
+          <Property Name="Program_LongDesc" Type="varchar" MaxLength="100" />
+          <Property Name="ExamTypeName" Type="varchar" MaxLength="100" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="isChecked" Type="bit" />
+          <Property Name="isCheckedByIR" Type="bit" />
+          <Property Name="tFaculty_Id" Type="tinyint" />
+          <Property Name="Faculty_ShortDesc" Type="varchar" MaxLength="20" />
+          <Property Name="ExamType" Type="tinyint" />
+          <Property Name="sCourse_Code" Type="varchar" MaxLength="15" />
+          <Property Name="sCourse_LongDesc" Type="varchar(max)" />
+          <Property Name="Instructor" Type="varchar(max)" />
+          <Property Name="userID" Type="varchar" MaxLength="20" />
+          <Property Name="Class" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vueExamList_Checked_NotAssessed">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+            <PropertyRef Name="Campus" />
+          </Key>
+          <Property Name="tAllocateID" Type="int" Nullable="false" />
+          <Property Name="tCluster_Head_Id" Type="int" />
+          <Property Name="tCampus_Id" Type="tinyint" />
+          <Property Name="ClusterHeadID" Type="varchar" MaxLength="20" />
+          <Property Name="ClusterHeadName" Type="varchar" MaxLength="100" />
+          <Property Name="Year" Type="varchar" MaxLength="10" />
+          <Property Name="Semster" Type="varchar" MaxLength="100" />
+          <Property Name="Program" Type="varchar" MaxLength="10" />
+          <Property Name="Program_ShortDesc" Type="varchar" MaxLength="20" />
+          <Property Name="Program_LongDesc" Type="varchar" MaxLength="100" />
+          <Property Name="ExamTypeName" Type="varchar" MaxLength="100" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="isChecked" Type="bit" />
+          <Property Name="isCheckedByIR" Type="bit" />
+          <Property Name="tFaculty_Id" Type="tinyint" />
+          <Property Name="Faculty_ShortDesc" Type="varchar" MaxLength="20" />
+          <Property Name="ExamType" Type="tinyint" />
+          <Property Name="isCopyAvailable" Type="bit" />
+          <Property Name="Campus" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblClusterHead_tblClusterInfo">
+          <End Role="tblClusterInfo" Type="Self.tblClusterInfo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblClusterHead" Type="Self.tblClusterHead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClusterInfo">
+              <PropertyRef Name="tCluster_ID" />
+            </Principal>
+            <Dependent Role="tblClusterHead">
+              <PropertyRef Name="tCluster_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuestionnaire_tblQuestionStandard">
+          <End Role="tblQuestionStandard" Type="Self.tblQuestionStandard" Multiplicity="0..1" />
+          <End Role="tblQuestionnaire" Type="Self.tblQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblQuestionStandard">
+              <PropertyRef Name="tSID" />
+            </Principal>
+            <Dependent Role="tblQuestionnaire">
+              <PropertyRef Name="tSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsers_tblRole">
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="tblUsers">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetPercentageDisdribution" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="semestertype" Type="int" Mode="In" />
+          <Parameter Name="semesteryear" Type="int" Mode="In" />
+          <Parameter Name="campus" Type="int" Mode="In" />
+          <Parameter Name="p_ExamType" Type="tinyint" Mode="In" />
+          <Parameter Name="programType" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetCourse_Instructor_ByYearSemsProg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="SemsterID" Type="int" Mode="In" />
+          <Parameter Name="ProgramID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetCourseByYearSemsProg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="SemsterID" Type="int" Mode="In" />
+          <Parameter Name="ProgramID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="uspAssignedCoursesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ClusterHeadID" Type="varchar" Mode="In" />
+          <Parameter Name="p_isChecked" Type="bit" Mode="In" />
+          <Parameter Name="p_isCheckedByIR" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="uspGet_Faculty_Wise_Questions_Assessment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_tFaculty_Id" Type="tinyint" Mode="In" />
+          <Parameter Name="p_ExamType" Type="tinyint" Mode="In" />
+          <Parameter Name="p_tCampus_Id" Type="tinyint" Mode="In" />
+          <Parameter Name="p_Year" Type="varchar" Mode="In" />
+          <Parameter Name="p_Semster" Type="numeric" Mode="In" />
+        </Function>
+        <EntityContainer Name="AEAuditDBModelStoreContainer">
+          <EntitySet Name="tblAllocateCourses" EntityType="Self.tblAllocateCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAllocateCoursesDetails" EntityType="Self.tblAllocateCoursesDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAssessmentResult" EntityType="Self.tblAssessmentResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAssessmentResultDetail" EntityType="Self.tblAssessmentResultDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCampus" EntityType="Self.tblCampus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClusterHead" EntityType="Self.tblClusterHead" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClusterInfo" EntityType="Self.tblClusterInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClusterMember" EntityType="Self.tblClusterMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuestionGrading" EntityType="Self.tblQuestionGrading" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuestionnaire" EntityType="Self.tblQuestionnaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblQuestionStandard" EntityType="Self.tblQuestionStandard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="v_cHeads_clusterInfo" EntityType="Self.v_cHeads_clusterInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_cHeads_clusterInfo].[tCluster_Head_Id] AS [tCluster_Head_Id], 
+    [v_cHeads_clusterInfo].[tCluster_ID] AS [tCluster_ID], 
+    [v_cHeads_clusterInfo].[tMemberID] AS [tMemberID], 
+    [v_cHeads_clusterInfo].[ClusterHeadID] AS [ClusterHeadID], 
+    [v_cHeads_clusterInfo].[ClusterHeadName] AS [ClusterHeadName], 
+    [v_cHeads_clusterInfo].[WEF_From] AS [WEF_From], 
+    [v_cHeads_clusterInfo].[WEF_To] AS [WEF_To], 
+    [v_cHeads_clusterInfo].[CampusID] AS [CampusID], 
+    [v_cHeads_clusterInfo].[HeadStatus] AS [HeadStatus], 
+    [v_cHeads_clusterInfo].[ClusterTitle] AS [ClusterTitle], 
+    [v_cHeads_clusterInfo].[ClusterDescription] AS [ClusterDescription], 
+    [v_cHeads_clusterInfo].[ClusterStatus] AS [ClusterStatus]
+    FROM [dbo].[v_cHeads_clusterInfo] AS [v_cHeads_clusterInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vu_CampustoStandard" EntityType="Self.Vu_CampustoStandard" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vu_CampustoStandard].[semster] AS [semster], 
+    [Vu_CampustoStandard].[searchyear] AS [searchyear], 
+    [Vu_CampustoStandard].[SCore1] AS [SCore1], 
+    [Vu_CampustoStandard].[campusname] AS [campusname], 
+    [Vu_CampustoStandard].[StandardDescription] AS [StandardDescription]
+    FROM [dbo].[Vu_CampustoStandard] AS [Vu_CampustoStandard]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vue_clusterHead_clusterInfo" EntityType="Self.vue_clusterHead_clusterInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vue_clusterHead_clusterInfo].[tCluster_Head_Id] AS [tCluster_Head_Id], 
+    [vue_clusterHead_clusterInfo].[tCluster_ID] AS [tCluster_ID], 
+    [vue_clusterHead_clusterInfo].[tMemberID] AS [tMemberID], 
+    [vue_clusterHead_clusterInfo].[ClusterHeadID] AS [ClusterHeadID], 
+    [vue_clusterHead_clusterInfo].[ClusterHeadName] AS [ClusterHeadName], 
+    [vue_clusterHead_clusterInfo].[WEF_From] AS [WEF_From], 
+    [vue_clusterHead_clusterInfo].[WEF_To] AS [WEF_To], 
+    [vue_clusterHead_clusterInfo].[CampusID] AS [CampusID], 
+    [vue_clusterHead_clusterInfo].[HeadStatus] AS [HeadStatus], 
+    [vue_clusterHead_clusterInfo].[ClusterTitle] AS [ClusterTitle], 
+    [vue_clusterHead_clusterInfo].[ClusterDescription] AS [ClusterDescription], 
+    [vue_clusterHead_clusterInfo].[ClusterStatus] AS [ClusterStatus]
+    FROM [dbo].[vue_clusterHead_clusterInfo] AS [vue_clusterHead_clusterInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vueAssignedCoursesList" EntityType="Self.vueAssignedCoursesList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vueAssignedCoursesList].[tAllocateID] AS [tAllocateID], 
+    [vueAssignedCoursesList].[tCluster_Head_Id] AS [tCluster_Head_Id], 
+    [vueAssignedCoursesList].[tCampus_Id] AS [tCampus_Id], 
+    [vueAssignedCoursesList].[ClusterHeadID] AS [ClusterHeadID], 
+    [vueAssignedCoursesList].[ClusterHeadName] AS [ClusterHeadName], 
+    [vueAssignedCoursesList].[Year] AS [Year], 
+    [vueAssignedCoursesList].[Semster] AS [Semster], 
+    [vueAssignedCoursesList].[Program] AS [Program], 
+    [vueAssignedCoursesList].[Program_ShortDesc] AS [Program_ShortDesc], 
+    [vueAssignedCoursesList].[Program_LongDesc] AS [Program_LongDesc], 
+    [vueAssignedCoursesList].[ExamTypeName] AS [ExamTypeName], 
+    [vueAssignedCoursesList].[Status] AS [Status], 
+    [vueAssignedCoursesList].[isChecked] AS [isChecked], 
+    [vueAssignedCoursesList].[isCheckedByIR] AS [isCheckedByIR], 
+    [vueAssignedCoursesList].[tFaculty_Id] AS [tFaculty_Id], 
+    [vueAssignedCoursesList].[Faculty_ShortDesc] AS [Faculty_ShortDesc], 
+    [vueAssignedCoursesList].[ExamType] AS [ExamType], 
+    [vueAssignedCoursesList].[sCourse_Code] AS [sCourse_Code], 
+    [vueAssignedCoursesList].[sCourse_LongDesc] AS [sCourse_LongDesc], 
+    [vueAssignedCoursesList].[Instructor] AS [Instructor], 
+    [vueAssignedCoursesList].[userID] AS [userID], 
+    [vueAssignedCoursesList].[Class] AS [Class]
+    FROM [dbo].[vueAssignedCoursesList] AS [vueAssignedCoursesList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vueExamList_Checked_NotAssessed" EntityType="Self.vueExamList_Checked_NotAssessed" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vueExamList_Checked_NotAssessed].[tAllocateID] AS [tAllocateID], 
+    [vueExamList_Checked_NotAssessed].[tCluster_Head_Id] AS [tCluster_Head_Id], 
+    [vueExamList_Checked_NotAssessed].[tCampus_Id] AS [tCampus_Id], 
+    [vueExamList_Checked_NotAssessed].[ClusterHeadID] AS [ClusterHeadID], 
+    [vueExamList_Checked_NotAssessed].[ClusterHeadName] AS [ClusterHeadName], 
+    [vueExamList_Checked_NotAssessed].[Year] AS [Year], 
+    [vueExamList_Checked_NotAssessed].[Semster] AS [Semster], 
+    [vueExamList_Checked_NotAssessed].[Program] AS [Program], 
+    [vueExamList_Checked_NotAssessed].[Program_ShortDesc] AS [Program_ShortDesc], 
+    [vueExamList_Checked_NotAssessed].[Program_LongDesc] AS [Program_LongDesc], 
+    [vueExamList_Checked_NotAssessed].[ExamTypeName] AS [ExamTypeName], 
+    [vueExamList_Checked_NotAssessed].[Status] AS [Status], 
+    [vueExamList_Checked_NotAssessed].[isChecked] AS [isChecked], 
+    [vueExamList_Checked_NotAssessed].[isCheckedByIR] AS [isCheckedByIR], 
+    [vueExamList_Checked_NotAssessed].[tFaculty_Id] AS [tFaculty_Id], 
+    [vueExamList_Checked_NotAssessed].[Faculty_ShortDesc] AS [Faculty_ShortDesc], 
+    [vueExamList_Checked_NotAssessed].[ExamType] AS [ExamType], 
+    [vueExamList_Checked_NotAssessed].[isCopyAvailable] AS [isCopyAvailable], 
+    [vueExamList_Checked_NotAssessed].[Campus] AS [Campus]
+    FROM [dbo].[vueExamList_Checked_NotAssessed] AS [vueExamList_Checked_NotAssessed]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblClusterHead_tblClusterInfo" Association="Self.FK_tblClusterHead_tblClusterInfo">
+            <End Role="tblClusterInfo" EntitySet="tblClusterInfo" />
+            <End Role="tblClusterHead" EntitySet="tblClusterHead" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuestionnaire_tblQuestionStandard" Association="Self.FK_tblQuestionnaire_tblQuestionStandard">
+            <End Role="tblQuestionStandard" EntitySet="tblQuestionStandard" />
+            <End Role="tblQuestionnaire" EntitySet="tblQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblRole" Association="Self.FK_tblUsers_tblRole">
+            <End Role="tblRole" EntitySet="tblRole" />
+            <End Role="tblUsers" EntitySet="tblUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AEAuditDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblAllocateCours">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+          </Key>
+          <Property Name="tAllocateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tCluster_Head_Id" Type="Int32" />
+          <Property Name="tCampus_Id" Type="Byte" />
+          <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tFaculty_Id" Type="Byte" />
+          <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Faculty_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExamType" Type="Byte" />
+          <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblAllocateCoursesDetail">
+          <Key>
+            <PropertyRef Name="tAllocateDetailID" />
+          </Key>
+          <Property Name="tAllocateDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tAllocateID" Type="Int32" />
+          <Property Name="Course_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="sCourse_Code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="sCourse_LongDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Instructor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="userID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="iSemester_Id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="iSemesterSection_Id" Type="Byte" />
+          <Property Name="tCampus_Id" Type="Byte" />
+          <Property Name="tProgram_Id" Type="Byte" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="isChecked" Type="Boolean" />
+          <Property Name="isCheckedByIR" Type="Boolean" />
+          <Property Name="isCopyAvailable" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblAssessmentResult">
+          <Key>
+            <PropertyRef Name="tAResultID" />
+          </Key>
+          <Property Name="tAResultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tAllocateID" Type="Int32" />
+          <Property Name="tAllocateDetailID" Type="Int32" />
+          <Property Name="CourseID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RemarksIR" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CheckedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CheckedDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblAssessmentResultDetail">
+          <Key>
+            <PropertyRef Name="tAResultDID" />
+          </Key>
+          <Property Name="tAResultDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tAResultID" Type="Int32" />
+          <Property Name="StandardID" Type="Int32" />
+          <Property Name="QuestionID" Type="Int32" />
+          <Property Name="GradePoint" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblCampu">
+          <Key>
+            <PropertyRef Name="tCampus_Id" />
+          </Key>
+          <Property Name="tCampus_Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sCampus_ShortDesc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sCampus_LongDesc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tCity_Id" Type="Byte" Nullable="false" />
+          <Property Name="sCreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="xLastModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ConrollerLtrGrd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AssConrollerLtrGrd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="dbConnectionString" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="zabDeskURL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblClusterHead">
+          <Key>
+            <PropertyRef Name="tCluster_Head_Id" />
+          </Key>
+          <Property Name="tCluster_Head_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tCluster_ID" Type="Int32" />
+          <Property Name="tMemberID" Type="Int32" />
+          <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterHeadName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WEF_From" Type="DateTime" Precision="3" />
+          <Property Name="WEF_To" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CampusID" Type="Byte" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="tblClusterInfo" Relationship="Self.FK_tblClusterHead_tblClusterInfo" FromRole="tblClusterHead" ToRole="tblClusterInfo" />
+        </EntityType>
+        <EntityType Name="tblClusterInfo">
+          <Key>
+            <PropertyRef Name="tCluster_ID" />
+          </Key>
+          <Property Name="tCluster_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClusterTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="tblClusterHeads" Relationship="Self.FK_tblClusterHead_tblClusterInfo" FromRole="tblClusterInfo" ToRole="tblClusterHead" />
+        </EntityType>
+        <EntityType Name="tblClusterMember">
+          <Key>
+            <PropertyRef Name="tMemberID" />
+          </Key>
+          <Property Name="tMemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tCluster_ID" Type="Int32" />
+          <Property Name="ClusterMemberID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterMemberName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblQuestionGrading">
+          <Key>
+            <PropertyRef Name="tGID" />
+          </Key>
+          <Property Name="tGID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GradeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="complianceLevel" Type="Int32" />
+          <Property Name="GradePoint" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblQuestionnaire">
+          <Key>
+            <PropertyRef Name="tQID" />
+          </Key>
+          <Property Name="tQID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QSNo" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="tSID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblQuestionStandard" Relationship="Self.FK_tblQuestionnaire_tblQuestionStandard" FromRole="tblQuestionnaire" ToRole="tblQuestionStandard" />
+        </EntityType>
+        <EntityType Name="tblQuestionStandard">
+          <Key>
+            <PropertyRef Name="tSID" />
+          </Key>
+          <Property Name="tSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StandardNo" Type="Int32" />
+          <Property Name="StandardDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StandardPecentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DepartID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblQuestionnaires" Relationship="Self.FK_tblQuestionnaire_tblQuestionStandard" FromRole="tblQuestionStandard" ToRole="tblQuestionnaire" />
+        </EntityType>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUsers_tblRole" FromRole="tblRole" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="DepartID" Type="Int32" />
+          <Property Name="CampusID" Type="Byte" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUsers_tblRole" FromRole="tblUsers" ToRole="tblRole" />
+        </EntityType>
+        <EntityType Name="v_cHeads_clusterInfo">
+          <Key>
+            <PropertyRef Name="tCluster_Head_Id" />
+          </Key>
+          <Property Name="tCluster_Head_Id" Type="Byte" Nullable="false" />
+          <Property Name="tCluster_ID" Type="Byte" />
+          <Property Name="tMemberID" Type="Byte" />
+          <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterHeadName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WEF_From" Type="DateTime" Precision="3" />
+          <Property Name="WEF_To" Type="DateTime" Precision="3" />
+          <Property Name="CampusID" Type="Byte" />
+          <Property Name="HeadStatus" Type="Boolean" />
+          <Property Name="ClusterTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterStatus" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Vu_CampustoStandard">
+          <Key>
+            <PropertyRef Name="campusname" />
+          </Key>
+          <Property Name="semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="searchyear" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SCore1" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="campusname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StandardDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vue_clusterHead_clusterInfo">
+          <Key>
+            <PropertyRef Name="tCluster_Head_Id" />
+          </Key>
+          <Property Name="tCluster_Head_Id" Type="Int32" Nullable="false" />
+          <Property Name="tCluster_ID" Type="Int32" />
+          <Property Name="tMemberID" Type="Int32" />
+          <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterHeadName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WEF_From" Type="DateTime" Precision="3" />
+          <Property Name="WEF_To" Type="DateTime" Precision="3" />
+          <Property Name="CampusID" Type="Byte" />
+          <Property Name="HeadStatus" Type="Boolean" />
+          <Property Name="ClusterTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterStatus" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="vueAssignedCoursesList">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+          </Key>
+          <Property Name="tAllocateID" Type="Int32" Nullable="false" />
+          <Property Name="tCluster_Head_Id" Type="Int32" />
+          <Property Name="tCampus_Id" Type="Byte" />
+          <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="isChecked" Type="Boolean" />
+          <Property Name="isCheckedByIR" Type="Boolean" />
+          <Property Name="tFaculty_Id" Type="Byte" />
+          <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ExamType" Type="Byte" />
+          <Property Name="sCourse_Code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="sCourse_LongDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Instructor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="userID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vueExamList_Checked_NotAssessed">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+            <PropertyRef Name="Campus" />
+          </Key>
+          <Property Name="tAllocateID" Type="Int32" Nullable="false" />
+          <Property Name="tCluster_Head_Id" Type="Int32" />
+          <Property Name="tCampus_Id" Type="Byte" />
+          <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="isChecked" Type="Boolean" />
+          <Property Name="isCheckedByIR" Type="Boolean" />
+          <Property Name="tFaculty_Id" Type="Byte" />
+          <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ExamType" Type="Byte" />
+          <Property Name="isCopyAvailable" Type="Boolean" />
+          <Property Name="Campus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tblClusterHead_tblClusterInfo">
+          <End Role="tblClusterInfo" Type="Self.tblClusterInfo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblClusterHead" Type="Self.tblClusterHead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClusterInfo">
+              <PropertyRef Name="tCluster_ID" />
+            </Principal>
+            <Dependent Role="tblClusterHead">
+              <PropertyRef Name="tCluster_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblQuestionnaire_tblQuestionStandard">
+          <End Role="tblQuestionStandard" Type="Self.tblQuestionStandard" Multiplicity="0..1" />
+          <End Role="tblQuestionnaire" Type="Self.tblQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblQuestionStandard">
+              <PropertyRef Name="tSID" />
+            </Principal>
+            <Dependent Role="tblQuestionnaire">
+              <PropertyRef Name="tSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsers_tblRole">
+          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="tblUsers">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AEAuditDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAllocateCourses" EntityType="Self.tblAllocateCours" />
+          <EntitySet Name="tblAllocateCoursesDetails" EntityType="Self.tblAllocateCoursesDetail" />
+          <EntitySet Name="tblAssessmentResults" EntityType="Self.tblAssessmentResult" />
+          <EntitySet Name="tblAssessmentResultDetails" EntityType="Self.tblAssessmentResultDetail" />
+          <EntitySet Name="tblCampus" EntityType="Self.tblCampu" />
+          <EntitySet Name="tblClusterHeads" EntityType="Self.tblClusterHead" />
+          <EntitySet Name="tblClusterInfoes" EntityType="Self.tblClusterInfo" />
+          <EntitySet Name="tblClusterMembers" EntityType="Self.tblClusterMember" />
+          <EntitySet Name="tblQuestionGradings" EntityType="Self.tblQuestionGrading" />
+          <EntitySet Name="tblQuestionnaires" EntityType="Self.tblQuestionnaire" />
+          <EntitySet Name="tblQuestionStandards" EntityType="Self.tblQuestionStandard" />
+          <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <EntitySet Name="v_cHeads_clusterInfo" EntityType="Self.v_cHeads_clusterInfo" />
+          <EntitySet Name="Vu_CampustoStandard" EntityType="Self.Vu_CampustoStandard" />
+          <EntitySet Name="vue_clusterHead_clusterInfo" EntityType="Self.vue_clusterHead_clusterInfo" />
+          <EntitySet Name="vueAssignedCoursesLists" EntityType="Self.vueAssignedCoursesList" />
+          <EntitySet Name="vueExamList_Checked_NotAssessed" EntityType="Self.vueExamList_Checked_NotAssessed" />
+          <AssociationSet Name="FK_tblClusterHead_tblClusterInfo" Association="Self.FK_tblClusterHead_tblClusterInfo">
+            <End Role="tblClusterInfo" EntitySet="tblClusterInfoes" />
+            <End Role="tblClusterHead" EntitySet="tblClusterHeads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblQuestionnaire_tblQuestionStandard" Association="Self.FK_tblQuestionnaire_tblQuestionStandard">
+            <End Role="tblQuestionStandard" EntitySet="tblQuestionStandards" />
+            <End Role="tblQuestionnaire" EntitySet="tblQuestionnaires" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblRole" Association="Self.FK_tblUsers_tblRole">
+            <End Role="tblRole" EntitySet="tblRoles" />
+            <End Role="tblUsers" EntitySet="tblUsers" />
+          </AssociationSet>
+          <FunctionImport Name="GetPercentageDisdribution" ReturnType="Collection(AEAuditDBModel.GetPercentageDisdribution_Result)">
+            <Parameter Name="semestertype" Mode="In" Type="Int32" />
+            <Parameter Name="semesteryear" Mode="In" Type="Int32" />
+            <Parameter Name="campus" Mode="In" Type="Int32" />
+            <Parameter Name="p_ExamType" Mode="In" Type="Byte" />
+            <Parameter Name="programType" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetCourse_Instructor_ByYearSemsProg">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="SemsterID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetCourseByYearSemsProg">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="SemsterID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspAssignedCoursesList" ReturnType="Collection(AEAuditDBModel.uspAssignedCoursesList_Result)">
+            <Parameter Name="p_ClusterHeadID" Mode="In" Type="String" />
+            <Parameter Name="p_isChecked" Mode="In" Type="Boolean" />
+            <Parameter Name="p_isCheckedByIR" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="uspGet_Faculty_Wise_Questions_Assessment" ReturnType="Collection(AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result)">
+            <Parameter Name="p_tFaculty_Id" Mode="In" Type="Byte" />
+            <Parameter Name="p_ExamType" Mode="In" Type="Byte" />
+            <Parameter Name="p_tCampus_Id" Mode="In" Type="Byte" />
+            <Parameter Name="p_Year" Mode="In" Type="String" />
+            <Parameter Name="p_Semster" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetPercentageDisdribution_Result">
+          <Property Type="String" Name="perc_range" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="tot_assessment" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="uspAssignedCoursesList_Result">
+          <Property Type="Int32" Name="tAllocateID" Nullable="false" />
+          <Property Type="Int32" Name="tCluster_Head_Id" Nullable="true" />
+          <Property Type="Byte" Name="tCampus_Id" Nullable="true" />
+          <Property Type="String" Name="ClusterHeadID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ClusterHeadName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Year" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Semster" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Program" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Program_ShortDesc" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Program_LongDesc" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ExamTypeName" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="Boolean" Name="isChecked" Nullable="true" />
+          <Property Type="Boolean" Name="isCheckedByIR" Nullable="true" />
+          <Property Type="Byte" Name="tFaculty_Id" Nullable="true" />
+          <Property Type="String" Name="Faculty_ShortDesc" Nullable="true" MaxLength="20" />
+          <Property Type="Byte" Name="ExamType" Nullable="true" />
+          <Property Type="String" Name="sCourse_Code" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="sCourse_LongDesc" Nullable="true" />
+          <Property Type="String" Name="Instructor" Nullable="true" />
+          <Property Type="String" Name="userID" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="tAllocateDetailID" Nullable="false" />
+          <Property Type="String" Name="Class" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="uspGet_Faculty_Wise_Questions_Assessment_Result">
+          <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="QuestionID" Nullable="true" />
+          <Property Type="Int32" Name="Avg_GP" Nullable="true" />
+          <Property Type="Int32" Name="GP_Percent" Nullable="true" />
+          <Property Type="String" Name="Question" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AEAuditDBModelStoreContainer" CdmEntityContainer="AEAuditDBEntities">
+          <EntitySetMapping Name="tblAllocateCourses">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblAllocateCours">
+              <MappingFragment StoreEntitySet="tblAllocateCourses">
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Semster" ColumnName="Semster" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+                <ScalarProperty Name="Program_LongDesc" ColumnName="Program_LongDesc" />
+                <ScalarProperty Name="tFaculty_Id" ColumnName="tFaculty_Id" />
+                <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+                <ScalarProperty Name="Faculty_LongDesc" ColumnName="Faculty_LongDesc" />
+                <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAllocateCoursesDetails">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblAllocateCoursesDetail">
+              <MappingFragment StoreEntitySet="tblAllocateCoursesDetails">
+                <ScalarProperty Name="tAllocateDetailID" ColumnName="tAllocateDetailID" />
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+                <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
+                <ScalarProperty Name="sCourse_Code" ColumnName="sCourse_Code" />
+                <ScalarProperty Name="sCourse_LongDesc" ColumnName="sCourse_LongDesc" />
+                <ScalarProperty Name="Instructor" ColumnName="Instructor" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="iSemester_Id" ColumnName="iSemester_Id" />
+                <ScalarProperty Name="iSemesterSection_Id" ColumnName="iSemesterSection_Id" />
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="tProgram_Id" ColumnName="tProgram_Id" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="isChecked" ColumnName="isChecked" />
+                <ScalarProperty Name="isCheckedByIR" ColumnName="isCheckedByIR" />
+                <ScalarProperty Name="isCopyAvailable" ColumnName="isCopyAvailable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAssessmentResults">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblAssessmentResult">
+              <MappingFragment StoreEntitySet="tblAssessmentResult">
+                <ScalarProperty Name="tAResultID" ColumnName="tAResultID" />
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+                <ScalarProperty Name="tAllocateDetailID" ColumnName="tAllocateDetailID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="RemarksIR" ColumnName="RemarksIR" />
+                <ScalarProperty Name="CheckedBy" ColumnName="CheckedBy" />
+                <ScalarProperty Name="CheckedDate" ColumnName="CheckedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAssessmentResultDetails">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblAssessmentResultDetail">
+              <MappingFragment StoreEntitySet="tblAssessmentResultDetail">
+                <ScalarProperty Name="tAResultDID" ColumnName="tAResultDID" />
+                <ScalarProperty Name="tAResultID" ColumnName="tAResultID" />
+                <ScalarProperty Name="StandardID" ColumnName="StandardID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="GradePoint" ColumnName="GradePoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCampus">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblCampu">
+              <MappingFragment StoreEntitySet="tblCampus">
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="sCampus_ShortDesc" ColumnName="sCampus_ShortDesc" />
+                <ScalarProperty Name="sCampus_LongDesc" ColumnName="sCampus_LongDesc" />
+                <ScalarProperty Name="tCity_Id" ColumnName="tCity_Id" />
+                <ScalarProperty Name="sCreatedBy" ColumnName="sCreatedBy" />
+                <ScalarProperty Name="sModifiedBy" ColumnName="sModifiedBy" />
+                <ScalarProperty Name="xLastModifiedDate" ColumnName="xLastModifiedDate" />
+                <ScalarProperty Name="ConrollerLtrGrd" ColumnName="ConrollerLtrGrd" />
+                <ScalarProperty Name="AssConrollerLtrGrd" ColumnName="AssConrollerLtrGrd" />
+                <ScalarProperty Name="dbConnectionString" ColumnName="dbConnectionString" />
+                <ScalarProperty Name="zabDeskURL" ColumnName="zabDeskURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClusterHeads">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblClusterHead">
+              <MappingFragment StoreEntitySet="tblClusterHead">
+                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+                <ScalarProperty Name="tCluster_ID" ColumnName="tCluster_ID" />
+                <ScalarProperty Name="tMemberID" ColumnName="tMemberID" />
+                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="WEF_From" ColumnName="WEF_From" />
+                <ScalarProperty Name="WEF_To" ColumnName="WEF_To" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClusterInfoes">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblClusterInfo">
+              <MappingFragment StoreEntitySet="tblClusterInfo">
+                <ScalarProperty Name="tCluster_ID" ColumnName="tCluster_ID" />
+                <ScalarProperty Name="ClusterTitle" ColumnName="ClusterTitle" />
+                <ScalarProperty Name="ClusterDescription" ColumnName="ClusterDescription" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClusterMembers">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblClusterMember">
+              <MappingFragment StoreEntitySet="tblClusterMember">
+                <ScalarProperty Name="tMemberID" ColumnName="tMemberID" />
+                <ScalarProperty Name="tCluster_ID" ColumnName="tCluster_ID" />
+                <ScalarProperty Name="ClusterMemberID" ColumnName="ClusterMemberID" />
+                <ScalarProperty Name="ClusterMemberName" ColumnName="ClusterMemberName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQuestionGradings">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblQuestionGrading">
+              <MappingFragment StoreEntitySet="tblQuestionGrading">
+                <ScalarProperty Name="tGID" ColumnName="tGID" />
+                <ScalarProperty Name="GradeDescription" ColumnName="GradeDescription" />
+                <ScalarProperty Name="complianceLevel" ColumnName="complianceLevel" />
+                <ScalarProperty Name="GradePoint" ColumnName="GradePoint" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQuestionnaires">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblQuestionnaire">
+              <MappingFragment StoreEntitySet="tblQuestionnaire">
+                <ScalarProperty Name="tQID" ColumnName="tQID" />
+                <ScalarProperty Name="QSNo" ColumnName="QSNo" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="tSID" ColumnName="tSID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQuestionStandards">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblQuestionStandard">
+              <MappingFragment StoreEntitySet="tblQuestionStandard">
+                <ScalarProperty Name="tSID" ColumnName="tSID" />
+                <ScalarProperty Name="StandardNo" ColumnName="StandardNo" />
+                <ScalarProperty Name="StandardDescription" ColumnName="StandardDescription" />
+                <ScalarProperty Name="StandardPecentage" ColumnName="StandardPecentage" />
+                <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoles">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblRole">
+              <MappingFragment StoreEntitySet="tblRole">
+                <ScalarProperty Name="RID" ColumnName="RID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="AEAuditDBModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+                <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_cHeads_clusterInfo">
+            <EntityTypeMapping TypeName="AEAuditDBModel.v_cHeads_clusterInfo">
+              <MappingFragment StoreEntitySet="v_cHeads_clusterInfo">
+                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+                <ScalarProperty Name="tCluster_ID" ColumnName="tCluster_ID" />
+                <ScalarProperty Name="tMemberID" ColumnName="tMemberID" />
+                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="WEF_From" ColumnName="WEF_From" />
+                <ScalarProperty Name="WEF_To" ColumnName="WEF_To" />
+                <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+                <ScalarProperty Name="HeadStatus" ColumnName="HeadStatus" />
+                <ScalarProperty Name="ClusterTitle" ColumnName="ClusterTitle" />
+                <ScalarProperty Name="ClusterDescription" ColumnName="ClusterDescription" />
+                <ScalarProperty Name="ClusterStatus" ColumnName="ClusterStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vu_CampustoStandard">
+            <EntityTypeMapping TypeName="AEAuditDBModel.Vu_CampustoStandard">
+              <MappingFragment StoreEntitySet="Vu_CampustoStandard">
+                <ScalarProperty Name="semster" ColumnName="semster" />
+                <ScalarProperty Name="searchyear" ColumnName="searchyear" />
+                <ScalarProperty Name="SCore1" ColumnName="SCore1" />
+                <ScalarProperty Name="campusname" ColumnName="campusname" />
+                <ScalarProperty Name="StandardDescription" ColumnName="StandardDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vue_clusterHead_clusterInfo">
+            <EntityTypeMapping TypeName="AEAuditDBModel.vue_clusterHead_clusterInfo">
+              <MappingFragment StoreEntitySet="vue_clusterHead_clusterInfo">
+                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+                <ScalarProperty Name="tCluster_ID" ColumnName="tCluster_ID" />
+                <ScalarProperty Name="tMemberID" ColumnName="tMemberID" />
+                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="WEF_From" ColumnName="WEF_From" />
+                <ScalarProperty Name="WEF_To" ColumnName="WEF_To" />
+                <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+                <ScalarProperty Name="HeadStatus" ColumnName="HeadStatus" />
+                <ScalarProperty Name="ClusterTitle" ColumnName="ClusterTitle" />
+                <ScalarProperty Name="ClusterDescription" ColumnName="ClusterDescription" />
+                <ScalarProperty Name="ClusterStatus" ColumnName="ClusterStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vueAssignedCoursesLists">
+            <EntityTypeMapping TypeName="AEAuditDBModel.vueAssignedCoursesList">
+              <MappingFragment StoreEntitySet="vueAssignedCoursesList">
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Semster" ColumnName="Semster" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+                <ScalarProperty Name="Program_LongDesc" ColumnName="Program_LongDesc" />
+                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="isChecked" ColumnName="isChecked" />
+                <ScalarProperty Name="isCheckedByIR" ColumnName="isCheckedByIR" />
+                <ScalarProperty Name="tFaculty_Id" ColumnName="tFaculty_Id" />
+                <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+                <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+                <ScalarProperty Name="sCourse_Code" ColumnName="sCourse_Code" />
+                <ScalarProperty Name="sCourse_LongDesc" ColumnName="sCourse_LongDesc" />
+                <ScalarProperty Name="Instructor" ColumnName="Instructor" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vueExamList_Checked_NotAssessed">
+            <EntityTypeMapping TypeName="AEAuditDBModel.vueExamList_Checked_NotAssessed">
+              <MappingFragment StoreEntitySet="vueExamList_Checked_NotAssessed">
+                <ScalarProperty Name="Campus" ColumnName="Campus" />
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Semster" ColumnName="Semster" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+                <ScalarProperty Name="Program_LongDesc" ColumnName="Program_LongDesc" />
+                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="isChecked" ColumnName="isChecked" />
+                <ScalarProperty Name="isCheckedByIR" ColumnName="isCheckedByIR" />
+                <ScalarProperty Name="tFaculty_Id" ColumnName="tFaculty_Id" />
+                <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+                <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+                <ScalarProperty Name="isCopyAvailable" ColumnName="isCopyAvailable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPercentageDisdribution" FunctionName="AEAuditDBModel.Store.GetPercentageDisdribution">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AEAuditDBModel.GetPercentageDisdribution_Result">
+                <ScalarProperty Name="perc_range" ColumnName="perc_range" />
+                <ScalarProperty Name="tot_assessment" ColumnName="tot_assessment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetCourse_Instructor_ByYearSemsProg" FunctionName="AEAuditDBModel.Store.sp_GetCourse_Instructor_ByYearSemsProg" />
+          <FunctionImportMapping FunctionImportName="sp_GetCourseByYearSemsProg" FunctionName="AEAuditDBModel.Store.sp_GetCourseByYearSemsProg" />
+          <FunctionImportMapping FunctionImportName="uspAssignedCoursesList" FunctionName="AEAuditDBModel.Store.uspAssignedCoursesList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AEAuditDBModel.uspAssignedCoursesList_Result">
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Semster" ColumnName="Semster" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+                <ScalarProperty Name="Program_LongDesc" ColumnName="Program_LongDesc" />
+                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="isChecked" ColumnName="isChecked" />
+                <ScalarProperty Name="isCheckedByIR" ColumnName="isCheckedByIR" />
+                <ScalarProperty Name="tFaculty_Id" ColumnName="tFaculty_Id" />
+                <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+                <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+                <ScalarProperty Name="sCourse_Code" ColumnName="sCourse_Code" />
+                <ScalarProperty Name="sCourse_LongDesc" ColumnName="sCourse_LongDesc" />
+                <ScalarProperty Name="Instructor" ColumnName="Instructor" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="tAllocateDetailID" ColumnName="tAllocateDetailID" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspGet_Faculty_Wise_Questions_Assessment" FunctionName="AEAuditDBModel.Store.uspGet_Faculty_Wise_Questions_Assessment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result">
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Avg_GP" ColumnName="Avg_GP" />
+                <ScalarProperty Name="GP_Percent" ColumnName="GP_Percent" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

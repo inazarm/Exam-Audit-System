@@ -1,0 +1,145 @@
+﻿@model SZABIST_IR_App.Models.CreateClusterHead
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="card-header">
+    <h5>EDIT CLUSTER HEAD INFORMATION - <i class="label bg-primary">EDIT ONLY</i></h5>
+</div>
+<a href='@Url.Action("Index")' class="btn btn-outline-dark btn-sm"><i class="ti-arrow-left"></i><b>BACK TO LIST</b></a>
+<div class="row col-md-12 justify-content-center">
+    @if (ViewBag.msg != null)
+    {
+        <div class="alert alert-danger" id="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+            <strong>STOP! </strong> @ViewBag.msg
+        </div>
+    }
+</div>
+<div class="container">
+    <div class="main-body">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+                <div class="card justify-content-center">
+
+                    <div class="card-body ">
+                        @using (Html.BeginForm("Edit", "ClusterMembers", FormMethod.Post, new { @class = "form-material" }))
+                        {
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.tCluster_Head_Id)
+                            @Html.HiddenFor(model => model.tCluster_ID)
+                            @Html.HiddenFor(model=>model.tMemberID)
+                            @Html.HiddenFor(model=>model.CampusID)
+                            <div class="row col-md-12">
+                                <div class="col-md-4">
+                                    <div class="form-group form-default form-static-label">
+                                        @*@if (ViewBag.clustersTitle != null)
+                                            {
+                                                @Html.DropDownListFor(a => a.tCluster_ID, (IEnumerable<SelectListItem>)ViewBag.clustersTitle, "-- Select Cluster Title --", new { @class = "form-control form-control-sm", @required = "required" })
+                                            }*@
+                                        @Html.EditorFor(model => model.ClusterTitle, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "True" } })
+                                        @Html.ValidationMessageFor(model => model.ClusterTitle, "", new { @class = "text-danger" })
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Cluster Title</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group form-default form-static-label">
+                                        @if (ViewBag.clusterHead != null)
+                                        {
+                                            @Html.DropDownListFor(a => a.ClusterHeadID, (IEnumerable<SelectListItem>)ViewBag.clusterHead, "-- Select Cluster Head --", new { @class = "form-control form-control-sm", @required = "required" })
+                                            @Html.HiddenFor(b => b.ClusterHeadName);
+                                        }
+                                        @Html.ValidationMessageFor(model => model.ClusterHeadID, "", new { @class = "text-danger" })
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Cluster Head</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-default form-static-label">
+                                        @*@Html.EditorFor(model => model.WEF_From, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = "Required", @type = "Date" } })*@
+                                        @Html.TextBox("WEF_From", Model.WEF_From.Value, "{0:yyyy-MM-dd}", new { @class = "form-control form-control-sm",type = "date" })
+                                        @*@Html.HiddenFor(m => m.WEF_From, new { @id = "hDate" })*@
+                                        @Html.ValidationMessageFor(model => model.WEF_From, "", new { @class = "text-danger" })
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Select WEF-Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-md-12">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" id="btnSave" class="btn btn-primary btn-outline-primary btn-sm"><i class="ti-check"></i> <b> CONFIRM TO UPDATE</b></button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ClusterHeadID").on("change", function () {
+            $("#ClusterHeadName").val($(this).find("option:selected").text());
+        });
+        //var date = document.getElementById("hDate").value;
+        //date = date.split(' ')[0];
+        //console.log(date);
+        //$("#WEF_From").val(date);
+    })
+</script>
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.tMemberID)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.tCluster_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.tCluster_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.tCluster_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClusterMemberID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClusterMemberID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ClusterMemberID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClusterMemberName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ClusterMemberName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ClusterMemberName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Status)
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+
+

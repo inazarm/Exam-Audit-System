@@ -1,0 +1,68 @@
+﻿@model SZABIST_IR_App.Models.tblAllocateCoursesDetail
+
+
+<style>
+    #questionare {
+        visibility: visible;
+    }
+</style>
+
+
+<div class="form-group col-md-12">
+    <span><a href="@Url.Action("Index","CourseDetails",new {id=Model.tAllocateDetailID})" target="_blank" class="btn btn-outline-primary btn-sm text-uppercase"><i class="ti-hand-point-right"></i><b>View Course Deatils of <b>@Model.Instructor</b></b></a></span>
+</div>
+
+<div class="col-md-2">
+    @Html.HiddenFor(model => model.tAllocateID)
+    @Html.HiddenFor(model => model.tAllocateDetailID)
+    <div class="form-group form-primary form-static-label">
+        @Html.EditorFor(model => model.sCourse_Code, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+        <span class="form-bar"></span>
+        <label class="float-label">Course Code</label>
+    </div>
+</div>
+<div class="col-md-5">
+    <div class="form-group form-primary form-static-label">
+        @Html.EditorFor(model => model.sCourse_LongDesc, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+        <span class="form-bar"></span>
+        <label class="float-label">Course Name</label>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="form-group form-primary form-static-label">
+        @Html.EditorFor(model => model.Instructor, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+        <span class="form-bar"></span>
+        <label class="float-label">Instructor Name</label>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group form-primary form-static-label">
+        @Html.EditorFor(model => model.Class, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+        <span class="form-bar"></span>
+        <label class="float-label">Class/Section</label>
+    </div>
+</div>
+<div class="form-group col-md-12">
+    @{
+        Html.RenderAction("QuestionnaireClusterHead",new {id=Model.tAllocateDetailID });
+    }
+</div>
+<div class="form-group col-md-12">
+    @*form-group row col-md-12 text-left font-weight-light table-responsive*@
+    @{
+        Html.RenderAction("QuestionnaireList");
+    }
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+
+
+
+
+

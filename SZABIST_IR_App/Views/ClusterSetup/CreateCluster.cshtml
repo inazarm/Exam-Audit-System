@@ -1,0 +1,93 @@
+﻿@model SZABIST_IR_App.Models.ClusterHeadSetupVM
+@{
+    ViewBag.Title = "New Cluster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card-header">
+    <h5>CREATE NEW CLUSTER SETUP</h5>
+</div>
+<a href="@Url.Action("Index")" class="btn btn-outline-dark btn-sm"><i class="ti-arrow-circle-left"></i> <b>BACK TO LIST</b></a>
+<div class="container">
+    <div class="main-body">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+                <div class="card justify-content-center">
+                    <div class="card-body ">
+                        @using (Html.BeginForm("CreateCluster", "ClusterSetup", FormMethod.Post, new { @class = "form-material" }))
+                        {
+
+                            <div class="row col-md-12 justify-content-center">
+                                @if (ViewBag.success != null)
+                                {
+                                    <div class="alert alert-success" id="alert">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>SUCCESS!</strong> @ViewBag.success
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (ViewBag.error != null)
+                                    {
+                                        <div class="alert alert-danger" id="alert">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            <strong>ERROR!</strong>
+                                            @ViewBag.error
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="row col-md-12">
+                                <div class="col-md-5">
+                                    <div class="form-group form-default">
+                                        @Html.EditorFor(model => model.ClusterTitle, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = "required" } })
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">ENTER CLUSTER TITLE</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    @if (ViewBag.clusterHead != null)
+                                    {
+                                        @Html.DropDownListFor(a => a.ClusterHead, (IEnumerable<SelectListItem>)ViewBag.clusterHead, "-- Select Cluster Head --", new { @class = "form-control form-control-sm", @required = "required" })
+                                    }
+                                    @Html.ValidationMessageFor(model => model.ClusterHead, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-default">
+                                        @Html.TextBoxFor(model => model.ClusterEff_Date, new { @class = "form-control form-control-sm", @type = "Date", @required = "Required" })
+                                        @Html.ValidationMessageFor(model => model.ClusterEff_Date, "", new { @class = "text-danger" })
+                                        <span class="form-bar"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row col-md-12">
+                                <div class="col-md-12">
+                                    <div class="form-group form-default">
+                                        <textarea class="form-control form-control-sm" name="ClusterDescription" id="ClusterDescription" required=""></textarea>
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">CLUSTER DESCRIPTION</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-md-12">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" id="btnSave" class="btn waves-effect waves-light btn-primary btn-outline-primary"><i class="ti-check"></i> <b> CONFIRM TO CREATE</b></button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

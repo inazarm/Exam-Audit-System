@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SZABIST_IR_App.Models.tblAllocateCoursesDetail>
+
+
+<div class="card-header">
+    <h5>ALLOCATED COURSES LIST</h5>
+</div>
+<div class="table table-responsive">
+    <table class="table table-bordered table-hover display compact">
+        <thead class="thead-default">
+            <tr class="text-uppercase">
+                <th style="display:none">tAllocateDetailID</th>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Instructor</th>
+                <th>Class</th>
+                <th>Checked</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="display:none">@item.tAllocateDetailID</td>
+                        <td>@item.sCourse_Code</td>
+                        <td>@item.sCourse_LongDesc</td>
+                        <td>@item.Instructor</td>
+                        <td>@item.Class</td>
+                        @{
+                            if (item.isChecked == true)
+                            {
+                                <td class="bg-success">Yes</td>
+                            }
+                            else
+                            {
+                                <td class="bg-danger">No</td>
+                            }
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="alert alert-danger">No record availabel!</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

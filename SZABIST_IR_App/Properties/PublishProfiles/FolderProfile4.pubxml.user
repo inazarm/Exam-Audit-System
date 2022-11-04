@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Nazar\Published_Apps\IRQECExamAssessment</_PublishTargetUrl>
+    <History>False|2022-03-09T08:16:28.8339126Z;False|2022-03-09T13:09:59.9354183+05:00;False|2022-03-09T13:08:48.4083681+05:00;False|2022-03-09T13:07:38.2569146+05:00;</History>
+  </PropertyGroup>
+</Project>

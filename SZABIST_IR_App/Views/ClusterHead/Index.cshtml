@@ -1,0 +1,134 @@
+﻿@model IEnumerable<SZABIST_IR_App.Models.uspAssignedCoursesList_Result>
+@{
+    ViewBag.Title = "Cluster-Head";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card-header">
+    <h5>ASSIGNED COURSES DETAILS</h5>
+</div>
+<div class="container">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+                <div class="card justify-content-center">
+                 <div class="row col-md-12 table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-bordered table-hover table-sm compact" id="clursterHeads">
+                                    <thead class="thead-default">
+                                        <tr class="text-uppercase compact">
+                                            <th>Action</th>
+                                            <th class="active">Course Code</th>
+                                            <th>Course Name</th>
+                                            <th>Instructor</th>
+                                            <th>Class/Section</th>
+                                            <th>Year</th>
+                                            <th>Semester</th>
+                                            <th>Program</th>
+                                            <th>Exam Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr>
+                                            <td class="text-center">
+                                                @Html.ActionLink("Select", "AllocatedCoursesList", "ClusterHead", new { id = item.tAllocateDetailID}, new { @class = "btn btn-outline-primary btn-sm", @Id = "btnSelect" })
+                                            </td>
+                                            <td>@item.sCourse_Code</td>
+                                            <td>@item.sCourse_LongDesc</td>
+                                            <td>@item.Instructor</td>
+                                            <td>@item.Class</td>
+                                            <td>@item.Year</td>
+                                            @{
+                                                if (item.Semster == "1")
+                                                {
+                                                    <td>Spring</td>
+                                                }
+                                                else if (item.Semster == "2")
+                                                {
+                                                    <td>Summer</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>Fall</td>
+                                                }
+                                            }
+                                            <td>@item.Program_ShortDesc</td>
+                                            <td>@item.ExamTypeName</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //get years and show into dropdown...
+        //var nowY = new Date().getFullYear(),
+        //    options = "";
+        //for (var Y = nowY; Y >= 2000; Y--) {
+        //    options += "<option>" + Y + "</option>";
+        //}
+        //$("#Year").append(options);
+        //....Ended....///
+
+        @*$("#btnFetch").click(function (e) {
+            e.preventDefault();
+            var tblObj = $("#frmSearching").serialize();
+            $.ajax({
+                url: "@Url.Action("CrsAssignedList", "ClusterHead")",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data:tblObj,
+                success: function (Response) {
+                    alert(Response);
+                    console.log(Response);
+                    //location.reload(true);
+                }
+            });
+        });*@
+
+        $("#tCampus_Id").change(function () {
+            //var selectedValue = $("#tCampus_Id option:selected").val();
+            //var selectedValue = 1; //Testing Purpose...
+            var selectedValue = $("#tCampus_Id option:selected").val();
+            var userID = $("#uID").val();
+             if (selectedValue != "") {
+                 $.ajax({
+                     type: "GET",
+                     url: '@Url.Action("ProgramList", "ClusterHead")',
+                     data: { campusID: selectedValue, uID: userID },
+                     success: function (data) {
+                         if (data.length > 0) {
+                             var s = '<option value="" selected disabled hidden>-- Select Program --</option>';
+                             for (var i = 0; i < data.length; i++) {
+                                 s += '<option value="' + data[i].programID + '">' + data[i].programName + '</option>';
+                             }
+                             $("#Program").html(s);
+                             //removeDuplicate();
+                         }
+                         else {
+                             alert("Record Not Found!");
+                             var s = '<option value="" selected disabled hidden>-- Program Not Found! --</option>';
+                             $("#Program").html(s);
+                         }
+                     },
+                     error: function (e, ts, et) {
+                         alert(ts);
+                     }
+                 });
+             }
+        });
+
+        function removeDuplicate() {
+            $("#Program option").val(function (idx, val) {
+                $(this).siblings('[value="' + val + '"]').remove();
+            });
+        }
+    })
+</script>
