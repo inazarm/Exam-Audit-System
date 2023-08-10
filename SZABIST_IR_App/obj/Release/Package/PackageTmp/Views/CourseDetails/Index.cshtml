@@ -1,0 +1,291 @@
+﻿@model SZABIST_IR_App.Models.tblAllocateCoursesDetail
+@{
+    ViewBag.Title = "COURSE RECAP-SHEET INFORMATION";
+}
+<style>
+    .my-custom-scrollbar {
+        position: relative;
+        height: 300px;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+    thead tr:nth-child(1) th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+   /* #divReport {
+        height: 60px;
+        background-color: #DDD;
+        border-bottom: 3px solid #59A3C8;
+        z-index: 99999;
+        position: fixed;
+        width: 100%;
+    }
+
+    #reportFrame {
+        margin: 0 auto;
+        display: block;
+        padding-top: 60px;
+        width: 100%;
+        height: 581px;
+    }*/
+</style>
+<div class="card-header">
+    <h5>COURSE INFORMATION</h5>
+</div>
+<div class="container">
+    <div class="row d-flex">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+            <form action="@Url.Action("","")" id="formSubmit" method="@FormMethod.Post" class="form-material">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group row col-md-12">
+                            @Html.HiddenFor(model => model.tAllocateDetailID)
+                            @Html.HiddenFor(model => model.userID)
+                            @Html.HiddenFor(model => model.iSemester_Id)
+                            @Html.HiddenFor(model => model.iSemesterSection_Id)
+                            @Html.HiddenFor(model => model.Course_Id)
+                            @{
+                                @*var zabDeskURL = @System.Configuration.ConfigurationManager.AppSettings["zabDeskURL"].ToString();
+                                <input type="hidden" value="@zabDeskURL" id="zabDeskURL" />*@
+                                <input type="hidden" value="@ViewBag.zabdestURL" id="zabDeskURL" />
+                            }
+                            <div class="col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    @Html.EditorFor(model => model.sCourse_Code, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Course Code</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group form-primary form-static-label">
+                                    @Html.EditorFor(model => model.sCourse_LongDesc, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Course Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    @Html.EditorFor(model => model.Instructor, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Instructor Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    @Html.EditorFor(model => model.Class, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "True" } })
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Class/Section</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-12">
+                                <div class="form-group form-primary form-static-label">
+                                    @Html.TextArea("courseObjective", new { @class = "form-control", @ReadOnly = "True" })
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Course Objective</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-12">
+                                <div class="form-group form-primary form-static-label">
+                                    @Html.TextArea("learningOutcomes", new { @class = "form-control", @ReadOnly = "True" })
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Learning Out Comes</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <h5>COURSES OUTLINE INFORMATION</h5>
+                        </div>
+                        <div class="row col-md-12 table-responsive table-wrapper-scroll-y my-custom-scrollbar" id="courseOutLine">
+                            <table class="table table-bordered table-hover display compact">
+                                <thead class="thead-default">
+                                    <tr class="text-uppercase">
+                                        <th class="bg-primary">Week Number</th>
+                                        <th>Chapter</th>
+                                        <th>Session Topic</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbodyOutLine">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-header">
+                            <h5>COURSE PORTFOLIO INFORMATION</h5>
+                        </div>
+                        <div class="row col-md-12 table-responsive table-wrapper-scroll-y my-custom-scrollbar" id="coursePortFolio">
+                            <table class="table table-bordered table-hover display compact">
+                                <thead class="thead-default">
+                                    <tr class="text-uppercase">
+                                        <th style="display:none">FacCoursePortfolio_Id</th>
+                                        <th>Date</th>
+                                        <th>Week</th>
+                                        <th>Descripion</th>
+                                        <th>Title</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbodyPortFolio">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-header">
+                            <h5>COURSE RECAP-SHEET INFORMATION</h5>
+                        </div>
+                        <!--<div id="recapSheet_Show">-->
+                        @*@{
+            Html.RenderAction("CourseRecapSheet",new { tAllocateDetailID=Model.tAllocateDetailID});
+        }*@
+                        <!--</div>-->
+                        <div class="row" id="divReport">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var Input_tADId = $("#tAllocateDetailID").val();
+        var recapURL = $("#zabDeskURL").val();
+        courseOutLine(Input_tADId);
+        coursePortFolio(Input_tADId);
+        courseRecapSheet(Input_tADId, recapURL);
+        //console.log(dataObj);
+
+    });
+
+    //Show CourseOutLine function
+    function courseOutLine(Para_tAllocateDetailID) {
+        $.ajax({
+            url: '@Url.Action("CourseOutLine", "CourseDetails")',
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data:{
+            tAllocateDetailID: Para_tAllocateDetailID
+        },
+            //data: {
+            //    userID: uID,
+            //    iSemester_Id: sID,
+            //    iSemesterSection_Id: s_SecID,
+            //    Course_Id: cID
+            //},
+            success: function (result) {
+                var html = '';
+                var outComes = "";
+                var objective = "";
+                $.each(result, function (key, item) {
+                    outComes = item.learningOutcomes;
+                    objective = item.courseObjective;
+                    html += '<tr>';
+                    html += '<td class="bg-primary">' + item.Week + '</td>';
+                    html += '<td>' + item.lectureNo + '</td>';
+                    html += '<td>' + item.lectureDetails + '</td>';
+                    /*html += '<td><a href="#" onclick="return getbyID(' + item.EmployeeID + ')">Edit</a> | <a href="#" onclick="Delele(' + item.EmployeeID + ')">Delete</a></td>';*/
+                    html += '</tr>';
+                });
+                $("#learningOutcomes").val(outComes);
+                $("#courseObjective").val(objective);
+                $('.tbodyOutLine').html(html);
+                //console.log(outComes);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    //Show coursePortFolio function
+    function coursePortFolio(Para_tAllocateDetailID) {
+        var userID = $.trim($("#userID").val());
+        var iSemester_Id = $("#iSemester_Id").val();
+        var iSemesterSection_Id = $("#iSemesterSection_Id").val();
+        var Course_Id = $("#Course_Id").val();
+        var userfolder = userID + "_" + Course_Id + "_" + iSemester_Id + "_" + iSemesterSection_Id;
+        var zabDeskURL = $("#zabDeskURL").val();
+        var location = zabDeskURL + '/CoursePortFolioFiles/' + userfolder + '/';
+        $.ajax({
+            url: '@Url.Action("CoursePortFolio", "CourseDetails")',
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data:{
+            tAllocateDetailID: Para_tAllocateDetailID
+        },
+            success: function (result) {
+                var html = '';
+                $.each(result, function (key, item) {
+                    html += '<tr>';
+                    html += '<td style="display:none">' + item.FacCoursePortfolio_Id + '</td>';
+                    html += '<td>' + item.DateCreated + '</td>';
+                    html += '<td>' + item.WeekNumber + '</td>';
+                    html += '<td>' + item.Title + '</td>';
+                    html += '<td><a href="' + location + '' + item.FileLocation + '" download="' + location + '' + item.FileLocation + '"class="link-primary" target="_blank">' + item.FileLocation +'</a></td>';
+                    /*html += '<td><a href="' + zabDeskURL + '/CoursePortFolioFiles/' + userfolder + '/' + item.FileLocation + '" download="' + zabDeskURL + '/CoursePortFolioFiles/' + userfolder + '/' + item.FileLocation +'"class="link-primary" target="_blank">' + item.FileLocation +'</a></td>';*/
+                    html += '</tr>';
+                });
+                $('.tbodyPortFolio').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    //Show courseRecapSheet function
+    function courseRecapSheet(Para_tAllocateDetailID,Para_Url) {
+        var url = Para_Url;
+        $.ajax({
+            url: '@Url.Action("fetchRecapSheet", "CourseDetails")',
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data:{
+                p_tAllocateDetailID: Para_tAllocateDetailID
+            },
+            success: function (result) {
+                var userId = result.userID;
+                var courseId = result.Course_Id;
+                var semId = result.iSemester_Id;
+                var secId = result.iSemesterSection_Id;
+                //var userId = 'alimobinmemon';
+                //var courseId = 2639;
+                //var semId = 17291;
+                //var secId = 1;
+                var value = result.isChecked;
+                var campusID = result.tCampus_Id;
+                if (value) {
+                    //var src =url+"/RnR/RecapSheet.asp?u=" +userId + "&sm=" + semId + "&se=" + secId + "&co=" + courseId + "";
+                    var src = url+"/RnR/RecapSheet.asp?u=" + userId + "&sm=" + semId + "&se=" + secId + "&co=" + courseId + "";
+                    var iframe = '<iframe id="reportFrame" width="100%" height="800px"  frameborder="0" src="' + src + '" allowfullscreen></iframe>';
+                    //alert(iframe);
+                    $("#divReport").html(iframe);
+                    //alert("Current");
+                    //console.log(campusID);
+                }
+                else {
+                    /*var src =url+"/Coordinator/CorStdRecapSheetIRReport.asp?CourseData=" +semId + ";" + secId + ";" + courseId + ";" + userId + ";";*/
+                    var src =url+"/Coordinator/CordStdRecapSheetIRReport.asp?CourseData=" + semId + ";" + secId + ";" + courseId + ";" + userId + ";";
+                    var iframe = '<iframe id="reportFrame" width="100%" height="800px" frameborder="0" src="' + src + '" allowfullscreen></iframe>';
+                    //alert(iframe);
+                    $("#divReport").html(iframe);
+                    //alert("Previous");
+                    //console.log(campusID);
+                }
+                
+            }
+            
+        });
+    }
+
+</script>

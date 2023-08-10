@@ -266,31 +266,6 @@
     <Property Name="userID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="vueExamList_Checked_NotAssessed">
-    <Key>
-      <PropertyRef Name="tAllocateID" />
-      <PropertyRef Name="Campus" />
-    </Key>
-    <Property Name="tAllocateID" Type="Int32" Nullable="false" />
-    <Property Name="tCluster_Head_Id" Type="Int32" />
-    <Property Name="tCampus_Id" Type="Byte" />
-    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Status" Type="Boolean" />
-    <Property Name="isChecked" Type="Boolean" />
-    <Property Name="isCheckedByIR" Type="Boolean" />
-    <Property Name="tFaculty_Id" Type="Byte" />
-    <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ExamType" Type="Byte" />
-    <Property Name="isCopyAvailable" Type="Boolean" />
-    <Property Name="Campus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-  </EntityType>
   <Association Name="FK_tblClusterHead_tblClusterInfo">
     <End Role="tblClusterInfo" Type="Self.tblClusterInfo" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -347,7 +322,6 @@
     <EntitySet Name="Vu_CampustoStandard" EntityType="Self.Vu_CampustoStandard" />
     <EntitySet Name="vue_clusterHead_clusterInfo" EntityType="Self.vue_clusterHead_clusterInfo" />
     <EntitySet Name="vueAssignedCoursesLists" EntityType="Self.vueAssignedCoursesList" />
-    <EntitySet Name="vueExamList_Checked_NotAssessed" EntityType="Self.vueExamList_Checked_NotAssessed" />
     <AssociationSet Name="FK_tblClusterHead_tblClusterInfo" Association="Self.FK_tblClusterHead_tblClusterInfo">
       <End Role="tblClusterInfo" EntitySet="tblClusterInfoes" />
       <End Role="tblClusterHead" EntitySet="tblClusterHeads" />
@@ -377,11 +351,6 @@
       <Parameter Name="SemsterID" Mode="In" Type="Int32" />
       <Parameter Name="ProgramID" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="uspAssignedCoursesList" ReturnType="Collection(AEAuditDBModel.uspAssignedCoursesList_Result)">
-      <Parameter Name="p_ClusterHeadID" Mode="In" Type="String" />
-      <Parameter Name="p_isChecked" Mode="In" Type="Boolean" />
-      <Parameter Name="p_isCheckedByIR" Mode="In" Type="Boolean" />
-    </FunctionImport>
     <FunctionImport Name="uspGet_Faculty_Wise_Questions_Assessment" ReturnType="Collection(AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result)">
       <Parameter Name="p_tFaculty_Id" Mode="In" Type="Byte" />
       <Parameter Name="p_ExamType" Mode="In" Type="Byte" />
@@ -389,10 +358,81 @@
       <Parameter Name="p_Year" Mode="In" Type="String" />
       <Parameter Name="p_Semster" Mode="In" Type="Decimal" />
     </FunctionImport>
+    <EntitySet Name="vueExamList_Checked_NotAssessed" EntityType="AEAuditDBModel.vueExamList_Checked_NotAssessed" />
+    <EntitySet Name="udv_AllocatedListNotCheckedByIR" EntityType="AEAuditDBModel.udv_AllocatedListNotCheckedByIR" />
+    <FunctionImport Name="uspAllocatedCoursesList" ReturnType="Collection(AEAuditDBModel.uspAllocatedCoursesList_Result)">
+      <Parameter Name="p_isChecked" Mode="In" Type="Boolean" />
+      <Parameter Name="p_isCheckedByIR" Mode="In" Type="Boolean" />
+      <Parameter Name="p_crsStatus" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="uspAssignedCoursesList" ReturnType="Collection(AEAuditDBModel.uspAssignedCoursesList_Result)">
+      <Parameter Name="p_ClusterHeadID" Mode="In" Type="String" />
+      <Parameter Name="p_isChecked" Mode="In" Type="Boolean" />
+      <Parameter Name="p_isCheckedByIR" Mode="In" Type="Boolean" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetPercentageDisdribution_Result">
     <Property Type="String" Name="perc_range" Nullable="true" MaxLength="10" />
     <Property Type="Int32" Name="tot_assessment" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="uspGet_Faculty_Wise_Questions_Assessment_Result">
+    <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="QuestionID" Nullable="true" />
+    <Property Type="Int32" Name="Avg_GP" Nullable="true" />
+    <Property Type="Int32" Name="GP_Percent" Nullable="true" />
+    <Property Type="String" Name="Question" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="vueExamList_Checked_NotAssessed">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+      <PropertyRef Name="Campus" />
+    </Key>
+    <Property Name="tAllocateID" Type="Int32" Nullable="false" />
+    <Property Name="tCluster_Head_Id" Type="Int32" />
+    <Property Name="tCampus_Id" Type="Byte" />
+    <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="isChecked" Type="Boolean" />
+    <Property Name="isCheckedByIR" Type="Boolean" />
+    <Property Name="tFaculty_Id" Type="Byte" />
+    <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExamType" Type="Byte" />
+    <Property Name="isCopyAvailable" Type="Boolean" />
+    <Property Name="Campus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="udv_AllocatedListNotCheckedByIR">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+      <PropertyRef Name="sCampus_ShortDesc" />
+    </Key>
+    <Property Name="tAllocateID" Type="Int32" Nullable="false" />
+    <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="tCampus_Id" Type="Byte" />
+    <Property Name="sCampus_ShortDesc" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="uspAllocatedCoursesList_Result">
+    <Property Type="Int32" Name="tAllocateID" Nullable="false" />
+    <Property Type="String" Name="ClusterHeadName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Year" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Semster" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Program_ShortDesc" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Faculty_ShortDesc" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ExamTypeName" Nullable="true" MaxLength="100" />
+    <Property Type="Byte" Name="tCampus_Id" Nullable="true" />
+    <Property Type="String" Name="sCampus_ShortDesc" Nullable="false" MaxLength="10" />
   </ComplexType>
   <ComplexType Name="uspAssignedCoursesList_Result">
     <Property Type="Int32" Name="tAllocateID" Nullable="false" />
@@ -418,12 +458,6 @@
     <Property Type="String" Name="userID" Nullable="true" MaxLength="20" />
     <Property Type="Int32" Name="tAllocateDetailID" Nullable="false" />
     <Property Type="String" Name="Class" Nullable="true" MaxLength="50" />
-  </ComplexType>
-  <ComplexType Name="uspGet_Faculty_Wise_Questions_Assessment_Result">
-    <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="100" />
-    <Property Type="Int32" Name="QuestionID" Nullable="true" />
-    <Property Type="Int32" Name="Avg_GP" Nullable="true" />
-    <Property Type="Int32" Name="GP_Percent" Nullable="true" />
-    <Property Type="String" Name="Question" Nullable="true" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
   </ComplexType>
 </Schema>

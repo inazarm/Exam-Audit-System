@@ -33,7 +33,7 @@ namespace SZABIST_IR_App.Controllers
             {
                 var userID = Session["userID"].ToString();
                 //var list = db.tblAllocateCourses.ToList().Where(h => h.ClusterHeadID == userID && h.Status==true);
-                var list = db.uspAssignedCoursesList(userID, false, false).Where(c=>c.Status==true).ToList();
+                var list = db.uspAssignedCoursesList(userID, false,null).Where(c=>c.Status==true).ToList();
                 return View(list.OrderByDescending(x=>x.Year).ToList());
             }
         }
@@ -219,14 +219,20 @@ namespace SZABIST_IR_App.Controllers
 
         public ActionResult SaveResult(QuestionaireResult result)
         {
+            
             if (string.IsNullOrEmpty(Convert.ToString(Session["userID"])))
-                return RedirectToAction("Index", "Account");
+            {
+                //var urlBuilder = new UrlHelper(Request.RequestContext);
+                //var url = urlBuilder.Action("Index", "Account");
+                return Json(new { Success = false, message = "Session Expired! Please login again..." });
+            }
 
             using (db = new AEAuditDBEntities())
             {
                 using (var trans = db.Database.BeginTransaction())
                 {
                     bool success = false;
+                    var userID = Session["userID"].ToString();
                     try
                     {
                         if (result.Gradings == null)
@@ -238,36 +244,46 @@ namespace SZABIST_IR_App.Controllers
                             p = new ProjectClass();
                             var tAllcateID = Convert.ToInt32(result.tAllocateID);
                             var tAllocateDetailID = Convert.ToInt32(result.tAllocateDetailID);
-
-                            //var tAllcateID = Convert.ToByte(result.tAllocateID);
-                            //var tAllocateDetailID = Convert.ToByte(result.tAllocateDetailID);
-                            var isAlreadyExists = db.tblAssessmentResults.FirstOrDefault(a => a.tAllocateDetailID == tAllocateDetailID);
-                            if (isAlreadyExists != null)
+                            var AssessmentResults = db.tblAssessmentResults.FirstOrDefault(a => a.tAllocateDetailID == tAllocateDetailID);
+                            //if (AssessmentResults != null)
+                            //{
+                            //    return Json("Already Submitted!", JsonRequestBehavior.AllowGet);
+                            //}
+                            var AssessmentCourseDetails = db.tblAllocateCoursesDetails.Find(tAllocateDetailID);
+                            int tAResultID = 0;
+                            if (AssessmentCourseDetails != null)
                             {
-                                return Json("Already Submitted!", JsonRequestBehavior.AllowGet);
-                            }
-                            var cDetails = db.tblAllocateCoursesDetails.Find(tAllocateDetailID);
-                            if (cDetails != null)
-                            {
-                                tblAssessmentResult addResult = new tblAssessmentResult
+                                if (AssessmentResults == null)
                                 {
-                                    tAllocateID = cDetails.tAllocateID,
-                                    tAllocateDetailID = cDetails.tAllocateDetailID,
-                                    CourseID = cDetails.Course_Id.ToString(),
-                                    CreationDate = p.currentDateTime(),
-                                    Remarks = result.remarks,
-                                    Status = true
-                                };
-                                cDetails.isChecked = true;
-                                db.tblAssessmentResults.Add(addResult);
-                                db.SaveChanges();
-                                var tAssessmentID = addResult.tAResultID;
+                                    tblAssessmentResult addResult = new tblAssessmentResult
+                                    {
+                                        tAllocateID = AssessmentCourseDetails.tAllocateID,
+                                        tAllocateDetailID = AssessmentCourseDetails.tAllocateDetailID,
+                                        CourseID = AssessmentCourseDetails.Course_Id.ToString(),
+                                        CreationDate = p.currentDateTime(),
+                                        Remarks = result.remarks,
+                                        Status = true
+                                    };
+                                    db.tblAssessmentResults.Add(addResult);
+                                    db.SaveChanges();
+                                    tAResultID = addResult.tAResultID;
+                                }
+                                else
+                                {
+                                    AssessmentResults.Remarks = result.remarks;
+                                    AssessmentResults.ModifiedDate=p.currentDateTime();
+                                    tAResultID = AssessmentResults.tAResultID;
+                                }
+
+                                AssessmentCourseDetails.isChecked = true;
+                                AssessmentCourseDetails.ModifiedDate = p.currentDateTime();
+                                //db.SaveChanges();
                                 tblAssessmentResultDetail addResultDe = new tblAssessmentResultDetail() { };
                                 for (int i = 0; i < result.Questions.Length; i++)
                                 {
                                     var qID = Convert.ToByte(result.Questions[i]);
                                     var questions = db.tblQuestionnaires.FirstOrDefault(q => q.tQID == qID);
-                                    addResultDe.tAResultID = tAssessmentID;
+                                    addResultDe.tAResultID = tAResultID;
                                     addResultDe.StandardID = questions.tSID;
                                     addResultDe.QuestionID = questions.QSNo;
                                     for (int j = 0; j <= i; j++)
@@ -280,11 +296,14 @@ namespace SZABIST_IR_App.Controllers
                                 trans.Commit();
                                 success = true;
                             }
+                            else
+                            {
+                                return Json(new { Success = success, message="Course Details not found!" }, JsonRequestBehavior.AllowGet);
+                            }
                             if (success == true)
                             {
                                 var urlBuilder = new UrlHelper(Request.RequestContext);
                                 var url = urlBuilder.Action("Index", "ClusterHead");
-                                //return Json(new { status = "success", redirectUrl = url });
                                 return Json(new { Success = success, redirectToUrl = url });
                             }
                             else

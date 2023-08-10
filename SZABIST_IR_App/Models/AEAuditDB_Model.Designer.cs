@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\ZABSolSVN\ZABSolSource\IRQEC\SZABIST_IR_App\SZABIST_IR_App\Models\AEAuditDB_Model.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\ZABSOlSVN_New\SZABIST_ExamAuditSystem\SZABIST_IR_App\Models\AEAuditDB_Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

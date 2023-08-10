@@ -190,6 +190,23 @@
     <Property Name="Status" Type="bit" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.udv_AllocatedListNotCheckedByIR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="udv_AllocatedListNotCheckedByIR">
+    <Key>
+      <PropertyRef Name="tAllocateID" />
+      <PropertyRef Name="sCampus_ShortDesc" />
+    </Key>
+    <Property Name="tAllocateID" Type="int" Nullable="false" />
+    <Property Name="ClusterHeadName" Type="varchar" MaxLength="100" />
+    <Property Name="Year" Type="varchar" MaxLength="10" />
+    <Property Name="Semster" Type="varchar" MaxLength="100" />
+    <Property Name="Program_ShortDesc" Type="varchar" MaxLength="20" />
+    <Property Name="Faculty_ShortDesc" Type="varchar" MaxLength="20" />
+    <Property Name="ExamTypeName" Type="varchar" MaxLength="100" />
+    <Property Name="tCampus_Id" Type="tinyint" />
+    <Property Name="sCampus_ShortDesc" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'AEAuditDB.dbo.v_cHeads_clusterInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="v_cHeads_clusterInfo">
     <Key>
@@ -294,6 +311,7 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
     <Property Name="ExamType" Type="tinyint" />
     <Property Name="isCopyAvailable" Type="bit" />
     <Property Name="Campus" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" />
   </EntityType>
   <Association Name="FK_tblClusterHead_tblClusterInfo">
     <End Role="tblClusterInfo" Type="Self.tblClusterInfo" Multiplicity="0..1">
@@ -306,18 +324,6 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
       </Principal>
       <Dependent Role="tblClusterHead">
         <PropertyRef Name="tCluster_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tblQuestionnaire_tblQuestionStandard">
-    <End Role="tblQuestionStandard" Type="Self.tblQuestionStandard" Multiplicity="0..1" />
-    <End Role="tblQuestionnaire" Type="Self.tblQuestionnaire" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tblQuestionStandard">
-        <PropertyRef Name="tSID" />
-      </Principal>
-      <Dependent Role="tblQuestionnaire">
-        <PropertyRef Name="tSID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -350,6 +356,11 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
     <Parameter Name="SemsterID" Type="int" Mode="In" />
     <Parameter Name="ProgramID" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="uspAllocatedCoursesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="p_isChecked" Type="bit" Mode="In" />
+    <Parameter Name="p_isCheckedByIR" Type="bit" Mode="In" />
+    <Parameter Name="p_crsStatus" Type="bit" Mode="In" />
+  </Function>
   <Function Name="uspAssignedCoursesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="p_ClusterHeadID" Type="varchar" Mode="In" />
     <Parameter Name="p_isChecked" Type="bit" Mode="In" />
@@ -376,6 +387,19 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
     <EntitySet Name="tblQuestionStandard" EntityType="Self.tblQuestionStandard" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="udv_AllocatedListNotCheckedByIR" EntityType="Self.udv_AllocatedListNotCheckedByIR" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [udv_AllocatedListNotCheckedByIR].[tAllocateID] AS [tAllocateID], 
+    [udv_AllocatedListNotCheckedByIR].[ClusterHeadName] AS [ClusterHeadName], 
+    [udv_AllocatedListNotCheckedByIR].[Year] AS [Year], 
+    [udv_AllocatedListNotCheckedByIR].[Semster] AS [Semster], 
+    [udv_AllocatedListNotCheckedByIR].[Program_ShortDesc] AS [Program_ShortDesc], 
+    [udv_AllocatedListNotCheckedByIR].[Faculty_ShortDesc] AS [Faculty_ShortDesc], 
+    [udv_AllocatedListNotCheckedByIR].[ExamTypeName] AS [ExamTypeName], 
+    [udv_AllocatedListNotCheckedByIR].[tCampus_Id] AS [tCampus_Id], 
+    [udv_AllocatedListNotCheckedByIR].[sCampus_ShortDesc] AS [sCampus_ShortDesc]
+    FROM [dbo].[udv_AllocatedListNotCheckedByIR] AS [udv_AllocatedListNotCheckedByIR]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="v_cHeads_clusterInfo" EntityType="Self.v_cHeads_clusterInfo" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [v_cHeads_clusterInfo].[tCluster_Head_Id] AS [tCluster_Head_Id], 
@@ -463,16 +487,13 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
     [vueExamList_Checked_NotAssessed].[Faculty_ShortDesc] AS [Faculty_ShortDesc], 
     [vueExamList_Checked_NotAssessed].[ExamType] AS [ExamType], 
     [vueExamList_Checked_NotAssessed].[isCopyAvailable] AS [isCopyAvailable], 
-    [vueExamList_Checked_NotAssessed].[Campus] AS [Campus]
+    [vueExamList_Checked_NotAssessed].[Campus] AS [Campus], 
+    [vueExamList_Checked_NotAssessed].[CreationDate] AS [CreationDate]
     FROM [dbo].[vueExamList_Checked_NotAssessed] AS [vueExamList_Checked_NotAssessed]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_tblClusterHead_tblClusterInfo" Association="Self.FK_tblClusterHead_tblClusterInfo">
       <End Role="tblClusterInfo" EntitySet="tblClusterInfo" />
       <End Role="tblClusterHead" EntitySet="tblClusterHead" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tblQuestionnaire_tblQuestionStandard" Association="Self.FK_tblQuestionnaire_tblQuestionStandard">
-      <End Role="tblQuestionStandard" EntitySet="tblQuestionStandard" />
-      <End Role="tblQuestionnaire" EntitySet="tblQuestionnaire" />
     </AssociationSet>
     <AssociationSet Name="FK_tblUsers_tblRole" Association="Self.FK_tblUsers_tblRole">
       <End Role="tblRole" EntitySet="tblRole" />

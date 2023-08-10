@@ -36,5 +36,6 @@ namespace SZABIST_IR_App.Models
         public string userID { get; set; }
         public int tAllocateDetailID { get; set; }
         public string Class { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
     }
 }

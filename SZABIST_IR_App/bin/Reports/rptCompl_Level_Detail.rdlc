@@ -11,6 +11,34 @@
     </DataSource>
   </DataSources>
   <DataSets>
+    <DataSet Name="dsQuestionList">
+      <Query>
+        <DataSourceName>ReportingData</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="QuestionId">
+          <DataField>QuestionId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Question">
+          <DataField>Question</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StandardID">
+          <DataField>StandardID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>ReportingData</rd:DataSetName>
+        <rd:SchemaPath>D:\Development Work SVN\ZABSolSource\IRQEC\SZABIST_IR_App\SZABIST_IR_App\ReportingData.xsd</rd:SchemaPath>
+        <rd:TableName>QuestionsList</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
     <DataSet Name="dsCompliance_Level_Detail">
       <Query>
         <DataSourceName>ReportingData</DataSourceName>
@@ -45,39 +73,15 @@
           <DataField>StandardID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>ReportingData</rd:DataSetName>
-        <rd:SchemaPath>D:\Development Work SVN\ZABSolSource\IRQEC\SZABIST_IR_App\SZABIST_IR_App\ReportingData.xsd</rd:SchemaPath>
-        <rd:TableName>Compliance_Level_Detail</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="dsQuestionList">
-      <Query>
-        <DataSourceName>ReportingData</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="QuestionId">
-          <DataField>QuestionId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Question">
-          <DataField>Question</DataField>
+        <Field Name="Course_Id">
+          <DataField>Course_Id</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="StandardID">
-          <DataField>StandardID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportingData</rd:DataSetName>
-        <rd:SchemaPath>D:\Development Work SVN\ZABSolSource\IRQEC\SZABIST_IR_App\SZABIST_IR_App\ReportingData.xsd</rd:SchemaPath>
-        <rd:TableName>QuestionsList</rd:TableName>
+        <rd:SchemaPath>D:\ZABSOlSVN_New\SZABIST_ExamAuditSystem\SZABIST_IR_App\ReportingData.xsd</rd:SchemaPath>
+        <rd:TableName>Compliance_Level_Detail</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -178,6 +182,39 @@
                           </Paragraph>
                         </Paragraphs>
                         <rd:DefaultName>Textbox4</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox5">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox5</rd:DefaultName>
                         <Style>
                           <Border>
                             <Color>LightGrey</Color>
@@ -292,6 +329,39 @@
                       </Textbox>
                     </CellContents>
                   </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox6">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox6</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
                 </TablixCornerRow>
                 <TablixCornerRow>
                   <TablixCornerCell>
@@ -371,6 +441,36 @@
                           </Paragraph>
                         </Paragraphs>
                         <rd:DefaultName>Textbox31</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox7">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value />
+                                <Style />
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox7</rd:DefaultName>
                         <Style>
                           <Border>
                             <Color>LightGrey</Color>
@@ -597,7 +697,7 @@
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>1.96063in</Size>
+                    <Size>1.9273in</Size>
                     <CellContents>
                       <Textbox Name="Instructor">
                         <CanGrow>true</CanGrow>
@@ -687,7 +787,7 @@
                             </SortExpression>
                           </SortExpressions>
                           <TablixHeader>
-                            <Size>0.97104in</Size>
+                            <Size>0.93146in</Size>
                             <CellContents>
                               <Textbox Name="ProgramName">
                                 <CanGrow>true</CanGrow>
@@ -720,7 +820,57 @@
                             </CellContents>
                           </TablixHeader>
                           <TablixMembers>
-                            <TablixMember />
+                            <TablixMember>
+                              <Group Name="Course_Id">
+                                <GroupExpressions>
+                                  <GroupExpression>=Fields!Course_Id.Value</GroupExpression>
+                                </GroupExpressions>
+                              </Group>
+                              <SortExpressions>
+                                <SortExpression>
+                                  <Value>=Fields!Course_Id.Value</Value>
+                                </SortExpression>
+                              </SortExpressions>
+                              <TablixHeader>
+                                <Size>0.03958in</Size>
+                                <CellContents>
+                                  <Textbox Name="Course_Id">
+                                    <CanGrow>true</CanGrow>
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value>=Fields!Course_Id.Value</Value>
+                                            <Style>
+                                              <FontFamily>Times New Roman</FontFamily>
+                                            </Style>
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style />
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>Course_Id</rd:DefaultName>
+                                    <Visibility>
+                                      <Hidden>true</Hidden>
+                                    </Visibility>
+                                    <Style>
+                                      <Border>
+                                        <Color>LightGrey</Color>
+                                        <Style>Solid</Style>
+                                      </Border>
+                                      <PaddingLeft>2pt</PaddingLeft>
+                                      <PaddingRight>2pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                              <TablixMembers>
+                                <TablixMember />
+                              </TablixMembers>
+                            </TablixMember>
                           </TablixMembers>
                         </TablixMember>
                       </TablixMembers>
@@ -743,7 +893,7 @@
             <Top>0.12375in</Top>
             <Left>0.14458in</Left>
             <Height>0.79168in</Height>
-            <Width>4.66668in</Width>
+            <Width>4.63335in</Width>
             <Style>
               <Border>
                 <Style>None</Style>

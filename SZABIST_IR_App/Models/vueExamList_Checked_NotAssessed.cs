@@ -33,5 +33,6 @@ namespace SZABIST_IR_App.Models
         public Nullable<byte> ExamType { get; set; }
         public Nullable<bool> isCopyAvailable { get; set; }
         public string Campus { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
     }
 }

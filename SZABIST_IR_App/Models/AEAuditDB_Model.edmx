@@ -195,6 +195,23 @@
           <Property Name="Status" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'AEAuditDB.dbo.udv_AllocatedListNotCheckedByIR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="udv_AllocatedListNotCheckedByIR">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+            <PropertyRef Name="sCampus_ShortDesc" />
+          </Key>
+          <Property Name="tAllocateID" Type="int" Nullable="false" />
+          <Property Name="ClusterHeadName" Type="varchar" MaxLength="100" />
+          <Property Name="Year" Type="varchar" MaxLength="10" />
+          <Property Name="Semster" Type="varchar" MaxLength="100" />
+          <Property Name="Program_ShortDesc" Type="varchar" MaxLength="20" />
+          <Property Name="Faculty_ShortDesc" Type="varchar" MaxLength="20" />
+          <Property Name="ExamTypeName" Type="varchar" MaxLength="100" />
+          <Property Name="tCampus_Id" Type="tinyint" />
+          <Property Name="sCampus_ShortDesc" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'AEAuditDB.dbo.v_cHeads_clusterInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="v_cHeads_clusterInfo">
           <Key>
@@ -299,6 +316,7 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
           <Property Name="ExamType" Type="tinyint" />
           <Property Name="isCopyAvailable" Type="bit" />
           <Property Name="Campus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_tblClusterHead_tblClusterInfo">
           <End Role="tblClusterInfo" Type="Self.tblClusterInfo" Multiplicity="0..1">
@@ -311,18 +329,6 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
             </Principal>
             <Dependent Role="tblClusterHead">
               <PropertyRef Name="tCluster_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblQuestionnaire_tblQuestionStandard">
-          <End Role="tblQuestionStandard" Type="Self.tblQuestionStandard" Multiplicity="0..1" />
-          <End Role="tblQuestionnaire" Type="Self.tblQuestionnaire" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblQuestionStandard">
-              <PropertyRef Name="tSID" />
-            </Principal>
-            <Dependent Role="tblQuestionnaire">
-              <PropertyRef Name="tSID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -355,6 +361,11 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
           <Parameter Name="SemsterID" Type="int" Mode="In" />
           <Parameter Name="ProgramID" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="uspAllocatedCoursesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_isChecked" Type="bit" Mode="In" />
+          <Parameter Name="p_isCheckedByIR" Type="bit" Mode="In" />
+          <Parameter Name="p_crsStatus" Type="bit" Mode="In" />
+        </Function>
         <Function Name="uspAssignedCoursesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="p_ClusterHeadID" Type="varchar" Mode="In" />
           <Parameter Name="p_isChecked" Type="bit" Mode="In" />
@@ -381,6 +392,19 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
           <EntitySet Name="tblQuestionStandard" EntityType="Self.tblQuestionStandard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="udv_AllocatedListNotCheckedByIR" EntityType="Self.udv_AllocatedListNotCheckedByIR" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [udv_AllocatedListNotCheckedByIR].[tAllocateID] AS [tAllocateID], 
+    [udv_AllocatedListNotCheckedByIR].[ClusterHeadName] AS [ClusterHeadName], 
+    [udv_AllocatedListNotCheckedByIR].[Year] AS [Year], 
+    [udv_AllocatedListNotCheckedByIR].[Semster] AS [Semster], 
+    [udv_AllocatedListNotCheckedByIR].[Program_ShortDesc] AS [Program_ShortDesc], 
+    [udv_AllocatedListNotCheckedByIR].[Faculty_ShortDesc] AS [Faculty_ShortDesc], 
+    [udv_AllocatedListNotCheckedByIR].[ExamTypeName] AS [ExamTypeName], 
+    [udv_AllocatedListNotCheckedByIR].[tCampus_Id] AS [tCampus_Id], 
+    [udv_AllocatedListNotCheckedByIR].[sCampus_ShortDesc] AS [sCampus_ShortDesc]
+    FROM [dbo].[udv_AllocatedListNotCheckedByIR] AS [udv_AllocatedListNotCheckedByIR]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="v_cHeads_clusterInfo" EntityType="Self.v_cHeads_clusterInfo" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [v_cHeads_clusterInfo].[tCluster_Head_Id] AS [tCluster_Head_Id], 
@@ -468,16 +492,13 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
     [vueExamList_Checked_NotAssessed].[Faculty_ShortDesc] AS [Faculty_ShortDesc], 
     [vueExamList_Checked_NotAssessed].[ExamType] AS [ExamType], 
     [vueExamList_Checked_NotAssessed].[isCopyAvailable] AS [isCopyAvailable], 
-    [vueExamList_Checked_NotAssessed].[Campus] AS [Campus]
+    [vueExamList_Checked_NotAssessed].[Campus] AS [Campus], 
+    [vueExamList_Checked_NotAssessed].[CreationDate] AS [CreationDate]
     FROM [dbo].[vueExamList_Checked_NotAssessed] AS [vueExamList_Checked_NotAssessed]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_tblClusterHead_tblClusterInfo" Association="Self.FK_tblClusterHead_tblClusterInfo">
             <End Role="tblClusterInfo" EntitySet="tblClusterInfo" />
             <End Role="tblClusterHead" EntitySet="tblClusterHead" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblQuestionnaire_tblQuestionStandard" Association="Self.FK_tblQuestionnaire_tblQuestionStandard">
-            <End Role="tblQuestionStandard" EntitySet="tblQuestionStandard" />
-            <End Role="tblQuestionnaire" EntitySet="tblQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="FK_tblUsers_tblRole" Association="Self.FK_tblUsers_tblRole">
             <End Role="tblRole" EntitySet="tblRole" />
@@ -754,31 +775,6 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
           <Property Name="userID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="vueExamList_Checked_NotAssessed">
-          <Key>
-            <PropertyRef Name="tAllocateID" />
-            <PropertyRef Name="Campus" />
-          </Key>
-          <Property Name="tAllocateID" Type="Int32" Nullable="false" />
-          <Property Name="tCluster_Head_Id" Type="Int32" />
-          <Property Name="tCampus_Id" Type="Byte" />
-          <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="Boolean" />
-          <Property Name="isChecked" Type="Boolean" />
-          <Property Name="isCheckedByIR" Type="Boolean" />
-          <Property Name="tFaculty_Id" Type="Byte" />
-          <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ExamType" Type="Byte" />
-          <Property Name="isCopyAvailable" Type="Boolean" />
-          <Property Name="Campus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
         <Association Name="FK_tblClusterHead_tblClusterInfo">
           <End Role="tblClusterInfo" Type="Self.tblClusterInfo" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -835,7 +831,6 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
           <EntitySet Name="Vu_CampustoStandard" EntityType="Self.Vu_CampustoStandard" />
           <EntitySet Name="vue_clusterHead_clusterInfo" EntityType="Self.vue_clusterHead_clusterInfo" />
           <EntitySet Name="vueAssignedCoursesLists" EntityType="Self.vueAssignedCoursesList" />
-          <EntitySet Name="vueExamList_Checked_NotAssessed" EntityType="Self.vueExamList_Checked_NotAssessed" />
           <AssociationSet Name="FK_tblClusterHead_tblClusterInfo" Association="Self.FK_tblClusterHead_tblClusterInfo">
             <End Role="tblClusterInfo" EntitySet="tblClusterInfoes" />
             <End Role="tblClusterHead" EntitySet="tblClusterHeads" />
@@ -865,11 +860,6 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
             <Parameter Name="SemsterID" Mode="In" Type="Int32" />
             <Parameter Name="ProgramID" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="uspAssignedCoursesList" ReturnType="Collection(AEAuditDBModel.uspAssignedCoursesList_Result)">
-            <Parameter Name="p_ClusterHeadID" Mode="In" Type="String" />
-            <Parameter Name="p_isChecked" Mode="In" Type="Boolean" />
-            <Parameter Name="p_isCheckedByIR" Mode="In" Type="Boolean" />
-          </FunctionImport>
           <FunctionImport Name="uspGet_Faculty_Wise_Questions_Assessment" ReturnType="Collection(AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result)">
             <Parameter Name="p_tFaculty_Id" Mode="In" Type="Byte" />
             <Parameter Name="p_ExamType" Mode="In" Type="Byte" />
@@ -877,10 +867,81 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
             <Parameter Name="p_Year" Mode="In" Type="String" />
             <Parameter Name="p_Semster" Mode="In" Type="Decimal" />
           </FunctionImport>
+          <EntitySet Name="vueExamList_Checked_NotAssessed" EntityType="AEAuditDBModel.vueExamList_Checked_NotAssessed" />
+          <EntitySet Name="udv_AllocatedListNotCheckedByIR" EntityType="AEAuditDBModel.udv_AllocatedListNotCheckedByIR" />
+          <FunctionImport Name="uspAllocatedCoursesList" ReturnType="Collection(AEAuditDBModel.uspAllocatedCoursesList_Result)">
+            <Parameter Name="p_isChecked" Mode="In" Type="Boolean" />
+            <Parameter Name="p_isCheckedByIR" Mode="In" Type="Boolean" />
+            <Parameter Name="p_crsStatus" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="uspAssignedCoursesList" ReturnType="Collection(AEAuditDBModel.uspAssignedCoursesList_Result)">
+            <Parameter Name="p_ClusterHeadID" Mode="In" Type="String" />
+            <Parameter Name="p_isChecked" Mode="In" Type="Boolean" />
+            <Parameter Name="p_isCheckedByIR" Mode="In" Type="Boolean" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetPercentageDisdribution_Result">
           <Property Type="String" Name="perc_range" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="tot_assessment" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="uspGet_Faculty_Wise_Questions_Assessment_Result">
+          <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="QuestionID" Nullable="true" />
+          <Property Type="Int32" Name="Avg_GP" Nullable="true" />
+          <Property Type="Int32" Name="GP_Percent" Nullable="true" />
+          <Property Type="String" Name="Question" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="vueExamList_Checked_NotAssessed">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+            <PropertyRef Name="Campus" />
+          </Key>
+          <Property Name="tAllocateID" Type="Int32" Nullable="false" />
+          <Property Name="tCluster_Head_Id" Type="Int32" />
+          <Property Name="tCampus_Id" Type="Byte" />
+          <Property Name="ClusterHeadID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Program" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Program_LongDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="isChecked" Type="Boolean" />
+          <Property Name="isCheckedByIR" Type="Boolean" />
+          <Property Name="tFaculty_Id" Type="Byte" />
+          <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ExamType" Type="Byte" />
+          <Property Name="isCopyAvailable" Type="Boolean" />
+          <Property Name="Campus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="udv_AllocatedListNotCheckedByIR">
+          <Key>
+            <PropertyRef Name="tAllocateID" />
+            <PropertyRef Name="sCampus_ShortDesc" />
+          </Key>
+          <Property Name="tAllocateID" Type="Int32" Nullable="false" />
+          <Property Name="ClusterHeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Semster" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Program_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Faculty_ShortDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ExamTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tCampus_Id" Type="Byte" />
+          <Property Name="sCampus_ShortDesc" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="uspAllocatedCoursesList_Result">
+          <Property Type="Int32" Name="tAllocateID" Nullable="false" />
+          <Property Type="String" Name="ClusterHeadName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Year" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Semster" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Program_ShortDesc" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Faculty_ShortDesc" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ExamTypeName" Nullable="true" MaxLength="100" />
+          <Property Type="Byte" Name="tCampus_Id" Nullable="true" />
+          <Property Type="String" Name="sCampus_ShortDesc" Nullable="false" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="uspAssignedCoursesList_Result">
           <Property Type="Int32" Name="tAllocateID" Nullable="false" />
@@ -906,13 +967,7 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
           <Property Type="String" Name="userID" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="tAllocateDetailID" Nullable="false" />
           <Property Type="String" Name="Class" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="uspGet_Faculty_Wise_Questions_Assessment_Result">
-          <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="QuestionID" Nullable="true" />
-          <Property Type="Int32" Name="Avg_GP" Nullable="true" />
-          <Property Type="Int32" Name="GP_Percent" Nullable="true" />
-          <Property Type="String" Name="Question" Nullable="true" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1197,31 +1252,6 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vueExamList_Checked_NotAssessed">
-            <EntityTypeMapping TypeName="AEAuditDBModel.vueExamList_Checked_NotAssessed">
-              <MappingFragment StoreEntitySet="vueExamList_Checked_NotAssessed">
-                <ScalarProperty Name="Campus" ColumnName="Campus" />
-                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
-                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
-                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
-                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
-                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Semster" ColumnName="Semster" />
-                <ScalarProperty Name="Program" ColumnName="Program" />
-                <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
-                <ScalarProperty Name="Program_LongDesc" ColumnName="Program_LongDesc" />
-                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="isChecked" ColumnName="isChecked" />
-                <ScalarProperty Name="isCheckedByIR" ColumnName="isCheckedByIR" />
-                <ScalarProperty Name="tFaculty_Id" ColumnName="tFaculty_Id" />
-                <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
-                <ScalarProperty Name="ExamType" ColumnName="ExamType" />
-                <ScalarProperty Name="isCopyAvailable" ColumnName="isCopyAvailable" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetPercentageDisdribution" FunctionName="AEAuditDBModel.Store.GetPercentageDisdribution">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AEAuditDBModel.GetPercentageDisdribution_Result">
@@ -1232,6 +1262,73 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetCourse_Instructor_ByYearSemsProg" FunctionName="AEAuditDBModel.Store.sp_GetCourse_Instructor_ByYearSemsProg" />
           <FunctionImportMapping FunctionImportName="sp_GetCourseByYearSemsProg" FunctionName="AEAuditDBModel.Store.sp_GetCourseByYearSemsProg" />
+          <FunctionImportMapping FunctionImportName="uspGet_Faculty_Wise_Questions_Assessment" FunctionName="AEAuditDBModel.Store.uspGet_Faculty_Wise_Questions_Assessment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result">
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Avg_GP" ColumnName="Avg_GP" />
+                <ScalarProperty Name="GP_Percent" ColumnName="GP_Percent" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="vueExamList_Checked_NotAssessed">
+            <EntityTypeMapping TypeName="AEAuditDBModel.vueExamList_Checked_NotAssessed">
+              <MappingFragment StoreEntitySet="vueExamList_Checked_NotAssessed">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Campus" ColumnName="Campus" />
+                <ScalarProperty Name="isCopyAvailable" ColumnName="isCopyAvailable" />
+                <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+                <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+                <ScalarProperty Name="tFaculty_Id" ColumnName="tFaculty_Id" />
+                <ScalarProperty Name="isCheckedByIR" ColumnName="isCheckedByIR" />
+                <ScalarProperty Name="isChecked" ColumnName="isChecked" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+                <ScalarProperty Name="Program_LongDesc" ColumnName="Program_LongDesc" />
+                <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="Semster" ColumnName="Semster" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="udv_AllocatedListNotCheckedByIR">
+            <EntityTypeMapping TypeName="AEAuditDBModel.udv_AllocatedListNotCheckedByIR">
+              <MappingFragment StoreEntitySet="udv_AllocatedListNotCheckedByIR">
+                <ScalarProperty Name="sCampus_ShortDesc" ColumnName="sCampus_ShortDesc" />
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+                <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+                <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+                <ScalarProperty Name="Semster" ColumnName="Semster" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="uspAllocatedCoursesList" FunctionName="AEAuditDBModel.Store.uspAllocatedCoursesList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AEAuditDBModel.uspAllocatedCoursesList_Result">
+                <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+                <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Semster" ColumnName="Semster" />
+                <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+                <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+                <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+                <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+                <ScalarProperty Name="sCampus_ShortDesc" ColumnName="sCampus_ShortDesc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="uspAssignedCoursesList" FunctionName="AEAuditDBModel.Store.uspAssignedCoursesList">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AEAuditDBModel.uspAssignedCoursesList_Result">
@@ -1258,17 +1355,7 @@ warning 6002: The table/view 'AEAuditDB.dbo.vueExamList_Checked_NotAssessed' doe
                 <ScalarProperty Name="userID" ColumnName="userID" />
                 <ScalarProperty Name="tAllocateDetailID" ColumnName="tAllocateDetailID" />
                 <ScalarProperty Name="Class" ColumnName="Class" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="uspGet_Faculty_Wise_Questions_Assessment" FunctionName="AEAuditDBModel.Store.uspGet_Faculty_Wise_Questions_Assessment">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result">
-                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-                <ScalarProperty Name="Avg_GP" ColumnName="Avg_GP" />
-                <ScalarProperty Name="GP_Percent" ColumnName="GP_Percent" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

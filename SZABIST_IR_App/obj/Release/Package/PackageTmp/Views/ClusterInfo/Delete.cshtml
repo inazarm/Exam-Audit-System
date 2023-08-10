@@ -1,0 +1,43 @@
+﻿@model SZABIST_IR_App.Models.tblClusterInfo
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="card-header">
+    <h5>DELETE CLUSTER TITLE INFORMATION</h5>
+</div>
+<a href='@Url.Action("Index")' class="btn btn-outline-dark btn-sm"><i class="ti-arrow-left"></i><b>BACK TO LIST</b></a>
+<div class="card-header">
+    <h4>Are you sure you want to delete this?</h4>
+</div>
+
+
+<div class="container">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
+                <div class="card justify-content-center">
+                    <div class="card-body">
+                            <dl class="dl-horizontal">
+                                <dt>@Html.DisplayName("Cluster Title")</dt>
+                                <dd>@Html.DisplayFor(model => model.ClusterTitle)</dd>
+
+                                <dt>@Html.DisplayName("Cluster Description")</dt>
+                                <dd>@Html.DisplayFor(model => model.ClusterDescription)</dd>
+                            </dl>
+
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                </div>
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

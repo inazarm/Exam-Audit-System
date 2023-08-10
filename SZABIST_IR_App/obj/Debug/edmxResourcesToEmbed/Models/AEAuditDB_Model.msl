@@ -278,31 +278,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="vueExamList_Checked_NotAssessed">
-      <EntityTypeMapping TypeName="AEAuditDBModel.vueExamList_Checked_NotAssessed">
-        <MappingFragment StoreEntitySet="vueExamList_Checked_NotAssessed">
-          <ScalarProperty Name="Campus" ColumnName="Campus" />
-          <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
-          <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
-          <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
-          <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
-          <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
-          <ScalarProperty Name="Year" ColumnName="Year" />
-          <ScalarProperty Name="Semster" ColumnName="Semster" />
-          <ScalarProperty Name="Program" ColumnName="Program" />
-          <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
-          <ScalarProperty Name="Program_LongDesc" ColumnName="Program_LongDesc" />
-          <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="isChecked" ColumnName="isChecked" />
-          <ScalarProperty Name="isCheckedByIR" ColumnName="isCheckedByIR" />
-          <ScalarProperty Name="tFaculty_Id" ColumnName="tFaculty_Id" />
-          <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
-          <ScalarProperty Name="ExamType" ColumnName="ExamType" />
-          <ScalarProperty Name="isCopyAvailable" ColumnName="isCopyAvailable" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="GetPercentageDisdribution" FunctionName="AEAuditDBModel.Store.GetPercentageDisdribution">
       <ResultMapping>
         <ComplexTypeMapping TypeName="AEAuditDBModel.GetPercentageDisdribution_Result">
@@ -313,6 +288,73 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_GetCourse_Instructor_ByYearSemsProg" FunctionName="AEAuditDBModel.Store.sp_GetCourse_Instructor_ByYearSemsProg" />
     <FunctionImportMapping FunctionImportName="sp_GetCourseByYearSemsProg" FunctionName="AEAuditDBModel.Store.sp_GetCourseByYearSemsProg" />
+    <FunctionImportMapping FunctionImportName="uspGet_Faculty_Wise_Questions_Assessment" FunctionName="AEAuditDBModel.Store.uspGet_Faculty_Wise_Questions_Assessment">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result">
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="Avg_GP" ColumnName="Avg_GP" />
+          <ScalarProperty Name="GP_Percent" ColumnName="GP_Percent" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vueExamList_Checked_NotAssessed">
+      <EntityTypeMapping TypeName="AEAuditDBModel.vueExamList_Checked_NotAssessed">
+        <MappingFragment StoreEntitySet="vueExamList_Checked_NotAssessed">
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="Campus" ColumnName="Campus" />
+          <ScalarProperty Name="isCopyAvailable" ColumnName="isCopyAvailable" />
+          <ScalarProperty Name="ExamType" ColumnName="ExamType" />
+          <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+          <ScalarProperty Name="tFaculty_Id" ColumnName="tFaculty_Id" />
+          <ScalarProperty Name="isCheckedByIR" ColumnName="isCheckedByIR" />
+          <ScalarProperty Name="isChecked" ColumnName="isChecked" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+          <ScalarProperty Name="Program_LongDesc" ColumnName="Program_LongDesc" />
+          <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Semster" ColumnName="Semster" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+          <ScalarProperty Name="ClusterHeadID" ColumnName="ClusterHeadID" />
+          <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+          <ScalarProperty Name="tCluster_Head_Id" ColumnName="tCluster_Head_Id" />
+          <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="udv_AllocatedListNotCheckedByIR">
+      <EntityTypeMapping TypeName="AEAuditDBModel.udv_AllocatedListNotCheckedByIR">
+        <MappingFragment StoreEntitySet="udv_AllocatedListNotCheckedByIR">
+          <ScalarProperty Name="sCampus_ShortDesc" ColumnName="sCampus_ShortDesc" />
+          <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+          <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+          <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+          <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+          <ScalarProperty Name="Semster" ColumnName="Semster" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+          <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspAllocatedCoursesList" FunctionName="AEAuditDBModel.Store.uspAllocatedCoursesList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AEAuditDBModel.uspAllocatedCoursesList_Result">
+          <ScalarProperty Name="tAllocateID" ColumnName="tAllocateID" />
+          <ScalarProperty Name="ClusterHeadName" ColumnName="ClusterHeadName" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Semster" ColumnName="Semster" />
+          <ScalarProperty Name="Program_ShortDesc" ColumnName="Program_ShortDesc" />
+          <ScalarProperty Name="Faculty_ShortDesc" ColumnName="Faculty_ShortDesc" />
+          <ScalarProperty Name="ExamTypeName" ColumnName="ExamTypeName" />
+          <ScalarProperty Name="tCampus_Id" ColumnName="tCampus_Id" />
+          <ScalarProperty Name="sCampus_ShortDesc" ColumnName="sCampus_ShortDesc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="uspAssignedCoursesList" FunctionName="AEAuditDBModel.Store.uspAssignedCoursesList">
       <ResultMapping>
         <ComplexTypeMapping TypeName="AEAuditDBModel.uspAssignedCoursesList_Result">
@@ -339,17 +381,7 @@
           <ScalarProperty Name="userID" ColumnName="userID" />
           <ScalarProperty Name="tAllocateDetailID" ColumnName="tAllocateDetailID" />
           <ScalarProperty Name="Class" ColumnName="Class" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="uspGet_Faculty_Wise_Questions_Assessment" FunctionName="AEAuditDBModel.Store.uspGet_Faculty_Wise_Questions_Assessment">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="AEAuditDBModel.uspGet_Faculty_Wise_Questions_Assessment_Result">
-          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-          <ScalarProperty Name="Avg_GP" ColumnName="Avg_GP" />
-          <ScalarProperty Name="GP_Percent" ColumnName="GP_Percent" />
-          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

@@ -45,6 +45,7 @@ namespace SZABIST_IR_App.Models
         public virtual DbSet<vue_clusterHead_clusterInfo> vue_clusterHead_clusterInfo { get; set; }
         public virtual DbSet<vueAssignedCoursesList> vueAssignedCoursesLists { get; set; }
         public virtual DbSet<vueExamList_Checked_NotAssessed> vueExamList_Checked_NotAssessed { get; set; }
+        public virtual DbSet<udv_AllocatedListNotCheckedByIR> udv_AllocatedListNotCheckedByIR { get; set; }
     
         public virtual ObjectResult<GetPercentageDisdribution_Result> GetPercentageDisdribution(Nullable<int> semestertype, Nullable<int> semesteryear, Nullable<int> campus, Nullable<byte> p_ExamType, string programType)
         {
@@ -105,23 +106,6 @@ namespace SZABIST_IR_App.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetCourseByYearSemsProg", yearParameter, semsterIDParameter, programIDParameter);
         }
     
-        public virtual ObjectResult<uspAssignedCoursesList_Result> uspAssignedCoursesList(string p_ClusterHeadID, Nullable<bool> p_isChecked, Nullable<bool> p_isCheckedByIR)
-        {
-            var p_ClusterHeadIDParameter = p_ClusterHeadID != null ?
-                new ObjectParameter("p_ClusterHeadID", p_ClusterHeadID) :
-                new ObjectParameter("p_ClusterHeadID", typeof(string));
-    
-            var p_isCheckedParameter = p_isChecked.HasValue ?
-                new ObjectParameter("p_isChecked", p_isChecked) :
-                new ObjectParameter("p_isChecked", typeof(bool));
-    
-            var p_isCheckedByIRParameter = p_isCheckedByIR.HasValue ?
-                new ObjectParameter("p_isCheckedByIR", p_isCheckedByIR) :
-                new ObjectParameter("p_isCheckedByIR", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspAssignedCoursesList_Result>("uspAssignedCoursesList", p_ClusterHeadIDParameter, p_isCheckedParameter, p_isCheckedByIRParameter);
-        }
-    
         public virtual ObjectResult<uspGet_Faculty_Wise_Questions_Assessment_Result> uspGet_Faculty_Wise_Questions_Assessment(Nullable<byte> p_tFaculty_Id, Nullable<byte> p_ExamType, Nullable<byte> p_tCampus_Id, string p_Year, Nullable<decimal> p_Semster)
         {
             var p_tFaculty_IdParameter = p_tFaculty_Id.HasValue ?
@@ -145,6 +129,40 @@ namespace SZABIST_IR_App.Models
                 new ObjectParameter("p_Semster", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGet_Faculty_Wise_Questions_Assessment_Result>("uspGet_Faculty_Wise_Questions_Assessment", p_tFaculty_IdParameter, p_ExamTypeParameter, p_tCampus_IdParameter, p_YearParameter, p_SemsterParameter);
+        }
+    
+        public virtual ObjectResult<uspAllocatedCoursesList_Result> uspAllocatedCoursesList(Nullable<bool> p_isChecked, Nullable<bool> p_isCheckedByIR, Nullable<bool> p_crsStatus)
+        {
+            var p_isCheckedParameter = p_isChecked.HasValue ?
+                new ObjectParameter("p_isChecked", p_isChecked) :
+                new ObjectParameter("p_isChecked", typeof(bool));
+    
+            var p_isCheckedByIRParameter = p_isCheckedByIR.HasValue ?
+                new ObjectParameter("p_isCheckedByIR", p_isCheckedByIR) :
+                new ObjectParameter("p_isCheckedByIR", typeof(bool));
+    
+            var p_crsStatusParameter = p_crsStatus.HasValue ?
+                new ObjectParameter("p_crsStatus", p_crsStatus) :
+                new ObjectParameter("p_crsStatus", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspAllocatedCoursesList_Result>("uspAllocatedCoursesList", p_isCheckedParameter, p_isCheckedByIRParameter, p_crsStatusParameter);
+        }
+    
+        public virtual ObjectResult<uspAssignedCoursesList_Result> uspAssignedCoursesList(string p_ClusterHeadID, Nullable<bool> p_isChecked, Nullable<bool> p_isCheckedByIR)
+        {
+            var p_ClusterHeadIDParameter = p_ClusterHeadID != null ?
+                new ObjectParameter("p_ClusterHeadID", p_ClusterHeadID) :
+                new ObjectParameter("p_ClusterHeadID", typeof(string));
+    
+            var p_isCheckedParameter = p_isChecked.HasValue ?
+                new ObjectParameter("p_isChecked", p_isChecked) :
+                new ObjectParameter("p_isChecked", typeof(bool));
+    
+            var p_isCheckedByIRParameter = p_isCheckedByIR.HasValue ?
+                new ObjectParameter("p_isCheckedByIR", p_isCheckedByIR) :
+                new ObjectParameter("p_isCheckedByIR", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspAssignedCoursesList_Result>("uspAssignedCoursesList", p_ClusterHeadIDParameter, p_isCheckedParameter, p_isCheckedByIRParameter);
         }
     }
 }
