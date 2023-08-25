@@ -1,0 +1,86 @@
+﻿@model IEnumerable<SZABIST_IR_App.Models.uspAssignedCoursesList_Result>
+@{
+    ViewBag.Title = "Course Evaluation";
+    Layout = "~/Areas/Cluster/Views/Shared/_Layout.cshtml";
+}
+<div class="card-header">
+    <h5>EVALUATED COURSES LIST</h5>
+</div>
+<div class="container-fluid">
+    <div class="card justify-content-center">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12 table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-bordered table-hover table-sm" id="clursterHeads">
+                        <thead class="thead-default">
+                            <tr class="text-uppercase">
+                                <th>S#</th>
+                                <th>Assigned Date</th>
+                                <th class="active">Course Code</th>
+                                <th>Course Name</th>
+                                <th>Instructor</th>
+                                <th>Class/Section</th>
+                                <th>Year</th>
+                                <th>Semester</th>
+                                <th>Program</th>
+                                <th>Exam Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+
+                                int SNO = 1;
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>@SNO</td>
+                                        <td>@item.CreationDate</td>
+                                        <td>
+                                            @*@Html.ActionLink("  Courses Details", "AllocatedCoursesList", new { id = item.tAllocateID }, new { @class = "btn btn-outline-primary btn-sm ti-eye" })*@
+                                            @*@Ajax.ActionLink(" View Courses Details", "coursesList", new { tAllocateID = item.tAllocateID },
+                                                new AjaxOptions
+                                                {
+                                                    //UpdateTargetId = "courseDetails",
+                                                    OnFailure = "onFailure",
+                                                    OnSuccess = "onSuccess"
+                                                }, new { @class = "btn btn-outline-primary btn-sm ti-eye", @Id = "btnSelect" })*@
+                                            @item.sCourse_Code
+                                        </td>
+                                        <td>@item.sCourse_LongDesc</td>
+                                        <td>@item.Instructor</td>
+                                        <td>@item.Class</td>
+                                        <td>@item.Year</td>
+                                        @{
+                                            if (item.Semster == "1")
+                                            {
+                                                <td>Spring</td>
+                                            }
+                                            else if (item.Semster == "2")
+                                            {
+                                                <td>Summer</td>
+                                            }
+                                            else
+                                            {
+                                                <td>Fall</td>
+                                            }
+                                        }
+                                        <td>@item.Program_ShortDesc</td>
+                                        <td>@item.ExamTypeName</td>
+                                    </tr>
+                                    SNO++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    });
+</script>
+

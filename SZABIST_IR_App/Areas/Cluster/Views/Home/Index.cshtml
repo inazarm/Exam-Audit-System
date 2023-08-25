@@ -1,0 +1,122 @@
+﻿@model SZABIST_IR_App.Models.Assessments
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cluster/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-header">
+    <h5>DASHBOARD</h5>
+    <div class="pcoded-inner-content">
+        <!-- Main-body start -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-body start -->
+                <div class="page-body">
+                    <div class="row">
+                        @{
+                            if (Model != null)
+                            {
+                                <!-- task, page, download counter  start -->
+                                if (Model.RoleId == 2)
+                                {
+                                    <div class="col-xl-4 col-md-6">
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="row align-items-center">
+                                                    <div class="col-8">
+                                                        <h4 class="text-c-red">@Model.Pending</h4>
+                                                        <h6 class="text-muted m-b-0">Assessments</h6>
+                                                    </div>
+                                                    <div class="col-4 text-right">
+                                                        <i class="fa fa-calendar-check-o f-28"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-c-red">
+                                                <div class="row align-items-center">
+                                                    <div class="col-9">
+                                                        @*<a class="text-white m-b-0" href="@Url.Action("Index","ClusterHead")" title="Click to View Pendings">Pendings</a>*@
+                                                        <!-- Tooltip style 5 card start -->
+                                                        <span class="mytooltip tooltip-effect-5">
+                                                            <span class="tooltip-item bg-danger"><a class="text-white m-b-0" href="@Url.Action("Index","ClusterHead")">Assessment Pendings</a></span>
+                                                            <span class="tooltip-content clearfix">
+                                                                <span class="tooltip-text">Click to View Pendings</span>
+                                                            </span>
+                                                        </span>
+                                                        <!-- Tooltip style 5 card end -->
+                                                    </div>
+                                                    <div class="col-3 text-right">
+                                                        <i class="fa fa-line-chart text-white f-16"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-md-6">
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="row align-items-center">
+                                                    <div class="col-8">
+                                                        <h4 class="text-c-green">@Model.Completed</h4>
+                                                        <h6 class="text-muted m-b-0">Assessments</h6>
+                                                    </div>
+                                                    <div class="col-4 text-right">
+                                                        <i class="fa fa-file-text-o f-28"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-c-green">
+                                                <div class="row align-items-center">
+                                                    <div class="col-9">
+                                                        <span class="mytooltip tooltip-effect-5">
+                                                            <span class="tooltip-item bg-success"><a class="text-white m-b-0" href="@Url.Action("Index","EvaluatedCourses")">Assessments Completed</a></span>
+                                                            <span class="tooltip-content clearfix">
+                                                                <span class="tooltip-text">Click to View Completed</span>
+                                                            </span>
+                                                        </span>
+                                                        @*<p class="text-white m-b-0">Completed</p>*@
+                                                        @*<a class="text-white m-b-0" href="@Url.Action("Index","EvaluatedCourses")" title="Click to View Courses Assigned List">Completed</a>*@
+                                                    </div>
+                                                    <div class="col-3 text-right">
+                                                        <i class="fa fa-line-chart text-white f-16"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-md-6">
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="row align-items-center">
+                                                    <div class="col-8">
+                                                        <h4 class="text-c-purple">@Model.TotalAssigned</h4>
+                                                        <h6 class="text-muted m-b-0">Courses Assigned</h6>
+                                                    </div>
+                                                    <div class="col-4 text-right">
+                                                        <i class="fa fa-bar-chart f-28"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-c-purple">
+                                                <div class="row align-items-center">
+                                                    <div class="col-12">
+                                                        <a class="text-white m-b-0" href="#" title="Click to View Courses Assigned List">Total Courses Assigned</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        }
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+            <div id="styleSelector"> </div>
+        </div>
+    </div>
+</div>
+

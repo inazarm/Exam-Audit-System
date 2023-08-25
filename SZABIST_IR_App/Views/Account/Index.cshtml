@@ -227,11 +227,19 @@
                     contentType: "application/json",
                     success: function (response) {
                         if (response.Success == true) {
-                            window.location.href = "@Url.Action("Index", "Home")";
+                            if (response.Role == 2) {
+                                debugger
+                                console.info(response.Role)
+                                window.location.href = "@Url.Action("Index", "Home", new { area = "Cluster" })";
+                            } else {
+                                debugger
+                                console.info(response.Role)
+                                 window.location.href = "@Url.Action("Index", "Home")";
+                            }
                         } else {
                             HideProgress();
                             $('#error').html("Invalid UserID Or Password!")
-                           
+
                         }
                     },
                     error: function () {

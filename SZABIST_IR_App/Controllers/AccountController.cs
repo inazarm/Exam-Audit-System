@@ -26,6 +26,7 @@ namespace SZABIST_IR_App.Controllers
         {
             using (db = new AEAuditDBEntities())
             {
+                int RoleId = 0;
                 string uID = "";
                 string uFullName = "";
                 string uDesignation = "";
@@ -69,6 +70,7 @@ namespace SZABIST_IR_App.Controllers
                         Session["userName"] = isUserExists.Name;
                         Session["roleID"] = isUserExists.RoleID;
                         Session["departID"] = isUserExists.DepartID;
+                        RoleId =Convert.ToInt16(isUserExists.RoleID);
                         flag = true;
                     }
                     else
@@ -86,36 +88,8 @@ namespace SZABIST_IR_App.Controllers
                     //ViewBag.campus = new SelectList(Pub_db.tbl_Campus.ToList().OrderBy(x => x.sCampus_ShortDesc), "tCampus_Id", "sCampus_ShortDesc");
                     
                 }
-                return Json(new { Success = flag}, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = flag,Role= RoleId}, JsonRequestBehavior.AllowGet);
             }
-
-            //using (db=new AEAuditDBEntities())
-            //{
-            //    try
-            //    {
-            //        bool flag = false;
-            //        var isUserExists = db.tblUsers.FirstOrDefault(u => u.UserID == userid);
-            //        var user =from u in db.tblUsers where u.UserID == userid select u;
-            //        if (user.Count()>0)
-            //        {
-            //            Session["userID"] = isUserExists.UserID;
-            //            Session["userName"] = isUserExists.Name;
-            //            Session["roleID"] = isUserExists.RoleID;
-            //            flag = true;
-            //        }
-            //        else
-            //        {
-            //            flag = false;
-                        
-            //        }
-            //        return Json(new { Success = flag }, JsonRequestBehavior.AllowGet);
-            //    }
-            //    catch (Exception ex)
-            //    {
-
-            //        throw;
-            //    }
-            //}
         }
 
         public ActionResult Logout()
